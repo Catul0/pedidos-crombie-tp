@@ -1,0 +1,120 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  lastName  String
+  phone     String
+  address   String
+  city      String
+  email     String   @unique
+  password  String
+
+
+  score     Score[]
+  orderStatus OrderStatus[]
+}
+
+// este es el perfil de los negocios 
+model LocalProfile {
+  id           Int      @id @default(autoincrement())
+  description  String?
+  name         String
+  address      String
+  city         String
+  logo         String?  @default("https://cdn-icons-png.flaticon.com/512/2702/2702614.png")
+  type         String?
+  averageScore Float?
+  password     String
+  email        String   @unique
+
+  product      Product[]
+  score        Score[]
+  orderStatus OrderStatus[]
+}
+
+// Repartidor
+model DeliveryDriverProfile {
+  id              Int      @id @default(autoincrement())
+  name            String
+  lastName        String
+  averageScore    Float?
+  email           String   @unique
+  password        String
+
+  score           Score[]
+  vehicle         Vehicle[]
+  orderStatus OrderStatus[]
+}
+
+//productos
+model Product {
+  id             Int      @id @default(autoincrement())
+  productName    String
+  description    String
+  price          Float
+  image          String   @default("https://cdn-icons-png.flaticon.com/512/2771/2771406.png")
+  sellerId       Int
+
+  localId       LocalProfile @relation(fields:[sellerId], references: [id])
+
+  orderStatus OrderStatus[]
+
+
+}
+// estado de la orden, aca es cunado se hace un pedido te muestra si se esta cocianndo, si esta en camino, si esta pendiente, etc
+model OrderStatus {
+  id            Int      @id @default(autoincrement())
+  status        String   @default("Pendiente") //LOS ESTADOS PODRAN SER, PENDIENTE, ACEPTADO, COCINANDO, EN CAMINO, RECIBIDO, RECHAZADO
+  orderDate     DateTime @default(now())
+  updateStatus  DateTime @updatedAt
+
+  foodId        Int
+  sellerId      Int
+  userId        Int
+  deliveryId        Int?
+
+  product       Product @relation(fields:[foodId], references: [id])
+  seller        LocalProfile @relation(fields:[sellerId], references: [id])
+  buyer         User @relation(fields:[userId], references: [id])
+  delivery      DeliveryDriverProfile? @relation(fields:[deliveryId], references: [id])
+}
+
+// INformacion y descripcion del veihiculo del repartidor 
+model Vehicle {
+  id            Int      @id @default(autoincrement())
+  brand         String
+  model         String
+  licensePlate  String
+  vehicleOwner  Int
+  color         String
+  year          Int
+
+  deliveryId DeliveryDriverProfile @relation(fields:[vehicleOwner], references: [id])
+}
+
+// generador de putnajes, para repartidor o para el negocio, esto funciona como el like de la red social que hicimos 
+model Score {
+  id            Int @id @default(autoincrement())
+  userId        Int
+  deliveryId    Int?
+  LocalId       Int?
+
+  author        User @relation(fields:[userId], references: [id])
+  delivery      DeliveryDriverProfile?  @relation(fields:[deliveryId], references: [id])
+  local         LocalProfile? @relation(fields:[LocalId], references: [id])
+
+}
+
+
+
