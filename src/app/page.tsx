@@ -1,8 +1,6 @@
-
-
 function HomePage() {
   return (
-    <div>HomePage</div>
+    <div>HomePage Pedidos Crombie</div>
   )
 }
 
