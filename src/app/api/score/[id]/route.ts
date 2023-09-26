@@ -69,8 +69,9 @@ export async function PUT(request: Request, {params}: Params) {
     try {
         const { 
                 userId,
+                score,
                 deliveryId=null,
-                LocalId=null
+                localId=null
             } = await request.json()
         const updatedScore = await prisma.score.update({
             where: {
@@ -78,8 +79,9 @@ export async function PUT(request: Request, {params}: Params) {
             },
             data: {
                 userId,
+                score,
                 deliveryId,
-                LocalId
+                localId
             }
         })
         return NextResponse.json(updatedScore)
