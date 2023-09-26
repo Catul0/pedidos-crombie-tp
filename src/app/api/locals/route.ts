@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import {Prisma} from '@prisma/client'
 import {prisma} from '@/libs/prisma'
-
+import bcrypt from 'bcrypt';
+import { sign } from 'jsonwebtoken';
 
 export async function GET() {
     try {
@@ -20,7 +21,8 @@ export async function GET() {
 
 export async function POST(request: Request) {
     try {
-        const {description, name, address, city, logo, type, averageScore, password, email} = await request.json()
+        const {description, name, address, city, logo, type, averageScore=null, password, email} = await request.json()
+        const hash = await bcrypt.hash(password, 10);
         const newLocalProfile = await prisma.localProfile.create({
             data: {
                 description,
@@ -30,11 +32,12 @@ export async function POST(request: Request) {
                 logo,
                 type,
                 averageScore,
-                password,
+                password:hash,
                 email
             }
         })
-        return NextResponse.json(newLocalProfile)
+        const token = sign(newLocalProfile, 'LOCALSECRETO', { expiresIn: '1h' });
+        return NextResponse.json(token)
     } catch (error) {
         // el error P2002 es el codigo de error de cuando un email ya se encuentra en la base de datos
         // nota: cuando un usuario se intenta registrar con un email ya registrado, no lo deja pero el contador del id aumenta igual
