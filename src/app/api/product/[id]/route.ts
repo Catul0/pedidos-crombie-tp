@@ -8,7 +8,7 @@ export async function GET(request: Request, {params}: Params) {
     try {
         const product = await prisma.product.findFirst({
             where: {
-                id: Number(params.id)
+                sellerId: Number(params.id)
             }
         })
         if (!product){
