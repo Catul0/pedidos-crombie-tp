@@ -6,7 +6,7 @@ interface Params { params: {id: string}}
 
 export async function GET(request: Request, {params}: Params) {
     try {
-        const product = await prisma.product.findFirst({
+        const product = await prisma.product.findMany({
             where: {
                 sellerId: Number(params.id)
             }
