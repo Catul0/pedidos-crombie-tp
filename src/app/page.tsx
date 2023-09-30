@@ -1,7 +1,7 @@
 "use client"
 
-import LocalsProfiles from "@/components/LocalsProfiles";
 
+import { redirect } from "next/navigation";
 
 
 
@@ -10,7 +10,7 @@ function HomePage() {
 
   
   return (
-    <LocalsProfiles/>
+    redirect("/sellers")
   )
 }
 

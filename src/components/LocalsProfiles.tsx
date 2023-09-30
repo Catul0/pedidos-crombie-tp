@@ -12,7 +12,7 @@ const LocalsProfiles = () => {
     }, [])
 
     return (
-        <div className='flex items-center justify-center bg-slate-900 h-screen'>
+        <div className='flex items-center justify-center bg-slate-900 h-[1000px]' id='sellers'>
             <div>
                 <h1 className="text-white text-center">ACA ESTAN LOS VENDEDORES</h1>
 
