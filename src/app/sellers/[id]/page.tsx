@@ -1,6 +1,8 @@
 import React from 'react'
 
-export const SellerProfile = () => {
+
+//ACA SE VA A MOSTRAR EL PERFIL DEL NEGOCIO
+export const SellerProfile = ({params}:{params:{id:string}} ) => {
   return (
     <div>SellerProfile</div>
   )
