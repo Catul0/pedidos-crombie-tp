@@ -1,6 +1,6 @@
 import React from 'react'
 import { LocalProfile } from '@prisma/client'
-
+import Link from 'next/link'
 
 
 function LocalCard({ local }: { local: LocalProfile }) {
@@ -11,7 +11,10 @@ function LocalCard({ local }: { local: LocalProfile }) {
                 <h2>{local.name}</h2>
                 <p>{local.description}</p>
                 <p>{local.averageScore}</p>
-                <button className='bg-slate-900 text-slate-100 rounded-lg'>VER PRODUCTOS</button>
+                <Link href={'/sellers/products/'+local.id}>
+                    <button  className='bg-slate-900 text-slate-100 rounded-lg'>VER PRODUCTOS</button>
+                </Link>
+
             </div>
         </div>
     )
