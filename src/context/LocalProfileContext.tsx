@@ -1,6 +1,6 @@
 "use client"
 import { createContext, useContext, useState } from "react";
-import { LocalProfile } from "@prisma/client";
+import { LocalProfile, CreateLocalProfile } from "@/interfaces/LocalProfile";
 
 interface Children {
     children: React.ReactNode;
@@ -8,15 +8,17 @@ interface Children {
 
 //ACA ES DONDE SE CREA EL CONTEXTO EN SI Y SE EXPORTAN TODAS LAS FUNCIONES QUE ABAJO DECLARAREMOS EN EL PROVIDER
 export const LocalProfileContext = createContext<{
-    localProfiles:LocalProfile[];
+    localProfiles:LocalProfile[];   
     loadLocalProfile:()=> Promise<void>;
-    createLocalProfile: (local: LocalProfile) => Promise<void>;
+    loadSellerProfile:(id:number)=>Promise<void>;
+    createLocalProfile: (local: CreateLocalProfile) => Promise<void>;
     updateLocalProfile: (id:number,local: LocalProfile) => Promise<void>;
     deleteLocalProfile: (id: number) => Promise<void>;
 }>({
     localProfiles:[],
     loadLocalProfile:async()=>{},
-    createLocalProfile: async (nota: LocalProfile) => { },
+    loadSellerProfile:async(id:number)=>{},
+    createLocalProfile: async (nota: CreateLocalProfile) => { },
     updateLocalProfile: async (id:number,local: LocalProfile) => { },
     deleteLocalProfile: async (id: number) => { },
 })
@@ -31,17 +33,31 @@ export const useLocalProfiles = () =>{
 
 export const LocalProfilesProvider = ({ children }: Children) => {
     const [localProfiles,setlocalProfiles] = useState<LocalProfile[]>([]);
-
     //ESTA FUNCION TRAE TODOS LOS LOCALES, NO CREO QUE LA USEMOS PERO PARA PROBAR COSAS FUNCIONA 
     async function loadLocalProfile(){
         const res = await fetch("/api/locals");
         const data = await res.json();
         setlocalProfiles(data);
     }
+    //ESTO LO QUE HACE ES MOSTRAR SOLO 1 NEGOCIO
+    async function loadSellerProfile(id: number) {
+        try {
+            const res = await fetch("/api/locals/" + id);
+            const data = await res.json();
+            console.log("data de la api: ", data)
+            setlocalProfiles(data);
+            
+        } catch (error) {
+            console.log(error)
+        }
+
+        console.log("sellerProfiles: ", localProfiles)
+
+    }
 
     //esta funcion lo que hace es crear un nuevo negocio, y ademas agrega al estado donde estan todos los negocios el nuevo
     //despues uno tiene que mostrar el estado ese nomas y se muestra actualizado
-    async function createLocalProfile(localProfile:LocalProfile){
+    async function createLocalProfile(localProfile:CreateLocalProfile){
         const  res = await fetch('/api/locals',{
             method:'POST',
             body: JSON.stringify(localProfile),
@@ -79,6 +95,7 @@ export const LocalProfilesProvider = ({ children }: Children) => {
     <LocalProfileContext.Provider
         value={{
             localProfiles,
+            loadSellerProfile,
             loadLocalProfile,
             createLocalProfile,
             updateLocalProfile,

@@ -1,20 +1,30 @@
 "use client"
-
-
-import { redirect } from "next/navigation";
-
-
-
+import Link from "next/link";
 
 function HomePage() {
-
-  
   return (
-    redirect("/sellers")
-  )
+    <div className="flex flex-col items-center justify-center h-screen">
+      <Link href="/sellers">
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">
+          Ver Locales Y Registrar nuevo local
+        </button>
+      </Link>
+      <Link href="/users">
+        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4">
+          Registrar Usuario
+        </button>
+      </Link>
+      <Link href="/deliverys">
+        <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+          Registrar Delivery
+        </button>
+      </Link>
+    </div>
+  );
 }
 
 export default HomePage;
+
 
 
 
