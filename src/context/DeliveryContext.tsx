@@ -1,22 +1,22 @@
 "use client"
 import { createContext, useContext, useState } from "react";
-import { DeliveryDriverProfile } from "@prisma/client";
+import { Delivery, CreateDelivery } from "@/interfaces/Delivery";
 
 interface Children {
     children: React.ReactNode;
 }
 
 export const DeliveryContext = createContext<{
-    deliverys:DeliveryDriverProfile[];
+    deliverys:Delivery[];
     loadDelivery:()=> Promise<void>;
-    createDelivery: (delivery: DeliveryDriverProfile) => Promise<void>;
-    updateDelivery: (id:number,delivery: DeliveryDriverProfile) => Promise<void>;
+    createDelivery: (delivery: CreateDelivery) => Promise<void>;
+    updateDelivery: (id:number,delivery: Delivery) => Promise<void>;
     deleteDelivery: (id: number) => Promise<void>;
 }>({
     deliverys:[],
     loadDelivery:async()=>{},
-    createDelivery: async (delivery: DeliveryDriverProfile) => { },
-    updateDelivery: async (id:number,delivery: DeliveryDriverProfile) => { },
+    createDelivery: async (delivery: CreateDelivery) => { },
+    updateDelivery: async (id:number,delivery: Delivery) => { },
     deleteDelivery: async (id: number) => { },
 })
 
@@ -28,8 +28,8 @@ export const useDeliverys = () =>{
     return context
 }
 
-export const deliverysProvider = ({ children }: Children) => {
-    const [deliverys,setDeliverys] = useState<DeliveryDriverProfile[]>([]);
+export const DeliverysProvider = ({ children }: Children) => {
+    const [deliverys,setDeliverys] = useState<Delivery[]>([]);
 
     async function loadDelivery(){
         const res = await fetch("/api/deliverys");
@@ -37,7 +37,7 @@ export const deliverysProvider = ({ children }: Children) => {
         setDeliverys(data);
     }
 
-    async function createDelivery(delivery:DeliveryDriverProfile){
+    async function createDelivery(delivery: CreateDelivery){
         const  res = await fetch('/api/deliverys',{
             method:'POST',
             body: JSON.stringify(delivery),
@@ -45,7 +45,7 @@ export const deliverysProvider = ({ children }: Children) => {
                 'content-Type':'application/json'
             }
         })
-        const newdelivery: DeliveryDriverProfile = await res.json()
+        const newdelivery = await res.json()
         setDeliverys([...deliverys, newdelivery]);
     }
 
@@ -58,7 +58,7 @@ export const deliverysProvider = ({ children }: Children) => {
     }
 
 
-    async function updateDelivery(id: number, delivery: DeliveryDriverProfile) {
+    async function updateDelivery(id: number, delivery: Delivery) {
         const res = await fetch('/api/deliverys/' + id,  {
             body: JSON.stringify(delivery),
             method: 'PUT',

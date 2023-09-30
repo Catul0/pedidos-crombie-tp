@@ -1,6 +1,6 @@
 "use client"
 import { createContext, useContext, useState } from "react";
-import { User } from "@prisma/client";
+import { User, CreateUser } from '@/interfaces/User'
 
 interface Children {
     children: React.ReactNode;
@@ -10,13 +10,13 @@ interface Children {
 export const UserContext = createContext<{
     users:User[];
     loadUsers:()=> Promise<void>;
-    createUser: (user: User) => Promise<void>;
+    createUser: (user: CreateUser) => Promise<void>;
     updateUser: (id:number,user: User) => Promise<void>;
     deleteUser: (id: number) => Promise<void>;
 }>({
     users:[],
     loadUsers:async()=>{},
-    createUser: async (user: User) => { },
+    createUser: async (user: CreateUser) => { },
     updateUser: async (id:number,user: User) => { },
     deleteUser: async (id: number) => { },
 })
@@ -41,15 +41,15 @@ export const UsersProvider = ({ children }: Children) => {
 
     //esta funcion lo que hace es crear un nuevo usuario, y ademas agrega al estado donde estan todos los usuarios el nuevo
     //despues uno tiene que mostrar el estado ese nomas y se muestra actualizado
-    async function createUser(user:User){
-        const  res = await fetch('/api/users',{
+    async function createUser(user: CreateUser){
+        const res = await fetch('/api/users',{
             method:'POST',
             body: JSON.stringify(user),
             headers:{
                 'content-Type':'application/json'
             }
         })
-        const newUser: User = await res.json()
+        const newUser = await res.json()
         setUsers([...users, newUser]);
     }
 

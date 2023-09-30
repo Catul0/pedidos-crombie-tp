@@ -1,6 +1,6 @@
 "use client"
 import { createContext, useContext, useState } from "react";
-import { LocalProfile } from "@prisma/client";
+import { LocalProfile, CreateLocalProfile } from "@/interfaces/LocalProfile";
 
 interface Children {
     children: React.ReactNode;
@@ -10,13 +10,13 @@ interface Children {
 export const LocalProfileContext = createContext<{
     localProfiles:LocalProfile[];
     loadLocalProfile:()=> Promise<void>;
-    createLocalProfile: (local: LocalProfile) => Promise<void>;
+    createLocalProfile: (local: CreateLocalProfile) => Promise<void>;
     updateLocalProfile: (id:number,local: LocalProfile) => Promise<void>;
     deleteLocalProfile: (id: number) => Promise<void>;
 }>({
     localProfiles:[],
     loadLocalProfile:async()=>{},
-    createLocalProfile: async (nota: LocalProfile) => { },
+    createLocalProfile: async (nota: CreateLocalProfile) => { },
     updateLocalProfile: async (id:number,local: LocalProfile) => { },
     deleteLocalProfile: async (id: number) => { },
 })
@@ -41,7 +41,7 @@ export const LocalProfilesProvider = ({ children }: Children) => {
 
     //esta funcion lo que hace es crear un nuevo negocio, y ademas agrega al estado donde estan todos los negocios el nuevo
     //despues uno tiene que mostrar el estado ese nomas y se muestra actualizado
-    async function createLocalProfile(localProfile:LocalProfile){
+    async function createLocalProfile(localProfile:CreateLocalProfile){
         const  res = await fetch('/api/locals',{
             method:'POST',
             body: JSON.stringify(localProfile),
