@@ -35,7 +35,7 @@ export async function POST(req: Request) {
             }
         })
         const token = sign(newUser, 'SECRETO', { expiresIn: '1h' });
-        return NextResponse.json(newUser);
+        return NextResponse.json({newUser, token});
     } catch (error) {
         // el error P2002 es el codigo de error de cuando un email ya se encuentra en la base de datos
         // nota: cuando un usuario se intenta registrar con un email ya registrado, no lo deja pero el contador del id aumenta igual

@@ -26,6 +26,11 @@ function RegisterUser() {
       email,
       password,
     });
+    const token = localStorage.getItem('token');
+    console.log(token)
+    if(token){
+      alert('registrado con exito')
+    }
   }}
   className="max-w-md mx-auto p-4 bg-white rounded shadow grid grid-cols-2 gap-4"
 >
