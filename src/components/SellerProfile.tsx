@@ -1,18 +1,22 @@
 import React, { useEffect } from 'react'
 import { useLocalProfiles } from '@/context/LocalProfileContext'
 import SellersProducts from './SellersProducts';
-
+import Link from 'next/link';
+import CreateProduct from './CreateProduct';
 
 export default function SellerProfile({ params }: { params: { id: string } }) {
-    const { localProfiles, loadSellerProfile } = useLocalProfiles();
+    const { sellerProfiles, loadSellerProfile } = useLocalProfiles();
     const id = params.id;
     useEffect(() => {
         loadSellerProfile(Number(id));
     }, [])
-    const seller:any = localProfiles;
+    const seller:any = sellerProfiles;
 
     return (
+        <>
+        
         <div className='flex  justify-center bg-slate-900 h-[1000px]' id='sellers'>
+            
 
             <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
@@ -30,6 +34,11 @@ export default function SellerProfile({ params }: { params: { id: string } }) {
             </div>
             <SellersProducts params={params} />
         </div>
+        <div className='px-24 2xl:px-[350px] py-8'>
+            <CreateProduct params={params} />
+        </div>
+       
+        </>
 
     )
 }

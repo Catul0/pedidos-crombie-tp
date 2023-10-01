@@ -11,9 +11,12 @@ function LocalCard({ local }: { local: LocalProfile }) {
                 <h2>{local.name}</h2>
                 <p>{local.description}</p>
                 <p>{local.averageScore}</p>
-                <Link href={'/sellers/products/'+local.id}>
-                    <button  className='bg-slate-900 text-slate-100 rounded-lg'>VER PRODUCTOS</button>
+                <div className='w-[100%] p-auto flex justify-center '>
+                <Link href={'/sellers/'+local.id}>
+                    <button  className='bg-slate-900 text-slate-100 m-auto rounded-lg  px-4'>Ver Perfil</button>
                 </Link>
+                </div>
+                
 
             </div>
         </div>

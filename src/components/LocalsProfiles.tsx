@@ -2,7 +2,7 @@ import React from 'react'
 import { useLocalProfiles } from "@/context/LocalProfileContext";
 import { useEffect } from 'react'
 import LocalCard from "@/components/LocalCard";
-
+import { LocalProfile } from '@prisma/client';
 const LocalsProfiles = () => {
 
     const { localProfiles, loadLocalProfile } = useLocalProfiles();
@@ -12,7 +12,7 @@ const LocalsProfiles = () => {
     }, [])
 
     return (
-        <div className='flex items-center justify-center bg-slate-900 h-[1000px]' id='sellers'>
+        <div className='flex items-center justify-center bg-slate-900 h-[100%]' id='sellers'>
             <div>
                 <h1 className="text-white text-center">ACA ESTAN LOS VENDEDORES</h1>
 

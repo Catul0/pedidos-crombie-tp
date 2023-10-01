@@ -10,14 +10,14 @@ interface Children {
 export const ProductContext = createContext<{
     products: Product[];
     loadProducts: () => Promise<void>;
-    createProduct: (product: Product) => Promise<void>;
+    createProduct: (product: Product, id:number) => Promise<void>;
     updateProduct: (id: number, product: Product) => Promise<void>;
     loadSellerProducts: (id: number) => Promise<void>;
     deleteProduct: (id: number) => Promise<void>;
 }>({
     products: [],
     loadProducts: async () => { },
-    createProduct: async (product: Product) => { },
+    createProduct: async (product: Product, id:number) => { },
     updateProduct: async (id: number, product: Product) => { },
     loadSellerProducts: async (id: number) => { },
     deleteProduct: async (id: number) => { },
@@ -60,7 +60,8 @@ export const ProductsProvider = ({ children }: Children) => {
 
     //esta funcion lo que hace es crear un nuevo producto, y ademas agrega al estado donde estan todos los productos el nuevo
     //despues uno tiene que mostrar el estado ese nomas y se muestra actualizado
-    async function createProduct(product: Product) {
+    async function createProduct(product: Product, id:number) {
+        product.sellerId=id;
         const res = await fetch('/api/product', {
             method: 'POST',
             body: JSON.stringify(product),
