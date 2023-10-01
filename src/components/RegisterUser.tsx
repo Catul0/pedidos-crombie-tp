@@ -13,7 +13,6 @@ function RegisterUser() {
 
     const {createUser} = useUsers()
 
-
   return (
 <form
   onSubmit={async (e) => {
