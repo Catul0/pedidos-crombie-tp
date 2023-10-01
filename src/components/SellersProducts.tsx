@@ -16,13 +16,13 @@ function SellersProducts({ params }: {params: {id: string}}) {
     }, []);
 
     return (
-        <div className='flex  justify-center bg-slate-900 h-[1000px]' id='sellers'>
+        <div className='flex  justify-center bg-slate-900 h-[100%]' id='sellers'>
             <div className=''>
                 <h1 className="text-white text-center">ACA ESTAN LOS PRODUCTOS DEL VENDEDOR {id}</h1>
                 <Link className="text-white text-center m-auto" href={'/sellers'}> <h2 > VOLVER A LOS VENDEDORES </h2> </Link>
 
                 {
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 px-24 2xl:px-[350px] ">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 px-8 ">
                         {products.map(product => (
                             <ProductCard product={product} key={product.id} />
                         ))}
