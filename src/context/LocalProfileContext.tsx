@@ -8,7 +8,8 @@ interface Children {
 
 //ACA ES DONDE SE CREA EL CONTEXTO EN SI Y SE EXPORTAN TODAS LAS FUNCIONES QUE ABAJO DECLARAREMOS EN EL PROVIDER
 export const LocalProfileContext = createContext<{
-    localProfiles:LocalProfile[];   
+    localProfiles:LocalProfile[];
+    sellerProfiles:LocalProfile[];      
     loadLocalProfile:()=> Promise<void>;
     loadSellerProfile:(id:number)=>Promise<void>;
     createLocalProfile: (local: CreateLocalProfile) => Promise<void>;
@@ -16,6 +17,7 @@ export const LocalProfileContext = createContext<{
     deleteLocalProfile: (id: number) => Promise<void>;
 }>({
     localProfiles:[],
+    sellerProfiles:[],
     loadLocalProfile:async()=>{},
     loadSellerProfile:async(id:number)=>{},
     createLocalProfile: async (nota: CreateLocalProfile) => { },
@@ -33,6 +35,10 @@ export const useLocalProfiles = () =>{
 
 export const LocalProfilesProvider = ({ children }: Children) => {
     const [localProfiles,setlocalProfiles] = useState<LocalProfile[]>([]);
+    const [sellerProfiles,setsellerProfiles] = useState<LocalProfile[]>([]);    //aca tuve que crear otro estado que sea igual que el de arriba, para almacenar 2 cosas al mismo tiempo
+                                                                                //el de arriba guarda todos los negocios y el de abajo el negocio del perfil que se quiere acceder
+
+
     //ESTA FUNCION TRAE TODOS LOS LOCALES, NO CREO QUE LA USEMOS PERO PARA PROBAR COSAS FUNCIONA 
     async function loadLocalProfile(){
         const res = await fetch("/api/locals");
@@ -44,14 +50,12 @@ export const LocalProfilesProvider = ({ children }: Children) => {
         try {
             const res = await fetch("/api/locals/" + id);
             const data = await res.json();
-            console.log("data de la api: ", data)
-            setlocalProfiles(data);
-            
+            setsellerProfiles(data);           
         } catch (error) {
             console.log(error)
         }
 
-        console.log("sellerProfiles: ", localProfiles)
+
 
     }
 
@@ -95,6 +99,7 @@ export const LocalProfilesProvider = ({ children }: Children) => {
     <LocalProfileContext.Provider
         value={{
             localProfiles,
+            sellerProfiles,
             loadSellerProfile,
             loadLocalProfile,
             createLocalProfile,

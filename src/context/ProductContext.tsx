@@ -1,7 +1,7 @@
 "use client"
 import { createContext, useContext, useState } from "react";
 import { Product } from "@prisma/client";
-
+import { CreateProduct } from "@/interfaces/Product";
 interface Children {
     children: React.ReactNode;
 }
@@ -10,17 +10,21 @@ interface Children {
 export const ProductContext = createContext<{
     products: Product[];
     loadProducts: () => Promise<void>;
-    createProduct: (product: Product) => Promise<void>;
-    updateProduct: (id: number, product: Product) => Promise<void>;
+    createProduct: (product: Product, id:number) => Promise<void>;
+    updateProduct: (id: number, product: CreateProduct) => Promise<void>;
     loadSellerProducts: (id: number) => Promise<void>;
     deleteProduct: (id: number) => Promise<void>;
+    selectedProduct:Product | null;
+    setSelectedProduct:(product:Product | null) => void;
 }>({
     products: [],
     loadProducts: async () => { },
-    createProduct: async (product: Product) => { },
-    updateProduct: async (id: number, product: Product) => { },
+    createProduct: async (product: Product, id:number) => { },
+    updateProduct: async (id: number, product: CreateProduct) => { },
     loadSellerProducts: async (id: number) => { },
     deleteProduct: async (id: number) => { },
+    selectedProduct: null,
+    setSelectedProduct:(product:Product | null) => {}
 })
 
 export const useProducts = () => {
@@ -33,7 +37,7 @@ export const useProducts = () => {
 
 export const ProductsProvider = ({ children }: Children) => {
     const [products, setProducts] = useState<Product[]>([]);
-
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
     async function loadProducts() {
 
@@ -60,7 +64,8 @@ export const ProductsProvider = ({ children }: Children) => {
 
     //esta funcion lo que hace es crear un nuevo producto, y ademas agrega al estado donde estan todos los productos el nuevo
     //despues uno tiene que mostrar el estado ese nomas y se muestra actualizado
-    async function createProduct(product: Product) {
+    async function createProduct(product: Product, id:number) {
+        product.sellerId=id;
         const res = await fetch('/api/product', {
             method: 'POST',
             body: JSON.stringify(product),
@@ -83,7 +88,7 @@ export const ProductsProvider = ({ children }: Children) => {
 
 
     //esta funcion es para actualizar la informacion de un producto
-    async function updateProduct(id: number, product: Product) {
+    async function updateProduct(id: number, product: CreateProduct) {
         const res = await fetch('/api/product/' + id, {
             body: JSON.stringify(product),
             method: 'PUT',
@@ -102,7 +107,9 @@ export const ProductsProvider = ({ children }: Children) => {
                 createProduct,
                 updateProduct,
                 deleteProduct,
-                loadSellerProducts
+                loadSellerProducts,
+                selectedProduct,
+                setSelectedProduct
             }}>{children}
         </ProductContext.Provider>
     )
