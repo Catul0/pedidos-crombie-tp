@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react'
 import { useLocalProfiles } from '@/context/LocalProfileContext'
 import SellersProducts from './SellersProducts';
@@ -12,6 +13,7 @@ export default function SellerProfile({ params }: { params: { id: string } }) {
     const seller: any = sellerProfiles;
     useEffect(() => {
         loadSellerProfile(Number(id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [seller])
     
     return (

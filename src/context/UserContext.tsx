@@ -1,7 +1,7 @@
 "use client"
 import { createContext, useContext, useState } from "react";
-import { User, CreateUser } from '@/interfaces/User'
-
+import { User, CreateUser, UpdateUser} from '@/interfaces/User'
+import { User as UserPrisma } from "@prisma/client";
 interface Children {
     children: React.ReactNode;
 }
@@ -9,16 +9,24 @@ interface Children {
 //ACA ES DONDE SE CREA EL CONTEXTO EN SI Y SE EXPORTAN TODAS LAS FUNCIONES QUE ABAJO DECLARAREMOS EN EL PROVIDER
 export const UserContext = createContext<{
     users:User[];
+    userProfiles:User[];
     loadUsers:()=> Promise<void>;
+    loaduserProfile:(id:number)=>Promise<void>;
     createUser: (user: CreateUser) => Promise<void>;
-    updateUser: (id:number,user: User) => Promise<void>;
+    updateUser: (id:number,user: UpdateUser) => Promise<void>;
     deleteUser: (id: number) => Promise<void>;
+    selectedUser:UserPrisma | null;
+    setSelectedUser:(user:UserPrisma | null) => void;
 }>({
     users:[],
+    userProfiles:[],
     loadUsers:async()=>{},
+    loaduserProfile:async(id:number)=>{},
     createUser: async (user: CreateUser) => { },
-    updateUser: async (id:number,user: User) => { },
+    updateUser: async (id:number,user: UpdateUser) => { },
     deleteUser: async (id: number) => { },
+    selectedUser: null,
+    setSelectedUser:(seller:UserPrisma | null) => {}
 })
 
 export const useUsers = () =>{
@@ -31,12 +39,23 @@ export const useUsers = () =>{
 
 export const UsersProvider = ({ children }: Children) => {
     const [users,setUsers] = useState<User[]>([]);
-
+    const [userProfiles,setuserProfiles] = useState<User[]>([]);
+    const [selectedUser, setSelectedUser] = useState<UserPrisma|null>(null)
     //ESTA FUNCION TRAE TODOS LOS USUARIOS, NO CREO QUE LA USEMOS PERO PARA PROBAR COSAS FUNCIONA 
     async function loadUsers(){
         const res = await fetch("/api/users");
         const data = await res.json();
         setUsers(data);
+    }
+
+    async function loaduserProfile(id: number) {
+        try {
+            const res = await fetch("/api/users/" + id);
+            const data = await res.json();
+            setuserProfiles(data);           
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     //esta funcion lo que hace es crear un nuevo usuario, y ademas agrega al estado donde estan todos los usuarios el nuevo
@@ -72,7 +91,7 @@ export const UsersProvider = ({ children }: Children) => {
 
 
     //esta funcion es para actualizar la informacion de un usuario
-    async function updateUser(id: number, user: User) {
+    async function updateUser(id: number, user: UpdateUser) {
         const res = await fetch('/api/users/' + id,  {
             body: JSON.stringify(user),
             method: 'PUT',
@@ -83,6 +102,7 @@ export const UsersProvider = ({ children }: Children) => {
         const data = await res.json()
         setUsers(users.map(user => user.id === id ? data : user));
     }
+
     return(
     <UserContext.Provider
         value={{
@@ -91,6 +111,10 @@ export const UsersProvider = ({ children }: Children) => {
             createUser,
             updateUser,
             deleteUser,
+            userProfiles,
+            loaduserProfile,
+            selectedUser,
+            setSelectedUser
         }}>{children}
     </UserContext.Provider>
     )
