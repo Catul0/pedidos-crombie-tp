@@ -43,7 +43,6 @@ export const ProductsProvider = ({ children }: Children) => {
 
         const res = await fetch("/api/product");
         const data = await res.json();
-        console.log(data)
         setProducts(data);
 
     }
@@ -53,7 +52,6 @@ export const ProductsProvider = ({ children }: Children) => {
         try {
             const res = await fetch("/api/product/" + id);
             const data = await res.json();
-            console.log("data: ", data)
             setProducts(data);
         } catch (error) {
             console.log(error)

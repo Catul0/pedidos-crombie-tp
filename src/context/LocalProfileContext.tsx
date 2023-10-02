@@ -1,6 +1,7 @@
 "use client"
 import { createContext, useContext, useState } from "react";
-import { LocalProfile, CreateLocalProfile } from "@/interfaces/LocalProfile";
+import { sellerProfile, CreateLocalProfile, UpdateProfile } from "@/interfaces/LocalProfile";
+import { LocalProfile } from "@prisma/client";
 
 interface Children {
     children: React.ReactNode;
@@ -8,21 +9,25 @@ interface Children {
 
 //ACA ES DONDE SE CREA EL CONTEXTO EN SI Y SE EXPORTAN TODAS LAS FUNCIONES QUE ABAJO DECLARAREMOS EN EL PROVIDER
 export const LocalProfileContext = createContext<{
-    localProfiles:LocalProfile[];
-    sellerProfiles:LocalProfile[];      
+    localProfiles:sellerProfile[];
+    sellerProfiles:sellerProfile[];      
     loadLocalProfile:()=> Promise<void>;
     loadSellerProfile:(id:number)=>Promise<void>;
     createLocalProfile: (local: CreateLocalProfile) => Promise<void>;
-    updateLocalProfile: (id:number,local: LocalProfile) => Promise<void>;
+    updateLocalProfile: (id:number,local: UpdateProfile) => Promise<void>;
     deleteLocalProfile: (id: number) => Promise<void>;
+    selectedSeller:LocalProfile | null;
+    setSelectedSeller:(seller:LocalProfile | null) => void;
 }>({
     localProfiles:[],
     sellerProfiles:[],
     loadLocalProfile:async()=>{},
     loadSellerProfile:async(id:number)=>{},
     createLocalProfile: async (nota: CreateLocalProfile) => { },
-    updateLocalProfile: async (id:number,local: LocalProfile) => { },
+    updateLocalProfile: async (id:number,local: UpdateProfile) => { },
     deleteLocalProfile: async (id: number) => { },
+    selectedSeller: null,
+    setSelectedSeller:(seller:LocalProfile | null) => {}
 })
 
 export const useLocalProfiles = () =>{
@@ -34,11 +39,11 @@ export const useLocalProfiles = () =>{
 }
 
 export const LocalProfilesProvider = ({ children }: Children) => {
-    const [localProfiles,setlocalProfiles] = useState<LocalProfile[]>([]);
-    const [sellerProfiles,setsellerProfiles] = useState<LocalProfile[]>([]);    //aca tuve que crear otro estado que sea igual que el de arriba, para almacenar 2 cosas al mismo tiempo
+    const [localProfiles,setlocalProfiles] = useState<sellerProfile[]>([]);
+    const [sellerProfiles,setsellerProfiles] = useState<sellerProfile[]>([]);    //aca tuve que crear otro estado que sea igual que el de arriba, para almacenar 2 cosas al mismo tiempo
                                                                                 //el de arriba guarda todos los negocios y el de abajo el negocio del perfil que se quiere acceder
 
-
+    const [selectedSeller, setSelectedSeller] = useState<LocalProfile|null>(null)
     //ESTA FUNCION TRAE TODOS LOS LOCALES, NO CREO QUE LA USEMOS PERO PARA PROBAR COSAS FUNCIONA 
     async function loadLocalProfile(){
         const res = await fetch("/api/locals");
@@ -69,7 +74,7 @@ export const LocalProfilesProvider = ({ children }: Children) => {
                 'content-Type':'application/json'
             }
         })
-        const newProfile: LocalProfile = await res.json()
+        const newProfile: sellerProfile = await res.json()
         setlocalProfiles([...localProfiles, newProfile]);
     }
 
@@ -84,7 +89,7 @@ export const LocalProfilesProvider = ({ children }: Children) => {
 
 
     //esta funcion es para actualizar la informacion de un negocio
-    async function updateLocalProfile(id: number, local: LocalProfile) {
+    async function updateLocalProfile(id: number, local: UpdateProfile) {
         const res = await fetch('/api/locals/' + id,  {
             body: JSON.stringify(local),
             method: 'PUT',
@@ -105,6 +110,8 @@ export const LocalProfilesProvider = ({ children }: Children) => {
             createLocalProfile,
             updateLocalProfile,
             deleteLocalProfile,
+            selectedSeller,
+            setSelectedSeller
         }}>{children}
     </LocalProfileContext.Provider>
     )

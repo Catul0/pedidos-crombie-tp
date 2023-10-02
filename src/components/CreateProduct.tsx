@@ -28,7 +28,6 @@ export default function CreateProduct({ params }: { params: { id: string } }) {
                     if (selectedProduct) {
                         const price = Number(pricee);
                         await updateProduct(selectedProduct.id, { productName, description, price, image })
-                        console.log("NUEVA INFO ENVIADA:", productName, description, price, image)
                     } else {
                         const price = Number(pricee);
                         await createProduct({ id: 1, productName, description, price, image, sellerId: 0 }, Number(params.id))
@@ -37,6 +36,7 @@ export default function CreateProduct({ params }: { params: { id: string } }) {
                     setPrice("");
                     setImage("");
                     setDescription("")
+                    setSelectedProduct(null)
                 }
                 }
             >
