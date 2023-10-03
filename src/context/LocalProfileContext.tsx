@@ -59,9 +59,6 @@ export const LocalProfilesProvider = ({ children }: Children) => {
         } catch (error) {
             console.log(error)
         }
-
-
-
     }
 
     //esta funcion lo que hace es crear un nuevo negocio, y ademas agrega al estado donde estan todos los negocios el nuevo

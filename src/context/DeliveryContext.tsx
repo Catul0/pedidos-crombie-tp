@@ -8,13 +8,17 @@ interface Children {
 
 export const DeliveryContext = createContext<{
     deliverys:Delivery[];
+    deliveryProfile:Delivery[];
     loadDelivery:()=> Promise<void>;
+    loadDeliveryProfile:(id:number)=>Promise<void>;
     createDelivery: (delivery: CreateDelivery) => Promise<void>;
     updateDelivery: (id:number,delivery: Delivery) => Promise<void>;
     deleteDelivery: (id: number) => Promise<void>;
 }>({
     deliverys:[],
+    deliveryProfile:[],
     loadDelivery:async()=>{},
+    loadDeliveryProfile:async()=>{},
     createDelivery: async (delivery: CreateDelivery) => { },
     updateDelivery: async (id:number,delivery: Delivery) => { },
     deleteDelivery: async (id: number) => { },
@@ -30,12 +34,24 @@ export const useDeliverys = () =>{
 
 export const DeliverysProvider = ({ children }: Children) => {
     const [deliverys,setDeliverys] = useState<Delivery[]>([]);
-
+    const [deliveryProfile, setDeiveryProfile] = useState<Delivery[]>([]);
     async function loadDelivery(){
         const res = await fetch("/api/deliverys");
         const data = await res.json();
         setDeliverys(data);
     }
+
+        //ESTO LO QUE HACE ES MOSTRAR SOLO 1 PERFIL DE DELIVERY
+        async function loadDeliveryProfile(id: number) {
+            try {
+                const res = await fetch("/api/deliverys/" + id);
+                const data = await res.json();
+                setDeiveryProfile(data);           
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    
 
     async function createDelivery(delivery: CreateDelivery){
         const  res = await fetch('/api/deliverys',{
@@ -74,9 +90,11 @@ export const DeliverysProvider = ({ children }: Children) => {
         value={{
             deliverys,
             loadDelivery,
+            loadDeliveryProfile,
             createDelivery,
             updateDelivery,
             deleteDelivery,
+            deliveryProfile,
         }}>{children}
     </DeliveryContext.Provider>
     )

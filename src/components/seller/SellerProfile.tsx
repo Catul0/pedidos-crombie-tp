@@ -1,8 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
+import { useEffect} from 'react'
 import { useLocalProfiles } from '@/context/LocalProfileContext'
 import SellersProducts from './SellersProducts';
-import Link from 'next/link';
 import CreateProduct from '../product/CreateProduct';
 import EditSeller from './EditSeller';
 
@@ -13,12 +11,10 @@ export default function SellerProfile({ params }: { params: { id: string } }) {
     const seller: any = sellerProfiles;
     useEffect(() => {
         loadSellerProfile(Number(id));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [seller])
     
     return (
         <>
-
             <div className='flex justify-between bg-slate-900 h-[100%] px-8' id='sellers'>
                 <div className='flex justify-center'>
                     <div className="  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
