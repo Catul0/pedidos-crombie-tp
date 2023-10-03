@@ -1,6 +1,8 @@
 "use client"
 import { useVehicles } from '@/context/VehicleContext'
+import { TIMEOUT } from 'dns';
 import { useEffect, useState } from 'react'
+import { setTimeout } from 'timers';
 
 export default function CreateVehicle({ params }: { params: { id: string } }) {
 
@@ -10,7 +12,7 @@ export default function CreateVehicle({ params }: { params: { id: string } }) {
     const [color, setColor] = useState('');
     const [carYear, setYear] = useState('');
 
-    const { createVehicle } = useVehicles();
+    const { createVehicle, vehicles, deleteVehicle, loadSellerVehicles } = useVehicles();
 
     return (
         <div>
@@ -19,7 +21,10 @@ export default function CreateVehicle({ params }: { params: { id: string } }) {
                     console.log("SE APRETA EL BOTON ", brand, model, carYear, color, licensePlate,params.id )
                     e.preventDefault();
                     const year = Number(carYear);
-                    await createVehicle({ id:0, brand, model, year, color, licensePlate, vehicleOwner:0 }, Number(params.id))
+                    await deleteVehicle(Number(params.id))
+                    setTimeout(() => {
+                        createVehicle({ id:0, brand, model, year, color, licensePlate, vehicleOwner:0 }, Number(params.id))
+                    }, 2000);
                 }
                 }
             >

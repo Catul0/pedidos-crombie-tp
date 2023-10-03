@@ -2,7 +2,6 @@
 import { createContext, useContext, useState } from "react";
 import { Vehicle } from "@prisma/client";
 import { CreateVehicle } from "@/interfaces/Vehicle";
-import { Console } from "console";
 interface Children {
     children: React.ReactNode;
 }
@@ -10,6 +9,7 @@ interface Children {
 //ACA ES DONDE SE CREA EL CONTEXTO EN SI Y SE EXPORTAN TODAS LAS FUNCIONES QUE ABAJO DECLARAREMOS EN EL PROVIDER
 export const VehicleContext = createContext<{
     vehicles: Vehicle[];
+
     loadVehicles: () => Promise<void>;
     createVehicle: (vehicle: Vehicle, id: number) => Promise<void>;
     updateVehicle: (id: number, vehicle: CreateVehicle) => Promise<void>;
@@ -19,6 +19,7 @@ export const VehicleContext = createContext<{
     setSelectedVehicle: (vehicle: Vehicle | null) => void;
 }>({
     vehicles: [],
+
     loadVehicles: async () => { },
     createVehicle: async (vehicle: Vehicle, id: number) => { },
     updateVehicle: async (id: number, vehicle: CreateVehicle) => { },
@@ -39,11 +40,14 @@ export const useVehicles = () => {
 export const VehiclesProvider = ({ children }: Children) => {
     const [vehicles, setVehicles] = useState<Vehicle[]>([]);
     const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
+
+
     async function loadVehicles() {
 
         const res = await fetch("/api/vehicle");
         const data = await res.json();
         setVehicles(data);
+
 
     }
 
@@ -53,6 +57,7 @@ export const VehiclesProvider = ({ children }: Children) => {
             const res = await fetch("/api/vehicle/" + id);
             const data = await res.json();
             setVehicles(data);
+
         } catch (error) {
             console.log(error)
         }

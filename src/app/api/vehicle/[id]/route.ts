@@ -8,7 +8,7 @@ export async function GET(request: Request, {params}: Params) {
     try {
         const vehicle = await prisma.vehicle.findFirst({
             where: {
-                id: Number(params.id)
+                vehicleOwner: Number(params.id)
             }
         })
         if (!vehicle){
@@ -34,9 +34,9 @@ export async function GET(request: Request, {params}: Params) {
 
 export async function DELETE(request: Request, {params}: Params) {
     try {
-        const deletedVehicle = await prisma.vehicle.delete({
+        const deletedVehicle = await prisma.vehicle.deleteMany({
             where: {
-                id: Number(params.id)
+                vehicleOwner: Number(params.id)
             }
         })
         if(!deletedVehicle) return NextResponse.json({
