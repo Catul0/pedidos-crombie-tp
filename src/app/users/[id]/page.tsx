@@ -8,8 +8,9 @@ import { useRouter } from 'next/navigation';
 export default function UsersProfile({params}:{params:{id:string}} ) {
   const id = params.id;
   const router = useRouter()
-    // saca el token de localstorage
-    const token = localStorage.getItem('token');
+
+  // saca el token de localstorage
+  const token = localStorage.getItem('token');
 
     // verifica si el token existe y si es validp
     if (token) {

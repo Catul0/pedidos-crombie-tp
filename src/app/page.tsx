@@ -1,34 +1,39 @@
 "use client"
-import Link from "next/link";
-
+import Buttons from "@/components/home/Buttons";
+import Navbar from "@/components/home/Navbar";
+import Imagen from "@/components/home/Imagen";
+import JoinUs from "@/components/home/JoinUs";
 function HomePage() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <Link href="/sellers">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">
-          Ver Locales y Registrar nuevo local
-        </button>
-      </Link>
-      <Link href="/users/register">
-        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4">
-          Registrar Usuario
-        </button>
-      </Link>
-      <Link href="/deliverys/register">
-        <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
-          Registrar Delivery
-        </button>
-      </Link>
+    <div className="">
+      <Navbar/>
+      <Imagen/>
+      <div className="flex flex-col justify-center items-center mt-[50px] mb-[50px]">
+        <h1 className="text-black text-1xl font-bold w-[600px] text-center">Sabores que Despiertan los Sentidos, Cuidados que te Confortan, y la Comodidad de Todo lo que Necesitas, Cuando lo Necesitas.🍕❤️</h1>
+      </div>
+      <div className="w-full flex flex-row mb-[900px] justify-evenly items-center">
+        <JoinUs
+          imageUrl="https://images.pexels.com/photos/280453/pexels-photo-280453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          paragraphText="Pedite un antojo"
+          linkPath="/users/register"
+          linkText="Registrate como usuario"
+        />
+        <JoinUs
+          imageUrl="https://images.pexels.com/photos/6994138/pexels-photo-6994138.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          paragraphText="Tu local, a domicilio"
+          linkPath="/sellers/register"
+          linkText="Registrate como local"
+        />
+        <JoinUs
+          imageUrl="https://images.pexels.com/photos/4392039/pexels-photo-4392039.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          paragraphText="Reparte con nosotros"
+          linkPath="/delivery/register"
+          linkText="Registrate como delivery"
+        />
+      </div>
+      <Buttons/>
     </div>
   );
 }
 
 export default HomePage;
-
-
-
-
-//ACA SIMPLEMENTE VOY A PROBAR SI PUEDO TRAER LOS DATOS AL FRON CON EL BACKEND 
-//QUE TENEMOS HECHO, VOY A PROBAR DE MOSTRAR TODOS LOS NEGOCIOS
-//Y QUE HAYA UN BOTON DE "VER PRODUCTOS" Y QUE TE MUESTRE TODOS LOS PRODUCTOS 
-//DEL NEGOCIO EN ESPECIFICO
