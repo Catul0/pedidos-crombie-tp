@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocalProfiles } from "@/context/LocalProfileContext";
 import { useEffect } from 'react'
-import LocalCard from "@/components/LocalCard";
+import LocalCard from "@/components/seller/LocalCard";
 import { LocalProfile } from '@prisma/client';
 const LocalsProfiles = () => {
 

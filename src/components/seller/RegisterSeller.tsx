@@ -35,6 +35,7 @@ function RegisterSeller() {
       name="name"
       className="w-full border border-gray-300 rounded p-2"
       onChange={(e) => setName(e.target.value)}
+      required
     />
   </div>
   <div className="mb-4">
@@ -44,6 +45,7 @@ function RegisterSeller() {
       name="description"
       className="w-full border border-gray-300 rounded p-2"
       onChange={(e) => setDescription(e.target.value)}
+      required
     />
   </div>
   <div className="mb-4">
@@ -53,6 +55,7 @@ function RegisterSeller() {
       name="address"
       className="w-full border border-gray-300 rounded p-2"
       onChange={(e) => setAddress(e.target.value)}
+      required
     />
   </div>
   <div className="mb-4">
@@ -62,6 +65,7 @@ function RegisterSeller() {
       name="city"
       className="w-full border border-gray-300 rounded p-2"
       onChange={(e) => setCity(e.target.value)}
+      required
     />
   </div>
   <div className="mb-4">
@@ -71,6 +75,7 @@ function RegisterSeller() {
       name="email"
       className="w-full border border-gray-300 rounded p-2"
       onChange={(e) => setEmail(e.target.value)}
+      required
     />
   </div>
   <div className="mb-4">
@@ -80,6 +85,7 @@ function RegisterSeller() {
       name="password"
       className="w-full border border-gray-300 rounded p-2"
       onChange={(e) => setPassword(e.target.value)}
+      required
     />
   </div>
   <button

@@ -1,5 +1,5 @@
 "use client"
-import SellersProducts from '@/components/SellersProducts'
+import SellersProducts from '@/components/seller/SellersProducts'
 import React from 'react'
 
 //DE MOMENTO ESTA RUTA NO SE USA

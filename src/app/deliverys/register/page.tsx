@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import RegisterDelivery from '@/components/RegisterDelivery'
+import RegisterDelivery from '@/components/Delivery/RegisterDelivery'
 const DeliverysRegister = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen">

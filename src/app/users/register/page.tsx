@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import RegisterUser from '@/components/RegisterUser'
+import RegisterUser from '@/components/user/RegisterUser'
 const RegisterUsers = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen">

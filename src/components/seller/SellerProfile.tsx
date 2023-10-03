@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocalProfiles } from '@/context/LocalProfileContext'
 import SellersProducts from './SellersProducts';
 import Link from 'next/link';
-import CreateProduct from './CreateProduct';
+import CreateProduct from '../product/CreateProduct';
 import EditSeller from './EditSeller';
 
 

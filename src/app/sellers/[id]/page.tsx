@@ -1,5 +1,5 @@
 "use client"
-import SellerProfile from '@/components/SellerProfile'
+import SellerProfile from '@/components/seller/SellerProfile'
 import React from 'react'
 
 

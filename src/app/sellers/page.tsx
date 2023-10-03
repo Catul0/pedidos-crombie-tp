@@ -1,6 +1,6 @@
 "use client"
-import LocalsProfiles from '@/components/LocalsProfiles'
-import RegisterSeller from '@/components/RegisterSeller'
+import LocalsProfiles from '@/components/seller/LocalsProfiles'
+import RegisterSeller from '@/components/seller/RegisterSeller'
 import React from 'react'
 
 const Sellers = () => {
