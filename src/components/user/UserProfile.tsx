@@ -5,13 +5,17 @@ import EditUser from './EditUser';
 import { useEffect } from 'react';
 
 const UserProfile = ({ params }: { params: { id: string } }) => {
-    const { userProfiles, loaduserProfile, setSelectedUser, selectedUser  } = useUsers();
-    const id = params.id;
-    const user: any = userProfiles;
-    useEffect(() => {
-        loaduserProfile(Number(id));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user])
+
+  const { userProfiles, loaduserProfile, setSelectedUser, selectedUser } = useUsers();
+  const id = params.id;
+  const user: any = userProfiles;
+
+  useEffect(() => {
+    loaduserProfile(Number(id));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
+
   return (
     <div className="flex justify-center items-center h-screen">
   <div className="bg-white rounded-lg shadow-lg p-6">
