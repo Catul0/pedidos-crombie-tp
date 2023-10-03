@@ -2,6 +2,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { DeliverysProvider } from '@/context/DeliveryContext'
+import { VehiclesProvider } from '@/context/VehicleContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,7 +20,9 @@ export default function DeliveryLayout({
     <html lang="en">
       <body className={inter.className}>
         <DeliverysProvider>
+          <VehiclesProvider>
             {children}
+          </VehiclesProvider>
         </DeliverysProvider>
       </body>
     </html>
