@@ -1,5 +1,5 @@
 "use client"
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDeliverys } from '@/context/DeliveryContext'
 import CreateVehicle from '@/components/vehicle/createVehicle'
 import { useVehicles } from '@/context/VehicleContext';
@@ -8,6 +8,7 @@ import VehicleCard from './VehicleCard';
 export default function DeliveryProfile({ params }: { params: { id: string } }) {
     const { deliveryProfile, loadDeliveryProfile } = useDeliverys();
     const { loadSellerVehicles, sellerCar } = useVehicles();
+    const [cargarAuto, setCargarAuto] = useState(false);
     const id = params.id;
     const delivery: any = deliveryProfile;
     useEffect(() => {
@@ -26,8 +27,16 @@ export default function DeliveryProfile({ params }: { params: { id: string } }) 
                     </div>
                 </div>
                 <VehicleCard car={car} />
+                <button
+                    onClick={()=>{
+                        setCargarAuto(!cargarAuto);
+                    }}
+                 className='bg-gray-800 rounded-lg text-2xl w-[100%] text-white max-w-sm border-gray-200 px-4 '>{cargarAuto?"Cancelar":"Cargar Nuevo Auto"}</button>
             </div>
-            <CreateVehicle params={params} />
+            {
+                cargarAuto? <CreateVehicle params={params} /> : <p></p>
+            }
+            
         </>
     )
 }
