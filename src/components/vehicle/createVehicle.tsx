@@ -15,8 +15,8 @@ export default function CreateVehicle({ params }: { params: { id: string } }) {
     const { createVehicle, vehicles, deleteVehicle, loadSellerVehicles } = useVehicles();
 
     return (
-        <div>
-            <form className='bg-slate-900 px-4 py-4 rounded-md'
+        <div className='px-[200px]'>
+            <form className='bg-slate-900 px-4 py-4 rounded-md '
                 onSubmit={async (e) => {
                     console.log("SE APRETA EL BOTON ", brand, model, carYear, color, licensePlate,params.id )
                     e.preventDefault();

@@ -9,7 +9,7 @@ interface Children {
 //ACA ES DONDE SE CREA EL CONTEXTO EN SI Y SE EXPORTAN TODAS LAS FUNCIONES QUE ABAJO DECLARAREMOS EN EL PROVIDER
 export const VehicleContext = createContext<{
     vehicles: Vehicle[];
-
+    sellerCar:Vehicle |null;
     loadVehicles: () => Promise<void>;
     createVehicle: (vehicle: Vehicle, id: number) => Promise<void>;
     updateVehicle: (id: number, vehicle: CreateVehicle) => Promise<void>;
@@ -21,6 +21,7 @@ export const VehicleContext = createContext<{
     vehicles: [],
 
     loadVehicles: async () => { },
+    sellerCar:null,
     createVehicle: async (vehicle: Vehicle, id: number) => { },
     updateVehicle: async (id: number, vehicle: CreateVehicle) => { },
     loadSellerVehicles: async (id: number) => { },
@@ -40,6 +41,8 @@ export const useVehicles = () => {
 export const VehiclesProvider = ({ children }: Children) => {
     const [vehicles, setVehicles] = useState<Vehicle[]>([]);
     const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
+    
+    const [sellerCar, setSellerCar] = useState<Vehicle | null>(null);
 
 
     async function loadVehicles() {
@@ -56,7 +59,7 @@ export const VehiclesProvider = ({ children }: Children) => {
         try {
             const res = await fetch("/api/vehicle/" + id);
             const data = await res.json();
-            setVehicles(data);
+            setSellerCar(data);
 
         } catch (error) {
             console.log(error)
@@ -109,6 +112,7 @@ export const VehiclesProvider = ({ children }: Children) => {
         <VehicleContext.Provider
             value={{
                 vehicles,
+                sellerCar,
                 loadVehicles,
                 createVehicle,
                 updateVehicle,
