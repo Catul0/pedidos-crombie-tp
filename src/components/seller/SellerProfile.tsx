@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useEffect} from 'react'
 import { useLocalProfiles } from '@/context/LocalProfileContext'
 import SellersProducts from './SellersProducts';
@@ -5,12 +6,13 @@ import CreateProduct from '../product/CreateProduct';
 import EditSeller from './EditSeller';
 
 
-export default function SellerProfile({ params }: { params: { id: string } }) {
+export default function SellerProfile({ params, isTrue }: { params: { id: string }, isTrue: boolean | null}) {
     const { sellerProfiles, loadSellerProfile, setSelectedSeller, selectedSeller } = useLocalProfiles();
     const id = params.id;
     const seller: any = sellerProfiles;
     useEffect(() => {
         loadSellerProfile(Number(id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [seller])
     
     return (
@@ -28,30 +30,34 @@ export default function SellerProfile({ params }: { params: { id: string } }) {
                             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{seller.address} from {seller.city}</p>
                             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{seller.averageScore}</p>
                         </div>
-                        <button className='bg-slate-900 text-slate-100 rounded-lg w-[100%]'
-                            onClick={()=>{
-                                if(selectedSeller){
-                                    setSelectedSeller(null)
-                                }else{
-                                    setSelectedSeller(seller)
-                                }
-                                    
-                             }}
-                        >{selectedSeller? "CANCELAR":"EDITAR PERFIL"}</button>
+                        {isTrue && (
+                            <button className='bg-slate-900 text-slate-100 rounded-lg w-[100%]'
+                                onClick={()=>{
+                                    if(selectedSeller){
+                                        setSelectedSeller(null)
+                                    }else{
+                                        setSelectedSeller(seller)
+                                    }
+                                        
+                                }}
+                            >{selectedSeller? "CANCELAR":"EDITAR PERFIL"}</button>
+                        )}
                         {
                             selectedSeller? <EditSeller/>:<p></p>
                         }
                     </div>
                     
                 </div>
-
-                <SellersProducts params={params} />
+                <SellersProducts params={params} isTrue={isTrue} />
             </div>
-            <div className='px-24 2xl:px-[350px] py-8  bg-slate-900'>
-                <CreateProduct params={params} />
-            </div>
-
+            {/* si isTrue es true va a mostrar el form d crear producto nuevo y sino no */}
+            {
+                isTrue && (
+                    <div className='px-24 2xl:px-[350px] py-8  bg-slate-900'>
+                        <CreateProduct params={params} />
+                    </div>
+                )
+            }
         </>
-
     )
 }

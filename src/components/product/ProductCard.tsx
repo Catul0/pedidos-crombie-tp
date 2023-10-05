@@ -1,10 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import { Product } from '@prisma/client'
 import { useProducts } from '@/context/ProductContext'
 
 
 
-function ProductCard({ product }: { product: Product }) {
+function ProductCard({ product, isTrue }: { product: Product, isTrue: boolean | null }) {
     const { setSelectedProduct,deleteProduct } = useProducts();
     return (
         <div key={product.id} className='bg-slate-400 p-4 my-2 rounded-md flex justify-between w-auto' >
@@ -16,6 +17,9 @@ function ProductCard({ product }: { product: Product }) {
                     <p>Precio: {product.price}</p>
                 </div>
                 <button className='bg-slate-900 text-slate-100 rounded-lg w-[100%]'>COMPRAR</button>
+                {/* si isTrue es true va a mostrar los botones y sino no */}
+                {
+                isTrue && (
                 <div className='flex justify-between py-2'>
                     <button className='bg-slate-900 text-slate-100 rounded-lg w-[45%]'
                         onClick={async () => {
@@ -23,11 +27,12 @@ function ProductCard({ product }: { product: Product }) {
                         }}
                     >EDITAR</button>
                     <button onClick={async () => {
-                        if (confirm("Estas seguro de que quieres eliminar nota?")) {
+                        if (confirm("Estas seguro de que quieres eliminar producto?")) {
                             await deleteProduct(product.id)
                         }
                     }} className=' text-white bg-red-600 rounded-md hover:bg-red-500 w-[45%]' >ELIMINAR</button>
                 </div>
+                )}
             </div>
         </div>
     )

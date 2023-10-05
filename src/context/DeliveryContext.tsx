@@ -63,7 +63,7 @@ export const DeliverysProvider = ({ children }: Children) => {
             }
         })
         const data = await res.json();
-        const newDelivery = data.user;
+        const newDelivery = data.newDelivery;
         const newToken = data.token;
         setToken(newToken);
         //guarda el token en localstorage
