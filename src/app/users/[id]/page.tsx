@@ -1,35 +1,41 @@
 "use client"
-import React from 'react'
-import UserProfile from '@/components/user/UserProfile'
+import React, { useEffect, useState } from 'react';
+import UserProfile from '@/components/user/UserProfile';
 import { decode } from 'jsonwebtoken';
 import { useRouter } from 'next/navigation';
 
-//ACA SE VA A MOSTRAR EL PERFIL DEL USUARIO
-export default function UsersProfile({params}:{params:{id:string}} ) {
+export default function UsersProfile({ params }: { params: { id: string } }) {
   const id = params.id;
-  const router = useRouter()
+  const router = useRouter();
+  const [token, setToken] = useState<string | null>(null);
 
-  // saca el token de localstorage
-  const token = localStorage.getItem('token');
+  useEffect(() => {
+    const localStorageToken = localStorage.getItem('token');
 
-    // verifica si el token existe y si es validp
-    if (token) {
+    //primero se fija si tiene token, si no tiene (en el else), lo manda a registrarse
+    if (localStorageToken) {
+      // si tiene token, verifica que el id del token sea igual que el id del perfil al que intenta ingresar
+      //si no es el mismo id lo va a mandar a registrarse, y si el token da error tambien lo manda a registrarse
       try {
-        const decodedToken: any = decode(token);
+        const decodedToken: any = decode(localStorageToken);
 
-        // compara el id del token con el numero en params
         if (decodedToken.id === Number(id)) {
-          return (
-            <UserProfile  params={params} />
-          )
-        } else {          
-          router.push('/users/register')
+          setToken(localStorageToken);
+        } else {
+          router.push('/users/register');
         }
       } catch (error) {
-        router.push('/users/register')
+        router.push('/users/register');
       }
     } else {
-      router.push('/users/register')
+      router.push('/users/register');
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (token) {
+    return <UserProfile params={params} />;
+  }
+
+  return null;
 }
-  
