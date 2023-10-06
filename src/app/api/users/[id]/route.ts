@@ -67,7 +67,7 @@ export async function DELETE(request: Request, {params}: Params) {
 
 export async function PUT(request: Request, {params}: Params) {
     try {
-        const {name, lastName, phone, address, city, email, password} = await request.json()
+        const {name, lastName, phone, address, city, email, rol, password} = await request.json()
         const updatedUser = await prisma.user.update({
             where: {
                 id: Number(params.id)
@@ -79,6 +79,7 @@ export async function PUT(request: Request, {params}: Params) {
                 address,
                 city,
                 email,
+                rol,
                 password
             }
         })

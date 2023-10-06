@@ -67,7 +67,7 @@ export async function DELETE(request: Request, {params}: Params) {
 
 export async function PUT(request: Request, {params}: Params) {
     try {
-        const {description, name, address, city, logo, type, averageScore, password, email} = await request.json()
+        const {description, name, address, city, logo, type, averageScore, rol, password, email} = await request.json()
         const updatedLocal = await prisma.localProfile.update({
             where: {
                 id: Number(params.id)
@@ -80,6 +80,7 @@ export async function PUT(request: Request, {params}: Params) {
                 logo,
                 type,
                 averageScore,
+                rol,
                 password,
                 email
             }

@@ -29,6 +29,7 @@ export async function POST(request: Request) {
                 lastName,
                 averageScore,
                 email,
+                rol: 'delivery',
                 password: hash,
             }
         })

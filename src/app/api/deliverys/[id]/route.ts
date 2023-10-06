@@ -67,7 +67,7 @@ export async function DELETE(request: Request, {params}: Params) {
 
 export async function PUT(request: Request, {params}: Params) {
     try {
-        const {name, lastName, averageScore, email, password} = await request.json()
+        const {name, lastName, averageScore, email, rol, password} = await request.json()
         const updatedNote = await prisma.deliveryDriverProfile.update({
             where: {
                 id: Number(params.id)
@@ -77,6 +77,7 @@ export async function PUT(request: Request, {params}: Params) {
                 lastName,
                 averageScore,
                 email,
+                rol,
                 password
             }
         })

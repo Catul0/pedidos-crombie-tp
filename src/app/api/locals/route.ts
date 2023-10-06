@@ -32,6 +32,7 @@ export async function POST(request: Request) {
                 logo,
                 type,
                 averageScore,
+                rol: 'seller',
                 password:hash,
                 email
             }

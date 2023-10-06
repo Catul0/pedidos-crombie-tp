@@ -19,7 +19,7 @@ export default function DeliveryProfiles({ params }: { params: { id: string } })
       try {
         const decodedToken: any = decode(localStorageToken);
 
-        if (decodedToken.id === Number(id)) {
+        if (decodedToken.id === Number(id) && decodedToken.rol === 'delivery') {
           setToken(localStorageToken);
         } else {
           router.push('/deliverys/register');

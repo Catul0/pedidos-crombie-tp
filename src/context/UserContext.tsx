@@ -73,6 +73,7 @@ export const UsersProvider = ({ children }: Children) => {
         const data = await res.json();
         const newUser = data.user;
         const newToken = data.token;
+        console.log(newUser)
         setToken(newToken);
         //guarda el token en localstorage
         localStorage.setItem('token', newToken);
@@ -85,7 +86,6 @@ export const UsersProvider = ({ children }: Children) => {
         const res = await fetch('/api/users/'+id,{
             method:'DELETE',
         })
-        const data = await res.json()
         setUsers(users.filter((user)=> user.id!=id));
     }
 

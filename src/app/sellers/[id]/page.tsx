@@ -20,7 +20,7 @@ export default function SellersProfile({params}:{params:{id:string}} ) {
       try {
         const decodedToken: any = decode(localStorageToken);
 
-        if (decodedToken.id === Number(id)) {
+        if (decodedToken.id === Number(id) && decodedToken.rol === 'seller') {
           setisTrue(true)
         } else {
           setisTrue(false)

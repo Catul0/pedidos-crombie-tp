@@ -19,7 +19,7 @@ model User {
   city      String
   email     String   @unique
   password  String
-
+  rol       String
 
   score     Score[]
   orderStatus OrderStatus[]
@@ -37,6 +37,7 @@ model LocalProfile {
   averageScore Float?
   password     String
   email        String   @unique
+  rol          String
 
   product      Product[]
   score        Score[]
@@ -51,7 +52,7 @@ model DeliveryDriverProfile {
   averageScore    Float?
   email           String   @unique
   password        String
-
+  rol             String
   score           Score[]
   vehicle         Vehicle[]
   orderStatus OrderStatus[]

@@ -7,6 +7,7 @@ export interface sellerProfile {
     name: string;
     address: string;
     city: string;
+    rol: string;
     password: string;
     email: string;
 }

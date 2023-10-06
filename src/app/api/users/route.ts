@@ -31,6 +31,7 @@ export async function POST(req: Request) {
                 address,
                 city,
                 email,
+                rol: 'user',
                 password: hash
             }
         })
