@@ -3,9 +3,10 @@ import React from 'react';
 import { useUsers } from '@/context/UserContext';
 import EditUser from './EditUser';
 import { useEffect } from 'react';
+import { useLogin } from '@/context/LoginContext';
 
 const UserProfile = ({ params }: { params: { id: string } }) => {
-
+  const {logout} = useLogin();
   const { userProfiles, loaduserProfile, setSelectedUser, selectedUser } = useUsers();
   const id = params.id;
   const user: any = userProfiles;
@@ -49,6 +50,14 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
         {selectedUser ? "CANCELAR" : "EDITAR PERFIL"}
       </button>
       {selectedUser ? <EditUser /> : <p></p>}
+      <button
+            className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg w-full"
+            onClick={() => {
+              logout(); // Llama a la función logout al hacer clic en el botón
+            }}
+          >
+            CERRAR SESIÓN
+          </button>
     </div>
   </div>
 </div>

@@ -1,12 +1,14 @@
 "use client"
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useLogin } from '@/context/LoginContext';
+import { useRouter } from 'next/navigation';
+import { decode } from 'jsonwebtoken';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('user');
-
+  const router = useRouter();
   const {login} = useLogin()
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -30,9 +32,7 @@ function Login() {
           userType,
         });
         const token = localStorage.getItem('token');
-        if(token){
-          alert('Inicio de sesion con exito')
-        }
+        if (token) router.push('/users/' + (decode(token) as { id: string })?.id);
       } catch (error) {
         if (error instanceof Error) {
           alert('Error de inicio de sesión: ' + error.message);

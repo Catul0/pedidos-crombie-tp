@@ -63,6 +63,7 @@ export const LoginProvider = ({ children }: Children) => {
 
   // funcion logout
   const logout = () => {
+    localStorage.removeItem('token');
   };
 
   return (
