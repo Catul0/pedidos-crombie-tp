@@ -30,7 +30,6 @@ function Login() {
           userType,
         });
         const token = localStorage.getItem('token');
-        console.log('el token es',token)
         if(token){
           alert('Inicio de sesion con exito')
         }

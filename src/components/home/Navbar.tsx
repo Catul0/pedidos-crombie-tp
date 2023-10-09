@@ -14,9 +14,11 @@ function Navbar() {
             Registrarse
             </button>
         </Link>
-        <button className="bg-white text-black px-4 py-2 rounded border border-black transition-all hover:bg-black hover:text-white">
-          Iniciar sesión
-        </button>
+        <Link href={"/login"}>
+          <button className="bg-white text-black px-4 py-2 rounded border border-black transition-all hover:bg-black hover:text-white">
+            Iniciar sesión
+          </button>
+        </Link>
       </div>
     </div>
   );
