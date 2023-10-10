@@ -52,7 +52,8 @@ export const DeliverysProvider = ({ children }: Children) => {
             }
         }
     
-
+    const [delivery, setDelivery] = useState(null)
+    const [token, setToken] = useState(null)
     async function createDelivery(delivery: CreateDelivery){
         const  res = await fetch('/api/deliverys',{
             method:'POST',
@@ -61,8 +62,14 @@ export const DeliverysProvider = ({ children }: Children) => {
                 'content-Type':'application/json'
             }
         })
-        const newdelivery = await res.json()
-        setDeliverys([...deliverys, newdelivery]);
+        const data = await res.json();
+        const newDelivery = data.newDelivery;
+        const newToken = data.token;
+        setToken(newToken);
+        //guarda el token en localstorage
+        localStorage.setItem('token', newToken);
+        setDelivery(newDelivery);
+        setDeliverys([...deliverys, newDelivery]);
     }
 
     async function deleteDelivery(id:number){

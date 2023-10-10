@@ -2,6 +2,7 @@ export interface Delivery {
     id: number;
     name: string;
     lastName: string;
+    rol: string;
     email: string;
     password: string;
 }

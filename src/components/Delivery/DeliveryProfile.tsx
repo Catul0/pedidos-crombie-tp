@@ -14,7 +14,8 @@ export default function DeliveryProfile({ params }: { params: { id: string } }) 
     useEffect(() => {
         loadDeliveryProfile(Number(id));
         loadSellerVehicles(Number(id));
-    }, [sellerCar])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     const car:any = sellerCar;
     return (
         <div className='bg-gray-600 h-[200vh]'>

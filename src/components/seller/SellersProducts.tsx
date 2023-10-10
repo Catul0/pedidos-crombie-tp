@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import ProductCard from '../product/ProductCard';
 import { useProducts } from '@/context/ProductContext';
 import Link from 'next/link';
 
 
 
-function SellersProducts({ params }: {params: {id: string}}) {
+function SellersProducts({ params, isTrue }: { params: { id: string }, isTrue: boolean | null}) {
     const { products,loadSellerProducts } = useProducts();
     const id = Number(params.id) 
     //const [loadedProducts, setLoadedProducts] = useState([]); // Estado para almacenar los productos cargados
@@ -13,6 +13,7 @@ function SellersProducts({ params }: {params: {id: string}}) {
     useEffect(() => {
         // Cargar los productos del vendedor cuando se monta el componente
         loadSellerProducts(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -24,7 +25,7 @@ function SellersProducts({ params }: {params: {id: string}}) {
                 {
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 px-8 ">
                         {products.map(product => (
-                            <ProductCard product={product} key={product.id} />
+                            <ProductCard product={product} key={product.id} isTrue={isTrue} />
                         ))}
                     </div>}
             </div>

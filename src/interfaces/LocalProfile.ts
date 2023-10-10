@@ -7,11 +7,19 @@ export interface sellerProfile {
     name: string;
     address: string;
     city: string;
+    rol: string;
     password: string;
     email: string;
 }
 
-export type CreateLocalProfile = Omit<sellerProfile, 'id'>;
+export type CreateLocalProfile = {
+    description: string;
+    name: string;
+    address: string;
+    city: string;
+    password: string;
+    email: string;
+}
 
 export interface UpdateProfile {
     description?: string;
