@@ -21,7 +21,7 @@ function RegisterDelivery() {
       password,
     });
   }}
-  className="max-w-md mx-auto p-4 bg-white rounded shadow grid grid-cols-2 gap-4"
+  className="max-w-md p-4 bg-white rounded shadow grid grid-cols-2 gap-4"
 >
   <div className="mb-4">
     <label className="block text-gray-700 text-sm font-bold mb-2">Name:</label>
