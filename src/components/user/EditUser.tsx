@@ -64,7 +64,8 @@ function EditUser() {
   </div>
   <div className="mb-4">
     <label className="block text-gray-700 text-sm font-bold mb-2">Phone:</label>
-    <textarea
+    <input
+      type='text'
       name="description"
       value={phone}
       className="w-full border border-gray-300 rounded p-2"
