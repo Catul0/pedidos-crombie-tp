@@ -36,7 +36,6 @@ export const useLogin = () => {
 
 export const LoginProvider = ({ children }: Children) => {
   const [user, setUser] = useState<User | null>(null);
-
   const login = async (data: LoginData) => {
 
     try {
@@ -63,7 +62,8 @@ export const LoginProvider = ({ children }: Children) => {
 
   // funcion logout
   const logout = () => {
-    localStorage.setItem('token', '');
+    localStorage.removeItem('token');
+    
   };
 
   return (

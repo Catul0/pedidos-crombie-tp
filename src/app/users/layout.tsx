@@ -2,6 +2,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { UsersProvider } from '@/context/UserContext'
+import { LoginProvider } from '@/context/LoginContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,8 +19,11 @@ export default function UserLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        
         <UsersProvider>
+            <LoginProvider>
             {children}
+            </LoginProvider>
         </UsersProvider>
       </body>
     </html>
