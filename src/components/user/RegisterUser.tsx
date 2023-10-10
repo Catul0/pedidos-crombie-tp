@@ -103,8 +103,17 @@ function RegisterUser() {
       required
     />
   </div>
+  <div className="mb-4">
+    <label className="block text-gray-700 text-sm font-bold mb-2">Confirm Password:</label>
+    <input
+      type="password"
+      name="password"
+      className="w-full border border-gray-300 rounded p-2"
+      required
+    />
+  </div>
   <button
-    className="col-span-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    className="col-span-2 bg-[#C63D2F] hover:bg-[#A53021] text-white font-bold py-2 px-4 rounded"
   >
     Register
   </button>

@@ -89,7 +89,7 @@ function RegisterSeller() {
     />
   </div>
   <button
-    className="col-span-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    className="col-span-2 bg-[#C63D2F] hover:bg-[#A53021] text-white font-bold py-2 px-4 rounded"
   >
     Register
   </button>

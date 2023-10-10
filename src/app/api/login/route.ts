@@ -40,14 +40,6 @@ export async function POST(req: Request) {
           { status: 400 }
         );
     }
-
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      return NextResponse.json(
-        { message: 'Credenciales invalidas' },
-        { status: 401 }
-      );
-    }
-
     if (!user){
         return NextResponse.json(
             { message: 'El email no esta registrado' },

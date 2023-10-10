@@ -27,7 +27,7 @@ function HomePage() {
         <JoinUs
           imageUrl="https://images.pexels.com/photos/4392039/pexels-photo-4392039.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           paragraphText="Reparte con nosotros"
-          linkPath="/delivery/register"
+          linkPath="/deliverys/register"
           linkText="Registrate como delivery"
         />
       </div>

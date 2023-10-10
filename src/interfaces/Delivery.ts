@@ -7,4 +7,9 @@ export interface Delivery {
     password: string;
 }
 
-export type CreateDelivery = Omit<Delivery, 'id'>;
+export interface CreateDelivery {
+    name: string;
+    lastName: string;
+    email: string;
+    password: string;
+}
