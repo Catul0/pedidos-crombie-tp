@@ -13,7 +13,6 @@ function RegisterSeller() {
   const [contador, setContador] = useState(0);
   const [alert, setAlert] = useState(false);
   const [email, setEmail] = useState('');
-
   const { createLocalProfile } = useLocalProfiles()
 
 
@@ -21,9 +20,9 @@ function RegisterSeller() {
     <form
       onSubmit={async (e) => {
         e.preventDefault();
-        setMatch(password == secondPassword);
+        setMatch(password === secondPassword);
         setContador(contador + 1);
-        if (match) {
+        if (password === secondPassword) {
           setAlert(true)
           await createLocalProfile({
             name,
@@ -36,9 +35,6 @@ function RegisterSeller() {
         } else {
           setAlert(false);
         }
-
-
-
       }}
       className="max-w-md mx-auto p-4 bg-white rounded shadow "
     >
