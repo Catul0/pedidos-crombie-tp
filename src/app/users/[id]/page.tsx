@@ -22,13 +22,13 @@ export default function UsersProfile({ params }: { params: { id: string } }) {
         if (decodedToken.id === Number(id) && decodedToken.rol === 'user') {
           setToken(localStorageToken);
         } else {
-          router.push('/users/register');
+          router.push('/login');
         }
       } catch (error) {
-        router.push('/users/register');
+        router.push('/login');
       }
     } else {
-      router.push('/users/register');
+      router.push('/login');
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
