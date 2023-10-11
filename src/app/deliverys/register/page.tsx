@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import RegisterDelivery from '@/components/delivery/RegisterDelivery';
 import CreateVehicle from '@/components/vehicle/createVehicle';
 import Navbar from '@/components/Navbar';
+import RegisterDelivery from '@/components/Delivery/RegisterDelivery';
 
 const DeliverysRegister = () => {
   const [step, setStep] = useState(1);

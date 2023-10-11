@@ -10,7 +10,6 @@ function FormLogin() {
   const [userType, setUserType] = useState('user');
   const router = useRouter();
   const {login} = useLogin()
-
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -18,11 +17,15 @@ function FormLogin() {
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
-
-  const handleUserTypeChange = (type: string) => {
-    setUserType(type);
-  };
-
+  function goRegister(){
+    if(userType=="user"){
+      router.push("/users/register");
+    }else if ( userType=="local"){
+      router.push("/sellers/register");
+    }else if ( userType=="delivery"){
+      router.push("/deliverys/register");
+    }
+  }
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
@@ -50,19 +53,19 @@ function FormLogin() {
           <div className="flex space-x-2">
             <button
               className={`flex-1 py-1 px-2 rounded-md ${userType === 'user' ? 'bg-[#C63D2F] text-white' : 'bg-gray-300 text-gray-600'}`}
-              onClick={() => handleUserTypeChange('user')}
+              onClick={() => setUserType("user")}
             >
               Usuario
             </button>
             <button
               className={`flex-1 py-1 px-2 rounded-md ${userType === 'delivery' ? 'bg-[#C63D2F] text-white' : 'bg-gray-300 text-gray-600'}`}
-              onClick={() => handleUserTypeChange('delivery')}
+              onClick={() => setUserType("delivery")}
             >
               Delivery
             </button>
             <button
               className={`flex-1 py-1 px-2 rounded-md ${userType === 'local' ? 'bg-[#C63D2F] text-white' : 'bg-gray-300 text-gray-600'}`}
-              onClick={() => handleUserTypeChange('local')}
+              onClick={() => setUserType("local")}
             >
               Local
             </button>
@@ -99,6 +102,9 @@ function FormLogin() {
           </div>
           <button type="submit" className="w-full py-2 px-4 bg-[#C63D2F] text-white rounded-md hover:bg-[#A53021]">
             Iniciar sesión
+          </button>
+          <button type="button" onClick={()=>{ goRegister()}} className="w-full py-2 mt-2 px-4 bg-gray-300 text-gray-600 rounded-md hover:bg-gray-600 hover:text-gray-300">
+            Registrarse
           </button>
         </form>
       </div>

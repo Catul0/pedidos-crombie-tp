@@ -12,10 +12,10 @@ export default function UsersProfile({ params }: { params: { id: string } }) {
   useEffect(() => {
     const localStorageToken = localStorage.getItem('token');
 
-    //primero se fija si tiene token, si no tiene (en el else), lo manda a registrarse
+    //primero se fija si tiene token, si no tiene (en el else), lo manda a loguearse (ANTES SERA REGISTRARSE, PERO EM PARECE MEJOR QUE TE MANDE A REGISTRARSE)
     if (localStorageToken) {
       // si tiene token, verifica que el id del token sea igual que el id del perfil al que intenta ingresar
-      //si no es el mismo id lo va a mandar a registrarse, y si el token da error tambien lo manda a registrarse
+      //si no es el mismo id lo va a mandar a Logearse, y si el token da error tambien lo manda a loguearse (ANTES SERA REGISTRARSE, PERO EM PARECE MEJOR QUE TE MANDE A REGISTRARSE)
       try {
         const decodedToken: any = decode(localStorageToken);
 
