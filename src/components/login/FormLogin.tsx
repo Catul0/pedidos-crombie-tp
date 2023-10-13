@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { decode } from 'jsonwebtoken';
 
 function FormLogin() {
+  const [error, setError] = useState("");
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('user');
@@ -20,7 +21,7 @@ function FormLogin() {
   function goRegister(){
     if(userType=="user"){
       router.push("/users/register");
-    }else if ( userType=="local"){
+    }else if ( userType=="seller"){
       router.push("/sellers/register");
     }else if ( userType=="delivery"){
       router.push("/deliverys/register");
@@ -35,10 +36,10 @@ function FormLogin() {
           userType,
         });
         const token = localStorage.getItem('token');
-        if (token) router.push('/users/' + (decode(token) as { id: string })?.id);
+        if (token) router.push(`/${userType}s/${(decode(token) as { id: string })?.id}`);
       } catch (error) {
         if (error instanceof Error) {
-          alert('Error de inicio de sesión: ' + error.message);
+          setError(error.message);
         }
       }
   };
@@ -52,20 +53,20 @@ function FormLogin() {
           </label>
           <div className="flex space-x-2">
             <button
-              className={`flex-1 py-1 px-2 rounded-md ${userType === 'user' ? 'bg-[#C63D2F] text-white' : 'bg-gray-300 text-gray-600'}`}
+              className={`flex-1 py-1 px-2 rounded-md ${userType === 'user' ? 'bg-[#FF441F] text-white' : 'bg-gray-300 text-gray-600'}`}
               onClick={() => setUserType("user")}
             >
               Usuario
             </button>
             <button
-              className={`flex-1 py-1 px-2 rounded-md ${userType === 'delivery' ? 'bg-[#C63D2F] text-white' : 'bg-gray-300 text-gray-600'}`}
+              className={`flex-1 py-1 px-2 rounded-md ${userType === 'delivery' ? 'bg-[#FF441F] text-white' : 'bg-gray-300 text-gray-600'}`}
               onClick={() => setUserType("delivery")}
             >
               Delivery
             </button>
             <button
-              className={`flex-1 py-1 px-2 rounded-md ${userType === 'local' ? 'bg-[#C63D2F] text-white' : 'bg-gray-300 text-gray-600'}`}
-              onClick={() => setUserType("local")}
+              className={`flex-1 py-1 px-2 rounded-md ${userType === 'seller' ? 'bg-[#FF441F] text-white' : 'bg-gray-300 text-gray-600'}`}
+              onClick={() => setUserType("seller")}
             >
               Local
             </button>
@@ -100,7 +101,13 @@ function FormLogin() {
               required
             />
           </div>
-          <button type="submit" className="w-full py-2 px-4 bg-[#C63D2F] text-white rounded-md hover:bg-[#A53021]">
+          {error && (
+            <div className="text-red-600 mb-2">
+              {error}
+            </div>
+          )}
+
+          <button type="submit" className="w-full py-2 px-4 bg-[#FF441F] text-white rounded-md hover:bg-[#A53021]">
             Iniciar sesión
           </button>
           <button type="button" onClick={()=>{ goRegister()}} className="w-full py-2 mt-2 px-4 bg-gray-300 text-gray-600 rounded-md hover:bg-gray-600 hover:text-gray-300">

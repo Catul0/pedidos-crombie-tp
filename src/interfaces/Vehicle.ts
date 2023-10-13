@@ -6,7 +6,6 @@ export interface Vehicle {
     vehicleOwner: number;
     color: string;
     year:number;
-   
 }
 export interface SellersVehicle {
     id?:number

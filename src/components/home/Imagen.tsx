@@ -8,8 +8,8 @@ function Imagen() {
         <div className='flex flex-col justify-center items-center mb-[30px]'>
             <h1 className="text-white text-4xl font-bold">¡Pedí lo que quieras!</h1>
             <p className="text-white text-1xl font-bold">Restaurantes, mercados, kioscos, farmacias y mucho mas.</p>
+            <p className="text-white text-1xl font-bold">Inicia sesión o registrate para comenzar</p>
         </div>
-        <input className="w-[500px] h-[40px] rounded border" type="text" placeholder='Ingresa tu dirección'/>
     </div>
   );
 }

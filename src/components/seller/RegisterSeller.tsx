@@ -1,6 +1,8 @@
 "use client"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocalProfiles } from '@/context/LocalProfileContext';
+import { useRouter } from 'next/navigation';
+import { decode } from 'jsonwebtoken';
 
 function RegisterSeller() {
   const [name, setName] = useState('');
@@ -14,6 +16,7 @@ function RegisterSeller() {
   const [alert, setAlert] = useState(false);
   const [email, setEmail] = useState('');
   const { createLocalProfile } = useLocalProfiles()
+  const router = useRouter();
 
 
   return (
@@ -32,6 +35,8 @@ function RegisterSeller() {
             email,
             password,
           });
+          const token = localStorage.getItem('token');
+          if (token) router.push(`/sellers/${(decode(token) as { id: string })?.id}`);
         } else {
           setAlert(false);
         }
@@ -116,7 +121,7 @@ function RegisterSeller() {
         (match == false && contador > 0) ? <div className="mb-4 span-2"><p className="block text-white text-center bg-[#A53021] text-sm font-bold mb-2">Passwords do not match</p></div> : <p></p>
       }
       {
-        alert ? <div className="mb-4 span-2"><p className="block text-white text-center bg-green-400 text-sm font-bold mb-2">Register Succes</p></div> : <p></p>
+        alert ? <div className="mb-4 span-2"><p className="block text-white text-center bg-green-400 text-sm font-bold mb-2 rounded">Register Succes</p></div> : <p></p>
       }
       <button
         className="col-span-2 bg-[#C63D2F] hover:bg-[#A53021] text-white font-bold py-2 px-4 rounded"

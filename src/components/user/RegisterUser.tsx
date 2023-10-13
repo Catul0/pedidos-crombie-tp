@@ -1,6 +1,8 @@
 "use client"
 import {useState} from 'react';
 import { useUsers } from '@/context/UserContext';
+import { useRouter } from 'next/navigation';
+import { decode } from 'jsonwebtoken';
 
 function RegisterUser() {
     const [name, setName] = useState('');
@@ -10,6 +12,8 @@ function RegisterUser() {
     const [city, setCity] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [alert, setAlert] = useState(false);
+    const router = useRouter();
 
     const {createUser} = useUsers()
 
@@ -17,6 +21,7 @@ function RegisterUser() {
 <form
   onSubmit={async (e) => {
     e.preventDefault();
+    setAlert(true)
     await createUser({
       name,
       lastName,
@@ -27,10 +32,7 @@ function RegisterUser() {
       password,
     });
     const token = localStorage.getItem('token');
-    console.log(token)
-    if(token){
-      alert('registrado con exito')
-    }
+    if (token) router.push(`/users/${(decode(token) as { id: string })?.id}`);
   }}
   className="max-w-md mx-auto p-4 bg-white rounded shadow grid grid-cols-2 gap-4"
 >

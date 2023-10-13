@@ -17,27 +17,28 @@ export default function DeliveryProfile({ params }: { params: { id: string } }) 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     const car:any = sellerCar;
+    console.log(car)
     return (
-        <div className='bg-gray-600 h-[200vh]'>
-            <div className='max-w-sm  m-auto '>
-                <div className="  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                    <div className="p-5">
-
-                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{delivery.name} {delivery.lastName}</h5>
-                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Puntaje Promedio {delivery.averageScore}</p>
-                    </div>
-                </div>
-                <VehicleCard car={car} />
-                <button
-                    onClick={()=>{
-                        setCargarAuto(!cargarAuto);
-                    }}
-                 className='bg-gray-800 rounded-lg text-2xl w-[100%] text-white max-w-sm border-gray-200 px-4 '>{cargarAuto?"Cancelar":"Cargar Nuevo Auto"}</button>
-            </div>
-            {
-                cargarAuto? <CreateVehicle params={params} /> : <p></p>
-            }
-            
-        </div>
+    <div className='bg-gray-600 min-h-screen flex justify-center items-center'>
+    
+    <div className='max-w-md bg-white rounded-lg shadow-lg p-6'>
+      <div className="text-center">
+        <h2 className="text-3xl font-bold text-gray-900">{delivery.name} {delivery.lastName}</h2>
+        <p className="text-gray-700 mb-4">Puntaje Promedio: {delivery.averageScore}</p>
+      </div>
+      <div className="border-t border-gray-200 mt-6 pt-6">
+        <VehicleCard car={car} />
+      </div>
+      <button
+        onClick={() => {
+          setCargarAuto(!cargarAuto);
+        }}
+        className='bg-gray-800 text-white text-xl mt-4 py-2 px-4 rounded-full w-full'>
+        {cargarAuto ? "Cancelar" : "Cargar Nuevo Auto"}
+      </button>
+    </div>
+    {cargarAuto ? <CreateVehicle params={params} /> : null}
+  </div>
+  
     )
 }

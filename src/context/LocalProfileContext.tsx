@@ -27,7 +27,7 @@ export const LocalProfileContext = createContext<{
     updateLocalProfile: async (id:number,local: UpdateProfile) => { },
     deleteLocalProfile: async (id: number) => { },
     selectedSeller: null,
-    setSelectedSeller:(seller:LocalProfile | null) => {}
+    setSelectedSeller:(seller:LocalProfile | null) => {},
 })
 
 export const useLocalProfiles = () =>{

@@ -27,7 +27,7 @@ export async function POST(req: Request) {
           },
         });
         break;
-      case 'local':
+      case 'seller':
         user = await prisma.localProfile.findUnique({
           where: {
             email: email,

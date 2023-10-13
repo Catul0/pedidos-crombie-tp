@@ -1,5 +1,4 @@
 "use client"
-import Buttons from "@/components/home/Buttons";
 import Navbar from "@/components/home/Navbar";
 import Imagen from "@/components/home/Imagen";
 import JoinUs from "@/components/home/JoinUs";
@@ -31,7 +30,6 @@ function HomePage() {
           linkText="Registrate como delivery"
         />
       </div>
-      <Buttons/>
     </div>
   );
 }

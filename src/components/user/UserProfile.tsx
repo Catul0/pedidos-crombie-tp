@@ -1,12 +1,24 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react';
+import React, {useState} from 'react';
 import { useUsers } from '@/context/UserContext';
 import EditUser from './EditUser';
 import { useEffect } from 'react';
 import { useLogin } from '@/context/LoginContext';
 import { useRouter } from 'next/navigation';
+import Popup from '../PopUp';
 
 const UserProfile = ({ params }: { params: { id: string } }) => {
+  const [showPopup, setShowPopup] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShowPopup(false);
+    }, 5000); // Oculta el popup después de 5 segundos
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
   const { logout } = useLogin();
   const { userProfiles, loaduserProfile, setSelectedUser, selectedUser } = useUsers();
   const id = params.id;
@@ -19,6 +31,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
+    {showPopup && <Popup message={`¡Hola ${user.name}!`} />}
       {/* lado izq */}
       <div className="w-1/3 bg-[#FFBB5C] p-6">
         <div className='bg-white rounded p-5'>
