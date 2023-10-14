@@ -40,11 +40,9 @@ export const ProductsProvider = ({ children }: Children) => {
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
     async function loadProducts() {
-
         const res = await fetch("/api/product");
         const data = await res.json();
         setProducts(data);
-
     }
 
     //funcion para cargar los productos de 1 vendedor-----------------------------------------------------------------------------------------------------
