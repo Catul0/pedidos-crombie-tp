@@ -11,7 +11,7 @@ export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
   const cookieStore = request.cookies;
 //   estas rutas son a las que se les permite acceder sin token
-  if (['/', '/login', '/users/register', '/deliverys/register', '/sellers/register', '/api/login', '/api/deliverys', '/api/users'].includes(request.nextUrl.pathname)) {
+  if (['/', '/login', '/users/register', '/deliverys/register', '/sellers/register', '/api/login', '/api/deliverys', '/api/users', '/api/locals'].includes(request.nextUrl.pathname)) {
     return response;
   }
 
@@ -53,6 +53,7 @@ export async function middleware(request: NextRequest) {
       return response;
     }
 
+    
   } catch (err: any) {
     //en caso de error
      return NextResponse.json({ error: err.message }, { status: 401 });

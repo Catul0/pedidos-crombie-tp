@@ -1,8 +1,10 @@
 "use client"
 import { useEffect, useState } from 'react';
 import { useLocalProfiles } from '@/context/LocalProfileContext';
-import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 import { decode } from 'jsonwebtoken';
+import { useRouter } from 'next/navigation';
+
 
 function RegisterSeller() {
   const [name, setName] = useState('');
@@ -35,7 +37,7 @@ function RegisterSeller() {
             email,
             password,
           });
-          const token = localStorage.getItem('token');
+          const token: any = Cookies.get('token');
           if (token) router.push(`/sellers/${(decode(token) as { id: string })?.id}`);
         } else {
           setAlert(false);

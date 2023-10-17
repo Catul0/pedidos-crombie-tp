@@ -3,6 +3,7 @@ import {Prisma} from '@prisma/client'
 import {prisma} from '@/libs/prisma'
 import bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
+import { cookies } from "next/headers";
 
 export async function GET() {
     try {
@@ -20,6 +21,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+    const cookieStore = cookies()
     try {
         const {description, name, address, city, logo, type, averageScore=null, password, email} = await request.json()
         const hash = await bcrypt.hash(password, 10);
@@ -37,7 +39,11 @@ export async function POST(request: Request) {
                 email
             }
         })
-        const token = sign(newLocalProfile, 'LOCALSECRETO', { expiresIn: '1h' });
+        const token = sign({ id: newLocalProfile.id, rol: newLocalProfile.rol }, 'SECRETO', {
+            expiresIn: '1h',
+        });
+      
+        cookieStore.set("token", token);
         return NextResponse.json({newLocalProfile, token});
     } catch (error) {
         // el error P2002 es el codigo de error de cuando un email ya se encuentra en la base de datos

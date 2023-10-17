@@ -3,6 +3,7 @@ import SellerProfile from '@/components/seller/SellerProfile'
 import React, { useEffect } from 'react'
 import { useState} from 'react';
 import { decode } from 'jsonwebtoken';
+import Cookies from 'js-cookie';
 
 //ACA SE VA A MOSTRAR EL PERFIL DEL NEGOCIO
 export default function SellersProfile({params}:{params:{id:string}} ) {
@@ -12,13 +13,13 @@ export default function SellersProfile({params}:{params:{id:string}} ) {
   const [isTrue, setisTrue] = useState<boolean|null>(null);
 
   useEffect(() => {
-    const localStorageToken = localStorage.getItem('token');
+    const token: any = Cookies.get('token');
     //primero se fija si tiene token, si no tiene (en el else), lo setea en false
-    if (localStorageToken) {
+    if (token) {
       // si tiene token, verifica que el id del token sea igual que el id del perfil al que intenta ingresar
       //si no es el mismo id lo va a setear en false y si no esta registrado o sea no hay token tambien
       try {
-        const decodedToken: any = decode(localStorageToken);
+        const decodedToken: any = decode(token);
 
         if (decodedToken.id === Number(id) && decodedToken.rol === 'seller') {
           setisTrue(true)

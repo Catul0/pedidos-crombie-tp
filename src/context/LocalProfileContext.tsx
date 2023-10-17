@@ -64,7 +64,6 @@ export const LocalProfilesProvider = ({ children }: Children) => {
     //esta funcion lo que hace es crear un nuevo negocio, y ademas agrega al estado donde estan todos los negocios el nuevo
     //despues uno tiene que mostrar el estado ese nomas y se muestra actualizado
     const [local, setLocal] = useState(null)
-    const [token, setToken] = useState(null)
     async function createLocalProfile(localProfile:CreateLocalProfile){
         const  res = await fetch('/api/locals',{
             method:'POST',
@@ -75,10 +74,6 @@ export const LocalProfilesProvider = ({ children }: Children) => {
         })
         const data = await res.json();
         const newLocal = data.newLocalProfile;
-        const newToken = data.token;
-        setToken(newToken);
-        //guarda el token en localstorage
-        localStorage.setItem('token', newToken);
         setLocal(newLocal);
         setlocalProfiles([...localProfiles, newLocal]);
     }
