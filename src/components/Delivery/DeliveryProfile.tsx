@@ -19,7 +19,6 @@ export default function DeliveryProfile({ params }: { params: { id: string } }) 
   }, [id]);
 
   const car: any = sellerCar;
-  console.log(car);
 
   useEffect(() => {
     // Verificar si el contenido de car es "vehicle not found" y mostrar el mensaje
