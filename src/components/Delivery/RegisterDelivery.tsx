@@ -12,6 +12,7 @@ function RegisterDelivery() {
     const [password, setPassword] = useState('');
     const {createDelivery} = useDeliverys()
     const router = useRouter()
+    
   return (
 <form
   onSubmit={async (e) => {

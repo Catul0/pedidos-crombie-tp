@@ -11,7 +11,7 @@ export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
   const cookieStore = request.cookies;
 //   estas rutas son a las que se les permite acceder sin token
-  if (['/', '/login', '/users/register', '/deliverys/register', '/sellers/register', '/api/login', '/api/deliverys'].includes(request.nextUrl.pathname)) {
+  if (['/', '/login', '/users/register', '/deliverys/register', '/sellers/register', '/api/login', '/api/deliverys', '/api/users'].includes(request.nextUrl.pathname)) {
     return response;
   }
 
@@ -26,7 +26,6 @@ export async function middleware(request: NextRequest) {
     // si la ruta comienza con /search y el rol del user no es 'user' no lo deja ver
     if (request.nextUrl.pathname.startsWith("/search")) {
       if (decodedToken.rol !== 'user') {
-        console.log('no autorizado')
         throw Error("unauthorized");
       }
       return response;
@@ -39,7 +38,6 @@ export async function middleware(request: NextRequest) {
       const userIdFromPath = Number(request.nextUrl.pathname.split("/")[2]);
       // Compara el id del usuario en la ruta con el id en el token
       if (decodedToken.id !== userIdFromPath || decodedToken.rol !== 'user') {
-        console.log('no autorizado');
         throw Error("unauthorized");
       }
       return response;

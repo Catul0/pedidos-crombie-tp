@@ -61,7 +61,6 @@ export const UsersProvider = ({ children }: Children) => {
     //esta funcion lo que hace es crear un nuevo usuario, y ademas agrega al estado donde estan todos los usuarios el nuevo
     //despues uno tiene que mostrar el estado ese nomas y se muestra actualizado
     const [user, setUser] = useState(null)
-    const [token, setToken] = useState(null)
     async function createUser(user: CreateUser){
         const res = await fetch('/api/users',{
             method:'POST',
@@ -72,11 +71,6 @@ export const UsersProvider = ({ children }: Children) => {
         })
         const data = await res.json();
         const newUser = data.user;
-        const newToken = data.token;
-        console.log(newUser)
-        setToken(newToken);
-        //guarda el token en localstorage
-        localStorage.setItem('token', newToken);
         setUser(newUser);
         setUsers([...users, newUser]);
     }

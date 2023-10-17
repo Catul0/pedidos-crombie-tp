@@ -1,8 +1,9 @@
 "use client"
 import { useState } from 'react';
 import { useUsers } from '@/context/UserContext';
-import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 import { decode } from 'jsonwebtoken';
+import { useRouter } from 'next/navigation';
 
 function RegisterUser() {
   const [name, setName] = useState('');
@@ -22,7 +23,7 @@ function RegisterUser() {
       onSubmit={async (e) => {
         e.preventDefault();
         setMatch(password === secondPassword)
-        if(password === secondPassword){
+        // if(password === secondPassword){
           setAlert(true)
           await createUser({
             name,
@@ -33,11 +34,11 @@ function RegisterUser() {
             email,
             password,
           });
-          const token = localStorage.getItem('token');
+          const token: any = Cookies.get('token');
           if (token) router.push(`/users/${(decode(token) as { id: string })?.id}`);
-        }else{
-          setAlert(false);
-        }
+        // }else{
+        //   setAlert(false);
+        // }
 
       }}
       className="max-w-md mx-auto p-4 bg-white rounded shadow grid grid-cols-2 gap-4"
