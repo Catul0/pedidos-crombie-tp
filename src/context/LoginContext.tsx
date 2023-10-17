@@ -50,8 +50,6 @@ export const LoginProvider = ({ children }: Children) => {
     
         if (response.ok) {
           setUser(result.user);
-          const newToken = result.token;
-          localStorage.setItem('token', newToken);
         } else {
           throw new Error(result.message);
         }

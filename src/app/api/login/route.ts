@@ -1,12 +1,14 @@
 import { PrismaClient, Prisma } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
 const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   const { email, password, userType } = await req.json();
+  const cookieStore = cookies();
 
   //va a buscar en x tabla segun el valor de userType que le mandamos por front
   try {
@@ -40,6 +42,7 @@ export async function POST(req: Request) {
           { status: 400 }
         );
     }
+    
     if (!user){
         return NextResponse.json(
             { message: 'El email no esta registrado' },
@@ -55,8 +58,11 @@ export async function POST(req: Request) {
     const token = sign({ id: user.id, rol: userType }, 'SECRETO', {
       expiresIn: '1h',
     });
+
+    cookieStore.set("token", token);
+
+    return NextResponse.json({ status: 200 });
     
-    return NextResponse.json({ token }, { status: 200 });
   } catch (error) {
     console.error('Error de inicio de sesión:', error);
     return NextResponse.json(

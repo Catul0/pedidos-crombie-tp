@@ -2,6 +2,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useLogin } from '@/context/LoginContext';
 import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 import { decode } from 'jsonwebtoken';
 
 function FormLogin() {
@@ -35,7 +36,8 @@ function FormLogin() {
           password,
           userType,
         });
-        const token = localStorage.getItem('token');
+        // aca tengo que obtener el id del usuario mediante su cookie 
+        const token: any = Cookies.get('token');
         if (token) router.push(`/${userType}s/${(decode(token) as { id: string })?.id}`);
       } catch (error) {
         if (error instanceof Error) {
@@ -48,7 +50,7 @@ function FormLogin() {
       <div className="bg-white p-8 rounded shadow-md w-96">
         <h2 className="text-2xl font-semibold mb-4">Iniciar sesión</h2>
         <div className="mb-4">
-          <label htmlFor="userType" className="block text-sm font-medium text-gray-600">
+          <label className="block text-sm font-medium text-gray-600">
             Tipo de usuario:
           </label>
           <div className="flex space-x-2">

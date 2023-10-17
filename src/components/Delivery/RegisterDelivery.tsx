@@ -1,15 +1,17 @@
 "use client"
 import {useState} from 'react';
 import { useDeliverys } from '@/context/DeliveryContext';
+import Cookies from 'js-cookie';
+import { decode } from 'jsonwebtoken';
+import { useRouter } from 'next/navigation';
 
 function RegisterDelivery() {
     const [name, setName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const {createDelivery} = useDeliverys()
-
+    const router = useRouter()
   return (
 <form
   onSubmit={async (e) => {
@@ -20,6 +22,8 @@ function RegisterDelivery() {
       email,
       password,
     });
+    const token: any = Cookies.get('token');
+    if (token) router.push(`/deliverys/${(decode(token) as { id: string })?.id}`);
   }}
   className="max-w-md p-4 bg-white rounded shadow grid grid-cols-2 gap-4"
 >
