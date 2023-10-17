@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { LoginProvider } from '@/context/LoginContext'
+import Navbar from '@/components/Navbar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,7 +19,8 @@ export default function LoginLayout({
     <html lang="en">
       <body className={inter.className}>
         <LoginProvider>
-            {children}
+          <Navbar text="Pedidos Crombie" />
+          {children}
         </LoginProvider>
       </body>
     </html>
