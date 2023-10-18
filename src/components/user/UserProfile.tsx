@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useLogin } from '@/context/LoginContext';
 import { useRouter } from 'next/navigation';
 import Popup from '../PopUp';
+import Link from 'next/link';
 
 const UserProfile = ({ params }: { params: { id: string } }) => {
   const [showPopup, setShowPopup] = useState(true);
@@ -33,8 +34,8 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
     <div className="flex min-h-screen bg-gray-100">
     {showPopup && <Popup message={`¡Hola ${user.name}!`} />}
       {/* lado izq */}
-      <div className="w-1/3 bg-[#FFBB5C] p-6">
-        <div className='bg-white rounded p-5'>
+      <div className="w-1/4 bg-white p-6">
+        <div className='bg-white rounded p-5  shadow-lg'>
           <div className="text-center">
             <img
               className="w-16 h-16 rounded-full border-4 border-[#FF9B50] mx-auto"
@@ -81,7 +82,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
       </div>
 
       {/* lado derecho, pedidos */}
-      <div className="w-2/3 p-6">
+      <div className="w-2/4 p-6 flex flex-col items-center bg-white">
         <h3 className="text-2xl font-semibold text-gray-800">Historial de Pedidos</h3>
         {user.orders && user.orders.length > 0 ? (
           <ul className="mt-4">
@@ -92,7 +93,16 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
             </li>
           </ul>
         ) : (
-          <p className="text-gray-600 mt-4">No tienes pedidos aún.</p>
+          <div className="flex flex-col items-center">
+            <img src="/orderbag.jpg" alt="" className="w-1/4 h-auto mt-4"/>
+            <p className="text-l font-bold text-black mt-4">Aun no has realizado pedidos</p>
+            <p className="text-s text-black">Buscá entre todas nuestras opciones y disfruta de tu primer pedido</p>
+            <Link href={'/search'}>
+            <button className="bg-[#FF9B50] hover:bg-[#A53021] text-white py-2 px-4 rounded-lg mt-4">
+              Hacer pedido
+            </button>
+            </Link>
+          </div>
         )}
       </div>
     </div>
