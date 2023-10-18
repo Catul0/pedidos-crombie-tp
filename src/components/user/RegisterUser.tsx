@@ -127,7 +127,7 @@ function RegisterUser() {
         </div>
       </div>
       {
-        (match == false) ? <div className="mb-4 span-2"><p className="block text-white text-center bg-[#A53021] text-sm font-bold mb-2">Passwords do not match</p></div> : <p></p>
+        (match === false) ? <div className="mb-4 span-2"><p className="block text-white text-center bg-[#A53021] text-sm font-bold mb-2">Passwords do not match</p></div> : <p></p>
       }
       {
         alert ? <div className="mb-4 span-2"><p className="block text-white text-center bg-green-400 text-sm font-bold mb-2 rounded">Register Succes</p></div> : <p></p>

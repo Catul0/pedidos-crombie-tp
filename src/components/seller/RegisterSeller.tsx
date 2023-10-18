@@ -13,8 +13,7 @@ function RegisterSeller() {
   const [city, setCity] = useState('');
   const [password, setPassword] = useState('');
   const [secondPassword, setSecondPassword] = useState('');
-  const [match, setMatch] = useState(false);
-  const [contador, setContador] = useState(0);
+  const [match, setMatch] = useState(true);
   const [alert, setAlert] = useState(false);
   const [email, setEmail] = useState('');
   const { createLocalProfile } = useLocalProfiles()
@@ -26,7 +25,6 @@ function RegisterSeller() {
       onSubmit={async (e) => {
         e.preventDefault();
         setMatch(password === secondPassword);
-        setContador(1);
         if (password === secondPassword) {
           setAlert(true)
           await createLocalProfile({
@@ -122,7 +120,7 @@ function RegisterSeller() {
         </div>
       </div>
       {
-        (match == false && contador === 1) ? <div className="mb-4 span-2"><p className="block text-white text-center bg-[#A53021] text-sm font-bold mb-2">Passwords do not match</p></div> : <p></p>
+        (match === false ) ? <div className="mb-4 span-2"><p className="block text-white text-center bg-[#A53021] text-sm font-bold mb-2">Passwords do not match</p></div> : <p></p>
       }
       {
         alert ? <div className="mb-4 span-2"><p className="block text-white text-center bg-green-400 text-sm font-bold mb-2 rounded">Register Succes</p></div> : <p></p>
