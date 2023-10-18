@@ -38,7 +38,9 @@ function RegisterSeller() {
             password,
           });
           const token: any = Cookies.get('token');
-          if (token) router.push(`/sellers/${(decode(token) as { id: string })?.id}`);
+          setTimeout(()=>{
+            if (token) router.push(`/sellers/${(decode(token) as { id: string })?.id}`);
+          },3000)
         } else {
           setAlert(false);
         }
