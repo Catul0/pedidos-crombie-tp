@@ -19,7 +19,7 @@ export default function LoginLayout({
     <html lang="en">
       <body className={inter.className}>
         <LoginProvider>
-          <Navbar text="Pedidos Crombie" />
+          <Navbar text="Pedidos Crombie - Bienvenido de vuelta!" />
           {children}
         </LoginProvider>
       </body>

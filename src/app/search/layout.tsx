@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ProductsProvider } from '@/context/ProductContext'
 import { LocalProfilesProvider } from '@/context/LocalProfileContext'
+import Navbar from '@/components/Navbar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,6 +21,7 @@ export default function SearchLayout({
       <body className={inter.className}>
         <LocalProfilesProvider>
           <ProductsProvider>
+          <Navbar text="Pedidos Crombie - Busca lo que quieras" />
           {children}
           </ProductsProvider>
         </LocalProfilesProvider>
