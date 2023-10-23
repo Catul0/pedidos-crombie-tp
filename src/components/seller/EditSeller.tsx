@@ -34,13 +34,12 @@ function EditSeller() {
       city,
       logo
     });
-    console.log(id)
     setSelectedSeller(null);
   }}
   className="max-w-md mx-auto p-4 bg-white rounded shadow "
 >
   <div className="mb-4">
-    <label className="block text-gray-700 text-sm font-bold mb-2">Name:</label>
+    <label className="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
     <input
       type="text"
       name="name"
@@ -51,7 +50,7 @@ function EditSeller() {
   </div>
   
   <div className="mb-4">
-    <label className="block text-gray-700 text-sm font-bold mb-2">Address:</label>
+    <label className="block text-gray-700 text-sm font-bold mb-2">Dirección:</label>
     <input
       type="text"
       name="address"
@@ -61,7 +60,7 @@ function EditSeller() {
     />
   </div>
   <div className="mb-4">
-    <label className="block text-gray-700 text-sm font-bold mb-2">City:</label>
+    <label className="block text-gray-700 text-sm font-bold mb-2">Ciudad:</label>
     <input
       type="text"
       name="city"
@@ -81,7 +80,7 @@ function EditSeller() {
     />
   </div>
   <div className="mb-4">
-    <label className="block text-gray-700 text-sm font-bold mb-2">Description:</label>
+    <label className="block text-gray-700 text-sm font-bold mb-2">Descripción:</label>
     <textarea
       name="description"
       value={description}
@@ -90,9 +89,9 @@ function EditSeller() {
     />
   </div>
   <button
-    className="col-span-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    className="col-span-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
   >
-    Update
+    Guardar
   </button>
 </form>
   );
