@@ -2,11 +2,13 @@
 import React from 'react'
 import { Product } from '@prisma/client'
 import { useProducts } from '@/context/ProductContext'
-
+import { useCart } from '@/context/CartContext';
 
 
 function ProductCard({ product, isTrue }: { product: Product, isTrue: boolean | null }) {
     const { setSelectedProduct,deleteProduct } = useProducts();
+    const { addToCart } = useCart();
+
     return (
         <div key={product.id} className='bg-white p-4 my-2 rounded-md flex justify-between w-full shadow-md border border-gray-300'>
             <div className='h-max max-w-full rounded-lg'>
@@ -19,7 +21,7 @@ function ProductCard({ product, isTrue }: { product: Product, isTrue: boolean | 
                 {
                 // si es false istrue va a mostrarlo y sino no
                 !isTrue && (
-                    <button className='bg-slate-900 text-slate-100 rounded-lg w-[100%]'>COMPRAR</button>
+                    <button onClick={() => addToCart(product)} className='bg-slate-900 text-slate-100 rounded-lg w-[100%]'>COMPRAR</button>
                 )
                 }
                 {/* si isTrue es true va a mostrar los botones y sino no */}

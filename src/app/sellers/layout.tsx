@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ProductsProvider } from '@/context/ProductContext'
 import { LocalProfilesProvider } from '@/context/LocalProfileContext'
-
+import { CartProvider } from '@/context/CartContext'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -19,12 +19,13 @@ export default function SellerLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <CartProvider>
         <LocalProfilesProvider>
           <ProductsProvider>
           {children}
           </ProductsProvider>
         </LocalProfilesProvider>
-        
+        </CartProvider>
       </body>
     </html>
   )

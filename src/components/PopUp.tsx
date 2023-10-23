@@ -16,7 +16,7 @@ const Popup = ({ message }: any) => {
   return (
     visible && (
         <div
-        className={`fixed top-10 right-10 bg-green-500 bg-opacity-70 text-white p-2 rounded shadow-md transform transition-transform duration-300 ${
+        className={`fixed top-17 right-10 bg-green-500 bg-opacity-70 text-white p-2 rounded shadow-md transform transition-transform duration-300 ${
           visible ? 'translate-y-0' : 'translate-y-full'
         }`}
       >
