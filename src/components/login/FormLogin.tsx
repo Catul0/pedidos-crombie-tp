@@ -109,12 +109,11 @@ function FormLogin() {
             </div>
           )}
 
-          <button type="submit" className="w-full py-2 px-4 bg-[#FF441F] text-white rounded-md hover:bg-[#A53021]">
+          <button type="submit" className="w-full py-2 px-4 bg-[#FF441F] text-white rounded-md hover:bg-[#A53021] mb-4">
             Iniciar sesión
           </button>
-          <button type="button" onClick={()=>{ goRegister()}} className="w-full py-2 mt-2 px-4 bg-gray-300 text-gray-600 rounded-md hover:bg-gray-600 hover:text-gray-300">
-            Registrarse
-          </button>
+          <p className='text-sm'>Todavía no tienes una cuenta? <span onClick={()=>{ goRegister()}} className='text-[#FF441F] cursor-pointer text-sm'>Registrate aquí</span></p>
+
         </form>
       </div>
   );

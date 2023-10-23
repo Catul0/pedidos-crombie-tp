@@ -34,7 +34,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
     <div className="flex min-h-screen bg-gray-100">
     {showPopup && <Popup message={`¡Hola ${user.name}!`} />}
       {/* lado izq */}
-      <div className="w-1/4 bg-white p-6">
+      <div className="w-1/3 bg-white p-6">
         <div className='bg-white rounded p-5  shadow-lg'>
           <div className="text-center">
             <img
@@ -82,7 +82,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
       </div>
 
       {/* lado derecho, pedidos */}
-      <div className="w-2/4 p-6 flex flex-col items-center bg-white">
+      <div className="w-2/3 p-6 flex flex-col items-center bg-white shadow-lg">
         <h3 className="text-2xl font-semibold text-gray-800">Historial de Pedidos</h3>
         {user.orders && user.orders.length > 0 ? (
           <ul className="mt-4">
@@ -111,4 +111,3 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
 };
 
 export default UserProfile;
-

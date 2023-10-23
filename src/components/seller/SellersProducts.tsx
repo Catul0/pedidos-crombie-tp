@@ -13,20 +13,19 @@ function SellersProducts({ params, isTrue }: { params: { id: string }, isTrue: b
   }, []);
 
   return (
-    <div className='flex  justify-center bg-slate-900 h-[100%]' id='sellers'>
+    <div className='flex justify-center bg-white h-[100%]' id='sellers'>
       <div className=''>
-        <h1 className="text-white text-center">Tus Productos {id}</h1>
-        <Link className="text-white text-center m-auto" href={'/sellers'}>
+        {/* <h1 className="text-white text-center">Tus Productos {id}</h1>
+        <Link className="text-black text-center m-auto" href={'/sellers'}>
           <h2> VOLVER A LOS VENDEDORES </h2>
-        </Link>
-
+        </Link> */}
         {products.length < 3 && isTrue ? (
-          <div className="bg-red-500 text-white p-2 mt-4 text-center rounded">
-            Tienes menos de 3 productos cargados. Debes ingresar al menos 3 para comenzar a vender.
+          <div className="bg-red-500 text-white p-2 m-4 text-center rounded">
+            Tienes menos de 3 productos cargados. <br /> Debes ingresar al menos 3 para comenzar a vender.
           </div>
         ) : null}
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 px-8 ">
+          <div className="grid grid-cols-2 gap-4 px-8 ">
             {products.map(product => (
               <ProductCard product={product} key={product.id} isTrue={isTrue} />
             ))}

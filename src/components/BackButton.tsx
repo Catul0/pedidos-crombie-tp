@@ -6,7 +6,7 @@ export default function BackButton() {
     const router = useRouter();
     return (
         <p onClick={() => { router.back() }} className="text-black font-semibold cursor-pointer">
-            Volver
+            &lt; Volver
         </p>
     )
 }

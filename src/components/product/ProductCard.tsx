@@ -8,20 +8,25 @@ import { useProducts } from '@/context/ProductContext'
 function ProductCard({ product, isTrue }: { product: Product, isTrue: boolean | null }) {
     const { setSelectedProduct,deleteProduct } = useProducts();
     return (
-        <div key={product.id} className='bg-slate-400 p-4 my-2 rounded-md flex justify-between w-auto' >
+        <div key={product.id} className='bg-white p-4 my-2 rounded-md flex justify-between w-full shadow-md border border-gray-300'>
             <div className='h-max max-w-full rounded-lg'>
-                <div className='h-[250px]'>
+                <div>
                     {product.image ? <img src={product.image} className='h-[100px] m-auto' alt="imagen del negocio" /> : <img src="https://static.vecteezy.com/system/resources/thumbnails/007/126/739/small/question-mark-icon-free-vector.jpg" alt="" />}
                     <h2><b>{product.productName}</b></h2>
                     <p>{product.description}</p>
-                    <p>Precio: {product.price}</p>
+                    <p><b>${product.price},00</b></p>
                 </div>
-                <button className='bg-slate-900 text-slate-100 rounded-lg w-[100%]'>COMPRAR</button>
+                {
+                // si es false istrue va a mostrarlo y sino no
+                !isTrue && (
+                    <button className='bg-slate-900 text-slate-100 rounded-lg w-[100%]'>COMPRAR</button>
+                )
+                }
                 {/* si isTrue es true va a mostrar los botones y sino no */}
                 {
                 isTrue && (
                 <div className='flex justify-between py-2'>
-                    <button className='bg-slate-900 text-slate-100 rounded-lg w-[45%]'
+                    <button className='bg-green-600 text-slate-100 rounded-lg w-[45%]'
                         onClick={async () => {
                             setSelectedProduct(product)
                         }}

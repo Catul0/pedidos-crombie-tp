@@ -4,19 +4,21 @@ import Link from 'next/link'
 
 function LocalCard({ local }: { local: any }) {
     return (
-        <div key={local.id} className='bg-white p-4 my-2 rounded-md flex justify-between w-auto shadow-lg' >
-            <div className='h-max max-w-full rounded-lg'>
-                {local.logo ? <img src={local.logo} className='h-[100px] m-auto rounded' alt="imagen del negocio" /> : <img src="https://static.vecteezy.com/system/resources/thumbnails/007/126/739/small/question-mark-icon-free-vector.jpg" alt="" />}
-                <h2 className='text-2xl font-bold text-black'>{local.name}</h2>
-                <p className='text-sm text-gray-600'>{local.description}</p>
-                <p className='text-lg font-bold text-black'>{local.averageScore}⭐</p>
-                <div className='w-[100%] p-auto flex justify-center '>
-                <Link href={'/sellers/'+local.id}>
-                    <button  className='bg-[#FF9B50] text-white m-auto rounded-lg  px-4 py-2 mt-4 hover:bg-opacity-80'>Ver Perfil</button>
-                </Link>
-                </div>
+        <>
+        {/* // */}
+        <Link href={'/sellers/'+local.id}>
+        <div className="w-60 h-50 cursor-pointer overflow-hidden bg-white transition hover:scale-105">
+        <img className="w-full h-32 object-cover object-center rounded" src={local.logo} alt="Burritos" />
+        <div className="px-2 py-1">
+            <div className=" text-black font-bold text-m">{local.name}</div>
+            <div className="flex gap-3 items-center">
+                <div className="text-gray-600 text-sm">🕒 42 min</div>
+                <div className="text-gray-600 text-sm">🛵 GRATIS</div>
             </div>
         </div>
+        </div>
+        </Link>
+        </>
     )
 }
 
