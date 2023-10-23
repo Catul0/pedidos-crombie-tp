@@ -1,6 +1,7 @@
+"use client"
 import { useProducts } from '@/context/ProductContext'
 import { useEffect, useState } from 'react'
-
+import uploadFile from '@/libs/update-file';
 export default function CreateProduct({ params }: { params: { id: string } }) {
 
     const [productName, setProductName] = useState('');
@@ -15,7 +16,6 @@ export default function CreateProduct({ params }: { params: { id: string } }) {
             const price = selectedProduct.price.toString();
             setProductName(selectedProduct.productName);
             setPrice(price);
-            setImage(selectedProduct.image);
             setDescription(selectedProduct.description);
         }
     }, [selectedProduct])
@@ -34,7 +34,7 @@ export default function CreateProduct({ params }: { params: { id: string } }) {
                     }
                     setProductName("");
                     setPrice("");
-                    setImage("");
+                    setImage('');
                     setDescription("")
                     setSelectedProduct(null)
                 }
@@ -64,12 +64,17 @@ export default function CreateProduct({ params }: { params: { id: string } }) {
                 </div>
                 <div className="relative z-0 w-full mb-6 group">
                     <input
-                        type="text"
+                        type="file"
                         name="image"
                         id="image"
                         className="block py-2.5 px-0 w-full text-sm text-blue-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        value={image}
-                        onChange={(e) => setImage(e.target.value)}
+                        onChange={async (e) =>{
+                            if(e.target.files){
+                                const result = await uploadFile(e.target.files[0]);
+                                setImage("https://guls-escuelita-api-mainst-escuelitabucketc7b4e42a-1e9sgj383k6ak.s3.amazonaws.com/"+result)
+                            }
+                            
+                        }}
                     />
                     <label
                         htmlFor="image" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Images Url</label>
@@ -94,7 +99,7 @@ export default function CreateProduct({ params }: { params: { id: string } }) {
                                 setSelectedProduct(null)
                                 setProductName("");
                                 setPrice("");
-                                setImage("");
+                                setImage('');
                                 setDescription("")
                             }}
                         >Cancel</button>
