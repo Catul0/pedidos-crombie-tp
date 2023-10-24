@@ -2,6 +2,7 @@
 import { useProducts } from '@/context/ProductContext'
 import { useEffect, useState } from 'react'
 import uploadFile from '@/libs/update-file';
+
 export default function CreateProduct({ params }: { params: { id: string } }) {
 
     const [productName, setProductName] = useState('');

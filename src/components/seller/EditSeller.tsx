@@ -1,6 +1,7 @@
 "use client"
 import {useState,useEffect} from 'react';
 import { useLocalProfiles } from '@/context/LocalProfileContext';
+import uploadFile from '@/libs/update-file';
 
 function EditSeller() {
     const [name, setName] = useState('');
@@ -70,16 +71,6 @@ function EditSeller() {
     />
   </div>
   <div className="mb-4">
-    <label className="block text-gray-700 text-sm font-bold mb-2">Logo:</label>
-    <input
-      type="text"
-      name="logo"
-      value={logo}
-      className="w-full border border-gray-300 rounded p-2"
-      onChange={(e) => setLogo(e.target.value)}
-    />
-  </div>
-  <div className="mb-4">
     <label className="block text-gray-700 text-sm font-bold mb-2">Descripción:</label>
     <textarea
       name="description"
@@ -87,6 +78,22 @@ function EditSeller() {
       className="w-full border border-gray-300 rounded p-2"
       onChange={(e) => setDescription(e.target.value)}
     />
+  </div>
+  <div className="mb-4">
+    <label className="block text-gray-700 text-sm font-bold mb-2">Logo:</label>
+    <input
+      type="file"
+      name="logo"
+      className="w-full border border-gray-300 rounded p-2"
+      onChange={async (e) =>{
+        if(e.target.files){
+            const result = await uploadFile(e.target.files[0]);
+            setLogo("https://guls-escuelita-api-mainst-escuelitabucketc7b4e42a-1e9sgj383k6ak.s3.amazonaws.com/"+result)
+        }
+        
+    }}
+    />
+    {logo? <img src={logo} className='h-[100px] m-auto' alt="Imagen del producto" /> : <p></p>}
   </div>
   <button
     className="col-span-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
