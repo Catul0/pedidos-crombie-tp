@@ -7,6 +7,7 @@ import EditSeller from './EditSeller';
 import Cart from '../cart/Cart';
 import BackButton from '../BackButton';
 import {GrCart} from 'react-icons/Gr'
+import { useCart } from '@/context/CartContext';
 
 export default function SellerProfile({
   params,
@@ -19,6 +20,7 @@ export default function SellerProfile({
   const id = params.id;
   const seller: any = sellerProfiles;
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const {cart} = useCart();
 
   useEffect(() => {
     loadSellerProfile(Number(id));
@@ -30,9 +32,14 @@ export default function SellerProfile({
     <div className="bg-white h-16 flex items-center justify-between px-10 border-b border-gray-300">
       <BackButton />
       <p className="text-black px-4 py-2 font-semibold">Pedidos Crombie - {seller.name}</p>
-      <div className="flex items-center">
+      <div className="flex flex-row items-center">
         <button onClick={() => setIsCartOpen(!isCartOpen)}>
-        <GrCart size={40}/>
+        {cart.length > 0 && ( // Muestra el número si hay productos en el carrito
+              <span className="bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
+                {cart.length}
+              </span>
+        )}
+        <GrCart size={35}/>
         </button>
       </div>
     </div>
