@@ -4,8 +4,9 @@ import { useLocalProfiles } from '@/context/LocalProfileContext';
 import SellersProducts from './SellersProducts';
 import CreateProduct from '../product/CreateProduct';
 import EditSeller from './EditSeller';
-import Navbar from '../Navbar';
 import Cart from '../cart/Cart';
+import BackButton from '../BackButton';
+import {GrCart} from 'react-icons/Gr'
 
 export default function SellerProfile({
   params,
@@ -26,7 +27,15 @@ export default function SellerProfile({
 
   return (
     <>
-    <Navbar text={`Pedidos Crombie - ${seller.name}`}></Navbar>
+    <div className="bg-white h-16 flex items-center justify-between px-10 border-b border-gray-300">
+      <BackButton />
+      <p className="text-black px-4 py-2 font-semibold">Pedidos Crombie - {seller.name}</p>
+      <div className="flex items-center">
+        <button onClick={() => setIsCartOpen(!isCartOpen)}>
+        <GrCart size={40}/>
+        </button>
+      </div>
+    </div>
 
     <div className="flex bg-white h-screen py-10">
       <div className="w-1/4 bg-white">
@@ -67,12 +76,6 @@ export default function SellerProfile({
         <SellersProducts params={params} isTrue={isTrue} />
       </div>
       {/* carrito */}
-      <button
-        className="bg-blue-500 text-white rounded-lg p-2 w-30 h-10"
-        onClick={() => setIsCartOpen(!isCartOpen)}
-      >
-        Mostrar Carrito
-      </button>
       {/* ventana emergente del carrito utilizando clases de Tailwind CSS */}
       {isCartOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50">

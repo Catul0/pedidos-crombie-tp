@@ -7,6 +7,7 @@ import { useLogin } from '@/context/LoginContext';
 import { useRouter } from 'next/navigation';
 import Popup from '../PopUp';
 import Link from 'next/link';
+import {BsBagPlus} from 'react-icons/Bs'
 
 const UserProfile = ({ params }: { params: { id: string } }) => {
   const [showPopup, setShowPopup] = useState(true);
@@ -94,7 +95,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
           </ul>
         ) : (
           <div className="flex flex-col items-center">
-            <img src="/orderbag.jpg" alt="" className="w-1/4 h-auto mt-4"/>
+            <BsBagPlus size={100}/>
             <p className="text-l font-bold text-black mt-4">Aun no has realizado pedidos</p>
             <p className="text-s text-black">Buscá entre todas nuestras opciones y disfruta de tu primer pedido</p>
             <Link href={'/search'}>
