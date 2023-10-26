@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react';
 import ProductCard from '../product/ProductCard';
 import { useProducts } from '@/context/ProductContext';
-import Link from 'next/link';
 
 function SellersProducts({ params, isTrue }: { params: { id: string }, isTrue: boolean | null }) {
   const { products, loadSellerProducts } = useProducts();
@@ -13,7 +12,7 @@ function SellersProducts({ params, isTrue }: { params: { id: string }, isTrue: b
   }, []);
 
   return (
-    <div className='flex justify-center bg-white h-[100%]' id='sellers'>
+    <div className='flex justify-center bg-[#F7F8F9] h-[100%]' id='sellers'>
       <div className=''>
         {products.length < 3 && isTrue ? (
           <div className="bg-red-500 text-white p-2 m-4 text-center rounded">

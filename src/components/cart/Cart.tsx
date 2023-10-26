@@ -1,6 +1,7 @@
 import React from 'react';
 import { useCart } from '@/context/CartContext';
 import { Product } from '@/interfaces/Product';
+import Link from 'next/link';
 
 function Cart() {
   const { cart, total, addToCart, removeFromCart, removeAllFromCart, resetCart } = useCart();
@@ -57,7 +58,9 @@ function Cart() {
           <p>Total: ${total}</p>
           <button onClick={() => handleResetCart()} className='bg-red-500 rounded'>vaciar carrito</button>
           <br />
-          <button className='bg-green-700 rounded'>Confirmar Compra</button>
+          <Link href={'/checkout'}>
+            <button className='bg-green-700 rounded'>Confirmar Compra</button>
+          </Link>
         </div>
       )}
     </div>

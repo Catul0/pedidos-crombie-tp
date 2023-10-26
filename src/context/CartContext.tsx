@@ -1,5 +1,5 @@
 "use client"
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 type Product = {
   id: number;
@@ -8,9 +8,8 @@ type Product = {
   price: number;
   image: string;
   sellerId: number;
-  count?: number; // Propiedad count para rastrear la cantidad en el carrito
+  count?: number;
 };
-
 
 type CartContextType = {
   cart: Product[];
@@ -26,6 +25,25 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<Product[]>([]);
   const [total, setTotal] = useState(0);
+
+  // Recupera el carrito y el total del localStorage al cargar la página
+  useEffect(() => {
+    const savedCart = localStorage.getItem('cart');
+    const savedTotal = localStorage.getItem('total');
+
+    if (savedCart) {
+      setCart(JSON.parse(savedCart));
+    }
+    if (savedTotal) {
+      setTotal(parseFloat(savedTotal));
+    }
+  }, []);
+
+  // Guarda el carrito y el total en el localStorage cuando cambian
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('total', total.toString());
+  }, [cart, total]);
 
   const addToCart = (product: Product) => {
     setCart([...cart, product]);

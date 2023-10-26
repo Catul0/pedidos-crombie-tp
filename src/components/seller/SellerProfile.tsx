@@ -8,6 +8,8 @@ import Cart from '../cart/Cart';
 import BackButton from '../BackButton';
 import {GrCart} from 'react-icons/Gr'
 import { useCart } from '@/context/CartContext';
+import {BiUserCircle} from 'react-icons/Bi'
+import Link from 'next/link';
 
 export default function SellerProfile({
   params,
@@ -32,7 +34,10 @@ export default function SellerProfile({
     <div className="bg-white h-16 flex items-center justify-between px-10 border-b border-gray-300">
       <BackButton />
       <p className="text-black px-4 py-2 font-semibold">Pedidos Crombie - {seller.name}</p>
-      <div className="flex flex-row items-center">
+      <div className="flex flex-row gap-7 items-center">
+        <button>
+          <BiUserCircle size={40}/>
+        </button>
         <button onClick={() => setIsCartOpen(!isCartOpen)}>
         {cart.length > 0 && ( // Muestra el número si hay productos en el carrito
               <span className="bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
