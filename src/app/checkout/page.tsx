@@ -1,8 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Cookies from 'js-cookie';
 import { decode } from 'jsonwebtoken';
+import Image from 'next/image';
 
 type Product = {
   id: number;
@@ -20,12 +23,12 @@ function Checkout() {
   const [tipAmount, setTipAmount] = useState(100);
   const [userAddress, setUserAddress] = useState('');
   const [userCity, setUserCity] = useState('');
+  const [sellerData, setSellerData] = useState<any>({});
   const token: any = Cookies.get('token');
   const decodedToken: any = decode(token);
 
 
   useEffect(() => {
-    // Recupera los datos del carrito almacenados en el localStorage
     const savedCart = localStorage.getItem('cart');
     const savedTotal = localStorage.getItem('total')
 
@@ -52,10 +55,32 @@ function Checkout() {
         })
         .catch((error) => {
           console.error('Error al obtener la dirección del usuario:', error);
-        });
+      });
     }
   }, []);
 
+  useEffect(() => {
+    const fetchSellerData = async (sellerId: number) => {
+      try {
+        console.log(sellerId)
+        const response = await fetch(`api/locals/${sellerId}`);
+        if (response.ok) {
+          const sellerData = await response.json();
+          console.log(sellerData)
+          setSellerData(sellerData)
+        } else {
+          console.error(`Error al obtener los datos del vendedor con sellerId: ${sellerId}`);
+        }
+      } catch (error) {
+        console.error('Error al obtener los datos del vendedor:', error);
+      }
+    };
+    const firstCartItem = cartItems[0];
+    if (firstCartItem && firstCartItem.sellerId) {
+      fetchSellerData(firstCartItem.sellerId);
+    }
+  }, [cartItems]);
+  
   const handleTipChange = (event: any) => {
     const newTip = parseFloat(event.target.value);
     setTipAmount(isNaN(newTip) ? 0 : newTip);
@@ -64,7 +89,7 @@ function Checkout() {
   return (
     <div>
       <Navbar text='Pedidos Crombie - Checkout'/>
-      <div className='w-full flex py-10 items-center flex-col bg-[#F7F8F9]'>
+      <div className='w-full h-auto flex py-10 items-center flex-col bg-[#F7F8F9]'>
         <div className='w-4/5 flex justify-center gap-5 flex-row'>
           {/* izq */}
           <div className='w-3/5 flex flex-col gap-5'>
@@ -81,16 +106,21 @@ function Checkout() {
             {/* local y productos */}
             <div className='w-full bg-white border rounded border-gray-300'>
               <div className='w-full border-b border-gray-300 p-3 flex gap-3 items-center'>
-                  <img className='rounded-full w-10' src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/McDonald%27s_logo.svg/1280px-McDonald%27s_logo.svg.png" alt="" />
-                  <h1 className='font-black'>McDonalds</h1>
+                  <img alt='' className='rounded-full w-12 h-12 object-cover object-center' src={sellerData.logo}/>
+                  <h1 className='font-black'>{sellerData.name}</h1>
               </div>
               <div className='w-full p-3'>
               <ul>
                 {cartItems.map((item, index) => (
                   <li key={index}>
-                    <p><b>{item.productName}</b></p>
-                    <p><b>{item.description}</b></p>
-                    <p><b>{item.price}</b></p>
+                    <div className='flex flex-row gap-5'>
+                      <img className='w-20' src={item.image} alt="" />
+                      <div>
+                        <p><b>{item.productName}</b></p>
+                        <p>{item.description}</p>
+                        <p><b>${item.price}</b></p>
+                      </div>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -107,7 +137,7 @@ function Checkout() {
             </div>
           </div>
           {/* resumen */}
-          <div className='w-2/5 bg-white flex flex-col gap-5'>
+          <div className='w-2/5 bg-[#F7F8F9] flex flex-col gap-5'>
             <div className='w-full bg-white border rounded border-gray-300'>
               <div className='w-full border-b border-gray-300 p-3'>
                 <h1 className='font-black f'>Resumen</h1>
@@ -141,15 +171,6 @@ function Checkout() {
             <button className='w-full font-bold bg-green-400 hover:bg-green-500 rounded text-white py-3'>Hacer pedido</button>
           </div>
         </div>
-        {/* <ul>
-          {cartItems.map((item, index) => (
-            <li key={index}>
-              <p>Producto: {item.productName}</p>
-              <p>Descripción: {item.description}</p>
-              <p>Precio: ${item.price}</p>
-            </li>
-          ))}
-        </ul> */}
       </div>
     </div>
   );
