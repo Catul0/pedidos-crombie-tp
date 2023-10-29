@@ -151,7 +151,7 @@ model User {
   rol       String
 
   score     Score[]
-  orderStatus OrderStatus[]
+  orderStatus Order[]
 }
 
 // este es el perfil de los negocios 
@@ -170,7 +170,7 @@ model LocalProfile {
   
   product      Product[]
   score        Score[]
-  orderStatus OrderStatus[]
+  orderStatus Order[]
 }
 
 // Repartidor
@@ -185,7 +185,7 @@ model DeliveryDriverProfile {
 
   score           Score[]
   vehicle         Vehicle[]
-  orderStatus OrderStatus[]
+  orderStatus Order[]
 }
 
 //productos
@@ -198,29 +198,33 @@ model Product {
   sellerId       Int
 
   localId       LocalProfile @relation(fields:[sellerId], references: [id])
-
-  orderStatus OrderStatus[]
-
-
 }
 // estado de la orden, aca es cunado se hace un pedido te muestra si se esta cocianndo, si esta en camino, si esta pendiente, etc
-model OrderStatus {
+model Order {
   id            Int      @id @default(autoincrement())
-  status        String   @default("Pendiente") //LOS ESTADOS PODRAN SER, PENDIENTE, ACEPTADO, COCINANDO, EN CAMINO, RECIBIDO, RECHAZADO
+  status        Status   @default(PENDIENTE)
   orderDate     DateTime @default(now())
   updateStatus  DateTime @updatedAt
 
-  foodId        Int
+  products      String
+
   sellerId      Int
   userId        Int
-  deliveryId        Int?
+  deliveryId    Int?
 
-  product       Product @relation(fields:[foodId], references: [id])
-  seller        LocalProfile @relation(fields:[sellerId], references: [id])
-  buyer         User @relation(fields:[userId], references: [id])
-  delivery      DeliveryDriverProfile? @relation(fields:[deliveryId], references: [id])
+  seller        LocalProfile @relation(fields: [sellerId], references: [id])
+  buyer         User @relation(fields: [userId], references: [id])
+  delivery      DeliveryDriverProfile? @relation(fields: [deliveryId], references: [id])
 }
-
+enum Status {
+  PENDIENTE
+  RECHAZADO
+  ACEPTADO
+  PREPARANDO
+  COCINADO
+  EN_CAMINO
+  RECIBIDO
+}
 // INformacion y descripcion del veihiculo del repartidor 
 model Vehicle {
   id            Int      @id @default(autoincrement())
@@ -245,5 +249,4 @@ model Score {
   author        User @relation(fields:[userId], references: [id])
   delivery      DeliveryDriverProfile?  @relation(fields:[deliveryId], references: [id])
   local         LocalProfile? @relation(fields:[localId], references: [id])
-
 }

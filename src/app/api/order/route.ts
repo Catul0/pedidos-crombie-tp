@@ -5,7 +5,7 @@ import {prisma} from '@/libs/prisma'
 
 export async function GET() {
     try {
-        const orderStatus = await prisma.orderStatus.findMany()
+        const orderStatus = await prisma.order.findMany()
         return NextResponse.json(orderStatus)
     } catch (error) {
         if (error instanceof Error){
@@ -20,10 +20,10 @@ export async function GET() {
 
 export async function POST(request: Request) {
     try {
-        const {status, foodId, sellerId, userId} = await request.json()
-        const newOrderStatus = await prisma.orderStatus.create({
+        const {status, products, sellerId, userId} = await request.json()
+        const newOrderStatus = await prisma.order.create({
             data: {
-                status, foodId, sellerId, userId
+                status, products, sellerId, userId
             }
         })
         return NextResponse.json(newOrderStatus)

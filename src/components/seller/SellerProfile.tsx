@@ -9,7 +9,6 @@ import BackButton from '../BackButton';
 import {GrCart} from 'react-icons/Gr'
 import { useCart } from '@/context/CartContext';
 import {BiUserCircle} from 'react-icons/Bi'
-import Link from 'next/link';
 
 export default function SellerProfile({
   params,
@@ -49,8 +48,8 @@ export default function SellerProfile({
       </div>
     </div>
 
-    <div className="flex bg-white h-screen py-10">
-      <div className="w-1/4 bg-white">
+    <div className="flex bg-[#F7F8F9] h-auto py-10">
+      <div className="w-1/4 bg-[#F7F8F9]">
         <div className="flex flex-col items-center p-4 text-center bg-white border border-gray-200 ml-5 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
           <img className="rounded-t-lg px-2 max-w" src={seller.logo} alt="" />
           <div className="p-5">

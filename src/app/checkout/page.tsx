@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Cookies from 'js-cookie';
 import { decode } from 'jsonwebtoken';
-import Image from 'next/image';
 
 type Product = {
   id: number;
@@ -24,6 +23,7 @@ function Checkout() {
   const [userAddress, setUserAddress] = useState('');
   const [userCity, setUserCity] = useState('');
   const [sellerData, setSellerData] = useState<any>({});
+  const [orderResult, setOrderResult] = useState(null);
   const token: any = Cookies.get('token');
   const decodedToken: any = decode(token);
 
@@ -85,6 +85,32 @@ function Checkout() {
     const newTip = parseFloat(event.target.value);
     setTipAmount(isNaN(newTip) ? 0 : newTip);
   };
+
+  const createOrder = () => {
+    const orderData = {
+      status: 'PENDIENTE',
+      products: cartItems.map(product => product.id).join(','),
+      sellerId: sellerData.id,
+      userId: decodedToken.id,
+    };
+  
+    fetch('api/order', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(orderData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setOrderResult(data);
+        alert('Tu pedido fue realizado con exito')
+      })
+      .catch((error) => {
+        console.error('Error al crear la orden:', error);
+      });
+  };
+  
 
   return (
     <div>
@@ -168,7 +194,7 @@ function Checkout() {
                 <p><b>{`$${(subtotal + 100 + tipAmount)}`}</b></p>
               </div>
             </div>
-            <button className='w-full font-bold bg-green-400 hover:bg-green-500 rounded text-white py-3'>Hacer pedido</button>
+            <button onClick={createOrder} className='w-full font-bold bg-green-400 hover:bg-green-500 rounded text-white py-3'>Hacer pedido</button>
           </div>
         </div>
       </div>

@@ -8,9 +8,11 @@ import { useRouter } from 'next/navigation';
 import Popup from '../PopUp';
 import Link from 'next/link';
 import {BsBagPlus} from 'react-icons/Bs'
+import { Order } from '@prisma/client';
 
 const UserProfile = ({ params }: { params: { id: string } }) => {
   const [showPopup, setShowPopup] = useState(true);
+  const [userOrders, setUserOrders] = useState<Order[]>([]);; // Estado para almacenar los pedidos del usuario
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -30,6 +32,20 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
     loaduserProfile(Number(id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+
+  useEffect(() => {
+    // Realizar una solicitud a la API para obtener todos los pedidos
+    fetch('/api/order')
+      .then((response) => response.json())
+      .then((data: Order[]) => {
+        // Filtrar los pedidos del usuario actual
+        const userOrders = data.filter((order: any) => order.userId === Number(id));
+        setUserOrders(userOrders);
+      })
+      .catch((error) => {
+        console.error('Error al obtener los pedidos:', error);
+      });
+  }, [id]);
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -85,23 +101,24 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
       {/* lado derecho, pedidos */}
       <div className="w-2/3 p-6 flex flex-col items-center bg-white shadow-lg">
         <h3 className="text-2xl font-semibold text-gray-800">Historial de Pedidos</h3>
-        {user.orders && user.orders.length > 0 ? (
+        {userOrders.length > 0 ? (
           <ul className="mt-4">
-            <li className="mb-4 border border-gray-200 rounded-lg p-4">
-              <h4 className="text-lg font-semibold">pizza</h4>
-              <p className="text-gray-600">Fecha del Pedido: 2 de noviembre</p>
-              {/* completar cuando este lo de orders hecho */}
-            </li>
+            {userOrders.map((order) => (
+              <li key={order.id} className="mb-4 border border-gray-200 rounded-lg p-4">
+                <h4 className="text-lg font-semibold">{order.products}</h4>
+                {/* Agrega más detalles de los pedidos según la estructura de tus datos */}
+              </li>
+            ))}
           </ul>
         ) : (
           <div className="flex flex-col items-center">
-            <BsBagPlus size={100}/>
-            <p className="text-l font-bold text-black mt-4">Aun no has realizado pedidos</p>
-            <p className="text-s text-black">Buscá entre todas nuestras opciones y disfruta de tu primer pedido</p>
+            <BsBagPlus size={100} />
+            <p className="text-l font-bold text-black mt-4">Aún no has realizado pedidos</p>
+            <p className="text-s text-black">Busca entre todas nuestras opciones y disfruta de tu primer pedido</p>
             <Link href={'/search'}>
-            <button className="bg-[#FF9B50] hover:bg-[#A53021] text-white py-2 px-4 rounded-lg mt-4">
-              Hacer pedido
-            </button>
+              <button className="bg-[#FF9B50] hover-bg-[#A53021] text-white py-2 px-4 rounded-lg mt-4">
+                Hacer pedido
+              </button>
             </Link>
           </div>
         )}

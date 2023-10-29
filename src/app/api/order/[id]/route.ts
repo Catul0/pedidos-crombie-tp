@@ -6,7 +6,7 @@ interface Params { params: {id: string}}
 
 export async function GET(request: Request, {params}: Params) {
     try {
-        const orderStatus = await prisma.orderStatus.findFirst({
+        const orderStatus = await prisma.order.findFirst({
             where: {
                 id: Number(params.id)
             }
@@ -34,7 +34,7 @@ export async function GET(request: Request, {params}: Params) {
 
 export async function DELETE(request: Request, {params}: Params) {
     try {
-        const deletedOrderStatus = await prisma.orderStatus.delete({
+        const deletedOrderStatus = await prisma.order.delete({
             where: {
                 id: Number(params.id)
             }
@@ -67,13 +67,13 @@ export async function DELETE(request: Request, {params}: Params) {
 
 export async function PUT(request: Request, {params}: Params) {
     try {
-        const {status, foodId, sellerId, userId} = await request.json()
-        const updatedOrderStatus = await prisma.orderStatus.update({
+        const {status, products, sellerId, userId} = await request.json()
+        const updatedOrderStatus = await prisma.order.update({
             where: {
                 id: Number(params.id)
             },
             data: {
-                status, foodId, sellerId, userId
+                status, products, sellerId, userId
             }
         })
         return NextResponse.json(updatedOrderStatus)
