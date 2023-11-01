@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { DeliverysProvider } from '@/context/DeliveryContext'
 import { VehiclesProvider } from '@/context/VehicleContext'
+import { OrderProvider } from '@/context/OrderContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,11 +20,13 @@ export default function DeliveryLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <OrderProvider>
         <DeliverysProvider>
           <VehiclesProvider>
             {children}
           </VehiclesProvider>
         </DeliverysProvider>
+        </OrderProvider>
       </body>
     </html>
   )

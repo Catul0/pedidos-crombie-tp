@@ -7,9 +7,12 @@ import EditSeller from './EditSeller';
 import Cart from '../cart/Cart';
 import BackButton from '../BackButton';
 import {GrCart} from 'react-icons/Gr'
+import {MdPendingActions} from 'react-icons/Md'
 import { useCart } from '@/context/CartContext';
 import {BiUserCircle} from 'react-icons/Bi'
 import Orders from '../orders/Order';
+import { useOrderContext } from '@/context/OrderContext';
+
 
 export default function SellerProfile({
   params,
@@ -18,8 +21,10 @@ export default function SellerProfile({
   params: { id: string };
   isTrue: boolean | null;
 }) {
-  const { sellerProfiles, loadSellerProfile, setSelectedSeller, selectedSeller } = useLocalProfiles();
   const id = params.id;
+  const { userOrders } = useOrderContext();
+  const userOrdersFiltered = userOrders.filter((order: any) => order.sellerId === Number(id));
+  const { sellerProfiles, loadSellerProfile, setSelectedSeller, selectedSeller } = useLocalProfiles();
   const seller: any = sellerProfiles;
   const [isCartOpen, setIsCartOpen] = useState(false);
   const {cart} = useCart();
@@ -51,12 +56,27 @@ export default function SellerProfile({
           <BiUserCircle size={40}/>
         </button>
         <button onClick={() => setIsCartOpen(!isCartOpen)}>
-        {cart.length > 0 && ( // Muestra el número si hay productos en el carrito
-              <span className="bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
-                {cart.length}
+        {cart.length > 0 || userOrdersFiltered.length > 0 && (
+              <span
+              style={{
+                position: 'absolute',
+                top: '5px',
+                right: '35px',
+                backgroundColor: 'green',
+                color: 'white',
+                borderRadius: '50%',
+                width: '20px',
+                height: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 1,
+              }}
+            >
+                {isTrue ? userOrdersFiltered.length : cart.length}
               </span>
         )}
-        <GrCart size={35}/>
+        {isTrue ? <MdPendingActions size={35}/> : <GrCart size={35}/>}
         </button>
       </div>
     </div>
