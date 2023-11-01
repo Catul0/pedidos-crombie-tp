@@ -9,6 +9,7 @@ import BackButton from '../BackButton';
 import {GrCart} from 'react-icons/Gr'
 import { useCart } from '@/context/CartContext';
 import {BiUserCircle} from 'react-icons/Bi'
+import Orders from '../orders/Order';
 
 export default function SellerProfile({
   params,
@@ -22,11 +23,23 @@ export default function SellerProfile({
   const seller: any = sellerProfiles;
   const [isCartOpen, setIsCartOpen] = useState(false);
   const {cart} = useCart();
+  const [renderedComponent, setRenderedComponent] = useState<JSX.Element | null>(null);
 
   useEffect(() => {
-    loadSellerProfile(Number(id));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [seller]);
+    // Realiza la carga del perfil del vendedor solo si no se ha cargado previamente o si el ID ha cambiado.
+    if (!seller || seller.id !== Number(id)) {
+      loadSellerProfile(Number(id));
+    }
+  }, [id, seller, loadSellerProfile]);
+
+  useEffect(() => {
+    // decide qué componente renderizar en función de isTrue
+    if (isTrue) {
+      setRenderedComponent(<Orders params={params} />);
+    } else {
+      setRenderedComponent(<Cart />);
+    }
+  }, [isTrue, params]);
 
   return (
     <>
@@ -90,14 +103,14 @@ export default function SellerProfile({
       {/* ventana emergente del carrito utilizando clases de Tailwind CSS */}
       {isCartOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-gray-100 border w-3/4 border-gray-200 rounded-lg shadow-lg p-4">
-              <button
-            className="bg-blue-500 text-white rounded-lg p-2"
-            onClick={() => setIsCartOpen(!isCartOpen)}
-          >
-            X
-          </button>
-            <Cart/>
+          <div className="bg-gray-100 border w-full h-full border-gray-200 shadow-lg p-4">
+            <button
+              className="bg-blue-500 text-white rounded-lg p-2"
+              onClick={() => setIsCartOpen(!isCartOpen)}
+            >
+              X
+            </button>
+            {renderedComponent}
           </div>
         </div>
       )}

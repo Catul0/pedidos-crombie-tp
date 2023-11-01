@@ -8,12 +8,18 @@ import { useRouter } from 'next/navigation';
 import Popup from '../PopUp';
 import Link from 'next/link';
 import {BsBagPlus} from 'react-icons/Bs'
-import { Order } from '@prisma/client';
+import { useOrderContext } from '@/context/OrderContext';
 
 const UserProfile = ({ params }: { params: { id: string } }) => {
   const [showPopup, setShowPopup] = useState(true);
-  const [userOrders, setUserOrders] = useState<Order[]>([]);; // Estado para almacenar los pedidos del usuario
-
+  const { userOrders } = useOrderContext();
+  const id = params.id;
+  const userOrdersFiltered = userOrders.filter((order: any) => order.userId === Number(id));
+  const { logout } = useLogin();
+  const { userProfiles, loaduserProfile, setSelectedUser, selectedUser } = useUsers();
+  const user: any = userProfiles;
+  const router = useRouter();
+  
   useEffect(() => {
     const timeout = setTimeout(() => {
       setShowPopup(false);
@@ -23,35 +29,18 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
       clearTimeout(timeout);
     };
   }, []);
-  const { logout } = useLogin();
-  const { userProfiles, loaduserProfile, setSelectedUser, selectedUser } = useUsers();
-  const id = params.id;
-  const user: any = userProfiles;
-  const router = useRouter();
-  useEffect(() => {
-    loaduserProfile(Number(id));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
 
   useEffect(() => {
-    // Realizar una solicitud a la API para obtener todos los pedidos
-    fetch('/api/order')
-      .then((response) => response.json())
-      .then((data: Order[]) => {
-        // Filtrar los pedidos del usuario actual
-        const userOrders = data.filter((order: any) => order.userId === Number(id));
-        setUserOrders(userOrders);
-      })
-      .catch((error) => {
-        console.error('Error al obtener los pedidos:', error);
-      });
-  }, [id]);
+    if (user && user.id !== Number(id)) {
+      loaduserProfile(Number(id));
+    }
+  }, [id, user, loaduserProfile]);
 
   return (
     <div className="flex min-h-screen bg-gray-100">
     {showPopup && <Popup message={`¡Hola ${user.name}!`} />}
       {/* lado izq */}
-      <div className="w-1/3 bg-white p-6">
+      <div className="w-1/3 bg-[#F3F4F6] p-6">
         <div className='bg-white rounded p-5  shadow-lg'>
           <div className="text-center">
             <img
@@ -101,11 +90,13 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
       {/* lado derecho, pedidos */}
       <div className="w-2/3 p-6 flex flex-col items-center bg-white shadow-lg">
         <h3 className="text-2xl font-semibold text-gray-800">Historial de Pedidos</h3>
-        {userOrders.length > 0 ? (
+        {userOrdersFiltered.length > 0 ? (
           <ul className="mt-4">
             {userOrders.map((order) => (
               <li key={order.id} className="mb-4 border border-gray-200 rounded-lg p-4">
+                <h4 className="text-lg font-semibold">SellerId: {order.sellerId}</h4>
                 <h4 className="text-lg font-semibold">{order.products}</h4>
+                <h4 className="text-lg font-semibold">{order.status}</h4>
                 {/* Agrega más detalles de los pedidos según la estructura de tus datos */}
               </li>
             ))}

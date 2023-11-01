@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { Product } from '@/interfaces/Product';
 import Link from 'next/link';
@@ -32,6 +32,7 @@ function Cart() {
       resetCart();
     }
   };
+
   return (
     <div className="text-center bg-gray-100 p-4 rounded-lg">
       <h2 className="text-gray-800 text-2xl font-bold mb-4"><b>Carrito de Compras</b></h2>
