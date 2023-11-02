@@ -1,30 +1,33 @@
-"use client"
-import { useState } from 'react';
-import { useUsers } from '@/context/UserContext';
-import Cookies from 'js-cookie';
-import { decode } from 'jsonwebtoken';
-import { useRouter } from 'next/navigation';
+"use client";
+import { useState } from "react";
+import { useUsers } from "@/context/UserContext";
+import Cookies from "js-cookie";
+import { decode } from "jsonwebtoken";
+import { useRouter } from "next/navigation";
 
 function RegisterUser() {
-  const [name, setName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [alert, setAlert] = useState(false);
   const router = useRouter();
   const [match, setMatch] = useState(true);
-  const { createUser } = useUsers()
-  const [secondPassword, setSecondPassword] = useState('');
+  const { createUser } = useUsers();
+  const [secondPassword, setSecondPassword] = useState("");
+  const imagenUrl = "https://media.gq.com.mx/photos/5efa923e85180fb067834c03/master/pass/comida%20exceso.jpg";
+  
   return (
+    <div className="flex flex-col justify-center items-center w-full h-[800px] bg-cover bg-center relative" style={{ backgroundImage: `url(${imagenUrl})` }}>
     <form
       onSubmit={async (e) => {
         e.preventDefault();
-        setMatch(password === secondPassword)
+        setMatch(password === secondPassword);
         if (password === secondPassword) {
-          setAlert(true)
+          setAlert(true);
           await createUser({
             name,
             lastName,
@@ -34,110 +37,145 @@ function RegisterUser() {
             email,
             password,
           });
-          const token: any = Cookies.get('token');
+          const token: any = Cookies.get("token");
           setTimeout(() => {
-            if (token) router.push(`/users/${(decode(token) as { id: string })?.id}`);
-          }, 3000)
+            if (token)
+              router.push(`/users/${(decode(token) as { id: string })?.id}`);
+          }, 3000);
         } else {
           setAlert(false);
         }
-
       }}
-      className='max-w-md mx-auto p-4 bg-white rounded shadow'
+      className="max-w-md mx-auto p-8 bg-opacity-80 bg-white rounded-lg drop-shadow-2xl" 
     >
-      <div className=" grid grid-cols-2 gap-4">
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">Name:</label>
+      <div className="grid md:grid-cols-2 md:gap-6">
+        <div className="relative z-0 w-full mb-6 group">
           <input
             type="text"
             name="name"
-            className="w-full border border-gray-300 rounded p-2"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-slate-950 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-fuchsia-600 focus:outline-none focus:ring-0 focus:border-black peer"
             onChange={(e) => setName(e.target.value)}
+            placeholder=""
             required
           />
+          <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-fuchsia-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+            Name:
+          </label>
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">LastName:</label>
+        <div className="relative z-0 w-full mb-6 group">
           <input
             type="text"
             name="LastName"
-            className="w-full border border-gray-300 rounded p-2"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-slate-950 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-fuchsia-600 focus:outline-none focus:ring-0 focus:border-black peer"
             onChange={(e) => setLastName(e.target.value)}
+            placeholder=""
           />
+          <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-fuchsia-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+            LastName:
+          </label>
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">Phone:</label>
+        <div className="relative z-0 w-full mb-6 group">
           <input
             type="text"
             name="phone"
-            className="w-full border border-gray-300 rounded p-2"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-slate-950 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-fuchsia-600 focus:outline-none focus:ring-0 focus:border-black peer"
             onChange={(e) => setPhone(e.target.value)}
+            placeholder=""
             required
           />
+          <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-fuchsia-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+            Phone:
+          </label>
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">Address:</label>
+        <div className="relative z-0 w-full mb-6 group">
           <input
             type="text"
             name="adress"
-            className="w-full border border-gray-300 rounded p-2"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-slate-950 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-fuchsia-600 focus:outline-none focus:ring-0 focus:border-black peer"
             onChange={(e) => setAddress(e.target.value)}
+            placeholder=""
             required
           />
+          <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-fuchsia-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+            Address:
+          </label>
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">City:</label>
+        <div className="relative z-0 w-full mb-6 group">
           <input
             type="text"
             name="city"
-            className="w-full border border-gray-300 rounded p-2"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-slate-950 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-fuchsia-600 focus:outline-none focus:ring-0 focus:border-black peer"
             onChange={(e) => setCity(e.target.value)}
+            placeholder=""
             required
           />
+          <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-fuchsia-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+            City:
+          </label>
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+        <div className="relative z-0 w-full mb-6 group">
           <input
             type="email"
             name="email"
-            className="w-full border border-gray-300 rounded p-2"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-slate-950 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-fuchsia-600 focus:outline-none focus:ring-0 focus:border-black peer"
             onChange={(e) => setEmail(e.target.value)}
+            placeholder=""
             required
           />
+          <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-fuchsia-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+            Email:
+          </label>
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">Password:</label>
+        <div className="relative z-0 w-full mb-6 group">
           <input
             type="password"
             name="password"
-            className="w-full border border-gray-300 rounded p-2"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-slate-950 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-fuchsia-600 focus:outline-none focus:ring-0 focus:border-black peer"
             onChange={(e) => setPassword(e.target.value)}
+            placeholder=""
             required
           />
+          <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-fuchsia-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+            Password:
+          </label>
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">Confirm Password:</label>
+        <div className="relative z-0 w-full mb-6 group">
           <input
             type="password"
             name="password"
-            className="w-full border border-gray-300 rounded p-2"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-slate-950 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-fuchsia-600 focus:outline-none focus:ring-0 focus:border-black peer"
             onChange={(e) => setSecondPassword(e.target.value)}
+            placeholder=""
             required
           />
+          <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-fuchsia-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+            Confirm Password:
+          </label>
         </div>
       </div>
-      {
-        (match === false) ? <div className="mb-4 span-2"><p className="block text-white text-center bg-[#A53021] text-sm font-bold mb-2">Passwords do not match</p></div> : <p></p>
-      }
-      {
-        alert ? <div className="mb-4 span-2"><p className="block text-white text-center bg-green-400 text-sm font-bold mb-2 rounded">Register Succes</p></div> : <p></p>
-      }
-      <button
-        className=" bg-[#C63D2F] hover:bg-[#A53021] text-white  w-[100%] font-bold py-2 px-4 rounded"
-      >
+      {match === false ? (
+        <div className="mb-4 span-2">
+          <p className="block text-white text-center bg-red-600 text-sm font-bold mb-2">
+            Passwords do not match
+          </p>
+        </div>
+      ) : (
+        <p></p>
+      )}
+      {alert ? (
+        <div className="mb-4 span-2">
+          <p className="block text-white text-center bg-green-400 text-sm font-bold mb-2 rounded">
+            Register Succes
+          </p>
+        </div>
+      ) : (
+        <p></p>
+      )}
+      <button className=" bg-red-600 text-white  w-[100%] font-bold py-2 px-4 rounded transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300">
         Register
       </button>
     </form>
+  </div>
   );
 }
 

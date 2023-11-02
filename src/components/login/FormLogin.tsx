@@ -47,7 +47,7 @@ function FormLogin() {
   };
 
   return (
-      <div className="bg-white p-8 rounded shadow-md w-96">
+      <div className="bg-white p-10 rounded shadow-md w-96">
         <h2 className="text-2xl font-semibold mb-4">Iniciar sesión</h2>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">
@@ -75,33 +75,35 @@ function FormLogin() {
           </div>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-600">
-              Correo electrónico:
-            </label>
+          <div className="relative z-0 w-full mb-6 group">
             <input
               type="email"
               id="email"
               name="email"
               value={email}
               onChange={handleEmailChange}
-              className="w-full mt-1 p-2 border rounded-md"
+              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-fuchsia-600 focus:outline-none focus:ring-0 focus:border-black peer"
               required
+              placeholder=''
             />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-600">
-              Contraseña:
+            <label htmlFor="email" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-fuchsia-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+              Correo electrónico:
             </label>
+          </div>
+          <div className="relative z-0 w-full mb-6 group">
             <input
               type="password"
               id="password"
               name="password"
               value={password}
               onChange={handlePasswordChange}
-              className="w-full mt-1 p-2 border rounded-md"
+              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-fuchsia-600 focus:outline-none focus:ring-0 focus:border-black peer"
               required
+              placeholder=''
             />
+            <label htmlFor="password" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-fuchsia-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+              Contraseña:
+            </label>
           </div>
           {error && (
             <div className="text-red-600 mb-2">
@@ -109,10 +111,10 @@ function FormLogin() {
             </div>
           )}
 
-          <button type="submit" className="w-full py-2 px-4 bg-[#FF441F] text-white rounded-md hover:bg-[#A53021] mb-4">
+          <button type="submit" className="bg-red-600 text-white  w-[100%] font-bold py-2 px-4 rounded transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300">
             Iniciar sesión
           </button>
-          <p className='text-sm'>Todavía no tienes una cuenta? <span onClick={()=>{ goRegister()}} className='text-[#FF441F] cursor-pointer text-sm'>Registrate aquí</span></p>
+          <p className='text-sm'>Todavía no tienes una cuenta? <span onClick={()=>{ goRegister()}} className='text-black cursor-pointer text-sm'>Registrate aquí</span></p>
 
         </form>
       </div>
