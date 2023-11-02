@@ -13,7 +13,6 @@ import {BiUserCircle} from 'react-icons/Bi'
 import Orders from '../orders/Order';
 import { useOrderContext } from '@/context/OrderContext';
 
-
 export default function SellerProfile({
   params,
   isTrue,

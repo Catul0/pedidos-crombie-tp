@@ -56,7 +56,16 @@ export const ProductsProvider = ({ children }: Children) => {
         }
 
     }
+    async function loadProduct(id: number) {
+        try {
+            const res = await fetch("/api/orderProduct/" + id);
+            const data = await res.json();
+            setProducts(data);
+        } catch (error) {
+            console.log(error)
+        }
 
+    }
 
     //esta funcion lo que hace es crear un nuevo producto, y ademas agrega al estado donde estan todos los productos el nuevo
     //despues uno tiene que mostrar el estado ese nomas y se muestra actualizado
