@@ -8,6 +8,7 @@ type Order = {
   products: string;
   status: string;
   userId: number;
+  deliveryId: number;
 };
 
 // Definir el tipo del contexto
@@ -18,7 +19,8 @@ type OrderContextType = {
   handleRejectOrder: (orderId: number, products: string, sellerId: number, userId: number) => void;
   handlePrepareOrder: (orderId: number, products: string, sellerId: number, userId: number) => void;
   handleCookOrder: (orderId: number, products: string, sellerId: number, userId: number) => void;
-  handleFinishOrder: (orderId: number, products: string, sellerId: number, userId: number) => void;
+  handleDeliveryTakingOrder: (orderId: number, products: string, sellerId: number, userId: number, deliveryId: number) => void;
+  handleDeliveredOrder: (orderId: number, products: string, sellerId: number, userId: number, deliveryId: number) => void;
 };
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
@@ -165,13 +167,44 @@ export function OrderProvider({ children }: OrderProviderProps) {
       console.error('Error al preparar el pedido:', error);
     });
   };
-  const handleFinishOrder = (orderId: number, products: string, sellerId: number, userId: number) => {
+  const handleDeliveryTakingOrder = (orderId: number, products: string, sellerId: number, userId: number, deliveryId: number) => {
     const updatedData = {
       status: 'EN_CAMINO',
       products: products,
       sellerId: sellerId,
       userId: userId,
+      deliveryId: deliveryId
     };
+    console.log(updatedData)
+  fetch(`/api/order/${orderId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedData),
+  })
+    .then((response) => response.json())
+    .then((updatedOrder: Order) => {
+      // Actualizar el estado local con el pedido actualizado
+      setUserOrders((prevOrders) =>
+        prevOrders.map((order) =>
+          order.id === updatedOrder.id ? updatedOrder : order
+        )
+      );
+    })
+    .catch((error) => {
+      console.error('Error al preparar el pedido:', error);
+    });
+  };
+  const handleDeliveredOrder = (orderId: number, products: string, sellerId: number, userId: number, deliveryId: number) => {
+    const updatedData = {
+      status: 'RECIBIDO',
+      products: products,
+      sellerId: sellerId,
+      userId: userId,
+      deliveryId: deliveryId
+    };
+    console.log(updatedData)
   fetch(`/api/order/${orderId}`, {
     method: 'PUT',
     headers: {
@@ -193,7 +226,7 @@ export function OrderProvider({ children }: OrderProviderProps) {
     });
   };
   return (
-    <OrderContext.Provider value={{ userOrders, isLoading, handleAcceptOrder, handleRejectOrder, handlePrepareOrder, handleCookOrder, handleFinishOrder }}>
+    <OrderContext.Provider value={{handleDeliveredOrder, userOrders, isLoading, handleAcceptOrder, handleRejectOrder, handlePrepareOrder, handleCookOrder, handleDeliveryTakingOrder }}>
       {children}
     </OrderContext.Provider>
   );

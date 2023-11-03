@@ -46,7 +46,7 @@ function RegisterUser() {
           setAlert(false);
         }
       }}
-      className="max-w-md mx-auto p-8 bg-opacity-80 bg-white rounded-lg drop-shadow-2xl" 
+      className="max-w-md mx-auto p-8 bg-white rounded-lg drop-shadow-2xl" 
     >
       <div className="grid md:grid-cols-2 md:gap-6">
         <div className="relative z-0 w-full mb-6 group">

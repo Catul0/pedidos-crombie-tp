@@ -6,15 +6,19 @@ import CreateVehicle from '@/components/vehicle/createVehicle';
 import { useVehicles } from '@/context/VehicleContext';
 import { useOrderContext } from '@/context/OrderContext';
 import VehicleCard from './VehicleCard';
+import { log } from 'console';
 
 export default function DeliveryProfile({ params }: { params: { id: string } }) {
-  const { userOrders } = useOrderContext();
+  const { userOrders, handleDeliveryTakingOrder, handleDeliveredOrder } = useOrderContext();
   const userOrdersFiltered = userOrders.filter((order: any) => order.deliveryId === null && order.status != 'RECHAZADO' && order.status != 'PENDIENTE');
+  const deliverysOrder = userOrders.filter((order: any) => order.deliveryId === params.id)
+  
+  
   const { deliveryProfile, loadDeliveryProfile } = useDeliverys();
   const { loadSellerVehicles, sellerCar } = useVehicles();
   const [cargarAuto, setCargarAuto] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
-  const id = params.id;
+  const id = Number(params.id)
   const delivery: any = deliveryProfile;
 
   useEffect(() => {
@@ -56,21 +60,43 @@ export default function DeliveryProfile({ params }: { params: { id: string } }) 
           {cargarAuto ? "Cancelar" : "Cargar Nuevo Auto"}
         </button>
       </div>
-      <div className='w-1/4 bg-white rounded-lg shadow-lg p-6'>
-      {userOrdersFiltered.length > 0 ? (
+      {deliverysOrder.length > 0 ? (
+        <div className='w-1/4 bg-white rounded-lg shadow-lg p-6'>
+        <h1 className='text-lg font-bold'>Tienes un pedido que entregar:</h1>
         <ul>
-          {userOrdersFiltered.map((order) => (
-            <li key={order.id} className="mb-4 border border-gray-200 rounded-lg p-4">
-              <h4 className="text-lg font-semibold">SellerId: {order.sellerId}</h4>
-              <h4 className="text-lg font-semibold">Productos: {order.products}</h4>
-              <h4 className="text-lg font-semibold">Estado: {order.status}</h4>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <h1>No hay pedidos por entregar en este momento</h1>
+            {userOrdersFiltered.map((order) => (
+              <li key={order.id} className="mb-4 border border-gray-200 rounded-lg p-4">
+                <h4 className="text-lg font-semibold">SellerId: {order.sellerId}</h4>
+                <h4 className="text-lg font-semibold">Productos: {order.products}</h4>
+                <h4 className="text-lg font-semibold">Status: {order.status}</h4>
+                <button onClick={() => handleDeliveryTakingOrder(order.id, order.products, order.sellerId, order.userId, Number(id))} className='bg-red-500'>Ya entregue el pedido</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ): (     
+        <div className='w-1/4 bg-white rounded-lg shadow-lg p-6'>
+          <h1 className='text-lg font-bold'>No tienes pedidos aisgnados! elige uno:</h1>
+        {userOrdersFiltered.length > 0 ? (
+          <ul>
+            {userOrdersFiltered.map((order) => (
+              <li key={order.id} className="mb-4 border border-gray-200 rounded-lg p-4">
+                <h4 className="text-lg font-semibold">SellerId: {order.sellerId}</h4>
+                <h4 className="text-lg font-semibold">Productos: {order.products}</h4>
+                {order.status === 'COCINADO' && (
+                      <div>
+                          <button onClick={() => handleDeliveryTakingOrder(order.id, order.products, order.sellerId, order.userId, Number(id))} className='bg-red-500'>Tomar pedido</button>
+                      </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <h1>No hay pedidos por entregar en este momento</h1>
+        )}
+        </div>
       )}
-      </div>
+      
       {cargarAuto ? <CreateVehicle params={params} /> : null}
     </div>
   );
