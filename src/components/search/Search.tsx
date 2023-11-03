@@ -16,7 +16,7 @@ function Search() {
     const [filteredLocalProfiles, setFilteredLocalProfiles] = useState<sellerProfile[]>([]);
     const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
     const [initialResultsCount, setInitialResultsCount] = useState(6);
-
+    console.log(products)
     useEffect(() => {
         loadLocalProfile();
         loadProducts();
