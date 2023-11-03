@@ -10,7 +10,7 @@ function HomePage() {
       <div className="flex flex-col justify-center items-center mt-[50px] mb-[50px]">
         <h1 className="text-black text-1xl font-bold w-[600px] text-center">Sabores que Despiertan los Sentidos, Cuidados que te Confortan, y la Comodidad de Todo lo que Necesitas, Cuando lo Necesitas.🍕❤️</h1>
       </div>
-      <div className="w-full flex flex-row mb-[900px] justify-evenly items-center">
+      <div className="w-full flex flex-row mb-[100px] justify-evenly items-center">
         <JoinUs
           imageUrl="https://images.pexels.com/photos/280453/pexels-photo-280453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           paragraphText="Pedite un antojo"
