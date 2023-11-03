@@ -8,6 +8,7 @@ CREATE TABLE `User` (
     `city` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
+    `rol` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `User_email_key`(`email`),
     PRIMARY KEY (`id`)
@@ -25,6 +26,7 @@ CREATE TABLE `LocalProfile` (
     `averageScore` DOUBLE NULL,
     `password` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
+    `rol` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `LocalProfile_email_key`(`email`),
     PRIMARY KEY (`id`)
@@ -38,6 +40,7 @@ CREATE TABLE `DeliveryDriverProfile` (
     `averageScore` DOUBLE NULL,
     `email` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
+    `rol` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `DeliveryDriverProfile_email_key`(`email`),
     PRIMARY KEY (`id`)
@@ -56,12 +59,12 @@ CREATE TABLE `Product` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `OrderStatus` (
+CREATE TABLE `Order` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `status` VARCHAR(191) NOT NULL DEFAULT 'Pendiente',
+    `status` ENUM('PENDIENTE', 'RECHAZADO', 'ACEPTADO', 'PREPARANDO', 'COCINADO', 'EN_CAMINO', 'RECIBIDO') NOT NULL DEFAULT 'PENDIENTE',
     `orderDate` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updateStatus` DATETIME(3) NOT NULL,
-    `foodId` INTEGER NOT NULL,
+    `products` VARCHAR(191) NOT NULL,
     `sellerId` INTEGER NOT NULL,
     `userId` INTEGER NOT NULL,
     `deliveryId` INTEGER NULL,
@@ -86,8 +89,9 @@ CREATE TABLE `Vehicle` (
 CREATE TABLE `Score` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `userId` INTEGER NOT NULL,
+    `score` INTEGER NOT NULL DEFAULT 1,
     `deliveryId` INTEGER NULL,
-    `LocalId` INTEGER NULL,
+    `localId` INTEGER NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -96,16 +100,13 @@ CREATE TABLE `Score` (
 ALTER TABLE `Product` ADD CONSTRAINT `Product_sellerId_fkey` FOREIGN KEY (`sellerId`) REFERENCES `LocalProfile`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `OrderStatus` ADD CONSTRAINT `OrderStatus_foodId_fkey` FOREIGN KEY (`foodId`) REFERENCES `Product`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Order` ADD CONSTRAINT `Order_sellerId_fkey` FOREIGN KEY (`sellerId`) REFERENCES `LocalProfile`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `OrderStatus` ADD CONSTRAINT `OrderStatus_sellerId_fkey` FOREIGN KEY (`sellerId`) REFERENCES `LocalProfile`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Order` ADD CONSTRAINT `Order_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `OrderStatus` ADD CONSTRAINT `OrderStatus_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `OrderStatus` ADD CONSTRAINT `OrderStatus_deliveryId_fkey` FOREIGN KEY (`deliveryId`) REFERENCES `DeliveryDriverProfile`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `Order` ADD CONSTRAINT `Order_deliveryId_fkey` FOREIGN KEY (`deliveryId`) REFERENCES `DeliveryDriverProfile`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Vehicle` ADD CONSTRAINT `Vehicle_vehicleOwner_fkey` FOREIGN KEY (`vehicleOwner`) REFERENCES `DeliveryDriverProfile`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -117,4 +118,4 @@ ALTER TABLE `Score` ADD CONSTRAINT `Score_userId_fkey` FOREIGN KEY (`userId`) RE
 ALTER TABLE `Score` ADD CONSTRAINT `Score_deliveryId_fkey` FOREIGN KEY (`deliveryId`) REFERENCES `DeliveryDriverProfile`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Score` ADD CONSTRAINT `Score_LocalId_fkey` FOREIGN KEY (`LocalId`) REFERENCES `LocalProfile`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `Score` ADD CONSTRAINT `Score_localId_fkey` FOREIGN KEY (`localId`) REFERENCES `LocalProfile`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;

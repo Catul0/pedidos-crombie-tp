@@ -38,9 +38,10 @@ type OrderProviderProps = {
 export function OrderProvider({ children }: OrderProviderProps) {
   const [userOrders, setUserOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [timer, setTimer]=useState(0);
   useEffect(() => {
     // Mover aquí tu solicitud inicial para obtener órdenes
+
     fetch('/api/order')
       .then((response) => response.json())
       .then((data: Order[]) => {
@@ -51,7 +52,10 @@ export function OrderProvider({ children }: OrderProviderProps) {
       .catch((error) => {
         console.error('Error al obtener órdenes:', error);
       });
-  }, []);
+      setTimeout(()=>{
+        setTimer(timer+1)
+      },10000)
+  }, [timer]);
 
   const handleAcceptOrder = (orderId: number, products: string, sellerId: number, userId: number) => {
       const updatedData = {
