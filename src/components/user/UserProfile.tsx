@@ -44,7 +44,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
         <div className='bg-white rounded p-5  shadow-lg'>
           <div className="text-center">
             <img
-              className="w-16 h-16 rounded-full border-4 border-[#FF9B50] mx-auto"
+              className="w-16 h-16 rounded-full border-4 border-green-500 mx-auto "
               src={"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"}
               alt="User Profile"
             />
@@ -60,7 +60,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
             </ul>
           </div>
           <div className="mt-6">
-            <button className="bg-[#FF9B50] hover:bg-[#A53021] text-white py-2 px-4 rounded-lg w-full"
+            <button className="bg-[#FF9B50] hover:bg-orange-500 text-white py-2 px-4 w-full font-bold rounded-lg transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300"
               onClick={() => {
                 if (selectedUser) {
                   setSelectedUser(null)
@@ -72,7 +72,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
               {selectedUser ? "CANCELAR" : "EDITAR PERFIL"}
             </button>
             {selectedUser ? <EditUser /> : <p></p>}
-            <button className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg w-full mt-4"
+            <button className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 w-full mt-4 font-bold rounded-lg transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300"
               onClick={() => {
 
                 setTimeout(() => {
@@ -88,7 +88,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
       </div>
 
       {/* lado derecho, pedidos */}
-      <div className="w-2/3 p-6 flex flex-col items-center bg-white shadow-lg">
+      <div className="w-2/3 p-8 flex flex-col items-center bg-white shadow-lg">
         <h3 className="text-2xl font-semibold text-gray-800">Historial de Pedidos</h3>
         {userOrdersFiltered.length > 0 ? (
           <ul className="mt-4">
@@ -107,7 +107,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
             <p className="text-l font-bold text-black mt-4">Aún no has realizado pedidos</p>
             <p className="text-s text-black">Busca entre todas nuestras opciones y disfruta de tu primer pedido</p>
             <Link href={'/search'}>
-              <button className="bg-[#FF9B50] hover-bg-[#A53021] text-white py-2 px-4 rounded-lg mt-4">
+              <button className="bg-green-400 hover:bg-green-600 text-white py-2 px-4 mt-4 font-bold rounded-lg transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300">
                 Hacer pedido
               </button>
             </Link>

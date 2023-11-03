@@ -159,7 +159,7 @@ function RegisterSeller() {
         ) : (
           <p></p>
         )}
-        <button className=" bg-red-600 text-white  w-[100%] font-bold py-2 px-4 rounded transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300">
+        <button className=" bg-black text-white hover:bg-green-500  w-[100%] font-bold py-2 px-4 rounded transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300">
           Register
         </button>
       </form>

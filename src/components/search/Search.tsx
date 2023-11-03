@@ -43,9 +43,9 @@ function Search() {
                     placeholder="Buscar restaurantes, comidas, productos..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-400 h-12 rounded-lg px-4 py-2 border border-gray-300 focus:outline-none focus:border-blue-500"/>
+                    className="w-100 h-12 rounded-lg px-6 py-4 border border-gray-300 focus:outline-none focus:border-blue-500"/>
 
-                <h1 className="text-black text-left font-bold">Restaurantes</h1>
+                <h1 className="text-black text-left font-bold py-1">Restaurantes:</h1>
                 <div className="grid grid-cols-3 md:grid-cols-3 gap-4 px-24">
                     {searchTerm === ''
                         ? filteredLocalProfiles.slice(0, initialResultsCount).map((local) => (
@@ -57,9 +57,9 @@ function Search() {
                 </div>
 
                 {searchTerm === '' && (
-                    <button onClick={() => setInitialResultsCount(initialResultsCount + 6)}>Cargar más resultados</button>
+                    <button className='hover:text-green-700' onClick={() => setInitialResultsCount(initialResultsCount + 6)}>Cargar más resultados</button>
                 )}
-                <h1 className="text-black text-center font-bold">Comidas</h1>
+                <h1 className="text-black text-center font-bold py-1">Comidas:</h1>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 px-24 2xl:px-[350px]">
                     {searchTerm === ''
                         ? filteredProducts.slice(0, initialResultsCount).map((product) => (
