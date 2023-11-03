@@ -47,27 +47,27 @@ function FormLogin() {
   };
 
   return (
-      <div className="bg-white p-10 rounded shadow-md w-96">
+      <div className="bg-white p-10 rounded shadow-lg w-96">
         <h2 className="text-2xl font-semibold mb-4">Iniciar sesión</h2>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-600">
+          <label className="block text-sm font-medium text-gray-700 py-2">
             Tipo de usuario:
           </label>
           <div className="flex space-x-2">
             <button
-              className={`flex-1 py-1 px-2 rounded-md ${userType === 'user' ? 'bg-[#FF441F] text-white' : 'bg-gray-300 text-gray-600'}`}
+              className={`flex-1 py-1 px-2 rounded-md ${userType === 'user' ? 'bg-green-500 text-white' : 'bg-gray-300 text-gray-700'}`}
               onClick={() => setUserType("user")}
             >
               Usuario
             </button>
             <button
-              className={`flex-1 py-1 px-2 rounded-md ${userType === 'delivery' ? 'bg-[#FF441F] text-white' : 'bg-gray-300 text-gray-600'}`}
+              className={`flex-1 py-1 px-2 rounded-md ${userType === 'delivery' ? 'bg-green-500 text-white' : 'bg-gray-300 text-gray-700'}`}
               onClick={() => setUserType("delivery")}
             >
               Delivery
             </button>
             <button
-              className={`flex-1 py-1 px-2 rounded-md ${userType === 'seller' ? 'bg-[#FF441F] text-white' : 'bg-gray-300 text-gray-600'}`}
+              className={`flex-1 py-1 px-2 rounded-md ${userType === 'seller' ? 'bg-green-500 text-white' : 'bg-gray-300 text-gray-700'}`}
               onClick={() => setUserType("seller")}
             >
               Local
@@ -75,7 +75,7 @@ function FormLogin() {
           </div>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="relative z-0 w-full mb-6 group">
+          <div className="relative z-0 w-full mb-8 group">
             <input
               type="email"
               id="email"
@@ -90,7 +90,7 @@ function FormLogin() {
               Correo electrónico:
             </label>
           </div>
-          <div className="relative z-0 w-full mb-6 group">
+          <div className="relative z-0 w-full mb-8 group">
             <input
               type="password"
               id="password"
@@ -111,10 +111,10 @@ function FormLogin() {
             </div>
           )}
 
-          <button type="submit" className="bg-red-600 text-white  w-[100%] font-bold py-2 px-4 rounded transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300">
+          <button type="submit" className="bg-black hover:bg-green-500 text-white  w-[100%] font-bold py-2 px-4 rounded transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300">
             Iniciar sesión
           </button>
-          <p className='text-sm'>Todavía no tienes una cuenta? <span onClick={()=>{ goRegister()}} className='text-black cursor-pointer text-sm'>Registrate aquí</span></p>
+          <p className='text-sm py-2'>Todavía no tienes una cuenta? <span onClick={()=>{ goRegister()}} className='text-green-500 hover:text-black cursor-pointer text-sm'>Registrate aquí</span></p>
 
         </form>
       </div>

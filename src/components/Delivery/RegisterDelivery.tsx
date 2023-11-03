@@ -86,7 +86,7 @@ function RegisterDelivery() {
           </label>
         </div>
       </div>
-        <button className=" bg-red-600 hover:bg-red-600 text-white  w-[100%] font-bold py-2 px-4 rounded transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300">
+        <button className=" bg-black hover:bg-green-500 text-white  w-[100%] font-bold py-2 px-4 rounded transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300">
           Register
         </button>
     </form>

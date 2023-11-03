@@ -18,10 +18,8 @@ function RegisterUser() {
   const [match, setMatch] = useState(true);
   const { createUser } = useUsers();
   const [secondPassword, setSecondPassword] = useState("");
-  const imagenUrl = "https://media.gq.com.mx/photos/5efa923e85180fb067834c03/master/pass/comida%20exceso.jpg";
-  
+
   return (
-    <div className="flex flex-col justify-center items-center w-full h-[800px] bg-cover bg-center relative" style={{ backgroundImage: `url(${imagenUrl})` }}>
     <form
       onSubmit={async (e) => {
         e.preventDefault();
@@ -171,11 +169,10 @@ function RegisterUser() {
       ) : (
         <p></p>
       )}
-      <button className=" bg-red-600 text-white  w-[100%] font-bold py-2 px-4 rounded transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300">
+      <button className=" bg-black text-white hover:bg-green-500 w-[100%] font-bold py-2 px-4 rounded transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300">
         Register
       </button>
     </form>
-  </div>
   );
 }
 
