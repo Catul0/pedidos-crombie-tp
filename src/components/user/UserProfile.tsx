@@ -56,7 +56,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
           </div>
           <div className="mt-6">
             <h3 className="text-xl font-semibold text-gray-800">Información de Perfil</h3>
-            <ul className="list-disc list-inside mt-3 text-gray-700">
+            <ul className="list-disc list-inside mt-3 text-gray-700 ">
               <li><span className="font-semibold">Phone:</span> {user.phone}</li>
               <li><span className="font-semibold">City:</span> {user.city}</li>
               <li><span className="font-semibold">Address:</span> {user.address}</li>

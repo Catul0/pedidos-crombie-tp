@@ -8,7 +8,7 @@ function Navbar(props: any) {
     <div className="bg-white h-16 flex items-center justify-between px-10 border-b">
       <BackButton />
       <p className="text-black px-4 py-2 font-semibold">{text}</p>
-      <div className="flex items-center cursor-pointer">
+      <div className="flex items-center">
         <Image alt="logo" src="/Crombie.png" width={50} height={50} />
       </div>
     </div>
