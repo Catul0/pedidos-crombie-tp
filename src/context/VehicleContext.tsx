@@ -19,7 +19,6 @@ export const VehicleContext = createContext<{
     setSelectedVehicle: (vehicle: Vehicle | null) => void;
 }>({
     vehicles: [],
-
     loadVehicles: async () => { },
     sellerCar:null,
     createVehicle: async (vehicle: Vehicle, id: number) => { },
@@ -46,12 +45,9 @@ export const VehiclesProvider = ({ children }: Children) => {
 
 
     async function loadVehicles() {
-
         const res = await fetch("/api/vehicle");
         const data = await res.json();
         setVehicles(data);
-
-
     }
 
     //funcion para cargar los vehicleos de 1 vendedor-----------------------------------------------------------------------------------------------------

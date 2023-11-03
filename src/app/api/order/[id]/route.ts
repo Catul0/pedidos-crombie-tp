@@ -67,13 +67,13 @@ export async function DELETE(request: Request, {params}: Params) {
 
 export async function PUT(request: Request, {params}: Params) {
     try {
-        const {status, products, sellerId, userId} = await request.json()
+        const {status, products, sellerId, userId, deliveryId} = await request.json()
         const updatedOrderStatus = await prisma.order.update({
             where: {
                 id: Number(params.id)
             },
             data: {
-                status, products, sellerId, userId
+                status, products, sellerId, userId, deliveryId
             }
         })
         return NextResponse.json(updatedOrderStatus)

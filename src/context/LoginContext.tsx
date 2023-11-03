@@ -1,5 +1,6 @@
 "use client"
 import { createContext, useContext, useState } from 'react';
+import Cookies from 'js-cookie';
 
 interface User {
   id: number;
@@ -61,7 +62,7 @@ export const LoginProvider = ({ children }: Children) => {
   // funcion logout
   const logout = () => {
     localStorage.removeItem('token');
-    
+    Cookies.remove('token')
   };
 
   return (
