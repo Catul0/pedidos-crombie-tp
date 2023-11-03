@@ -1,3 +1,4 @@
+"use client"
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from 'react';
 import { useLocalProfiles } from '@/context/LocalProfileContext';
@@ -13,7 +14,6 @@ import {BiUserCircle} from 'react-icons/Bi'
 import Orders from '../orders/Order';
 import { useOrderContext } from '@/context/OrderContext';
 
-
 export default function SellerProfile({
   params,
   isTrue,
@@ -23,13 +23,13 @@ export default function SellerProfile({
 }) {
   const id = params.id;
   const { userOrders } = useOrderContext();
-  const userOrdersFiltered = userOrders.filter((order: any) => order.sellerId === Number(id));
   const { sellerProfiles, loadSellerProfile, setSelectedSeller, selectedSeller } = useLocalProfiles();
   const seller: any = sellerProfiles;
   const [isCartOpen, setIsCartOpen] = useState(false);
   const {cart} = useCart();
   const [renderedComponent, setRenderedComponent] = useState<JSX.Element | null>(null);
-
+  const userOrdersFiltered = userOrders.filter((order: any) => order.sellerId === Number(id));
+  
   useEffect(() => {
     // Realiza la carga del perfil del vendedor solo si no se ha cargado previamente o si el ID ha cambiado.
     if (!seller || seller.id !== Number(id)) {

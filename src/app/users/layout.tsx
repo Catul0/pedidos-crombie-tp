@@ -4,7 +4,8 @@ import { Inter } from 'next/font/google'
 import { UsersProvider } from '@/context/UserContext'
 import { LoginProvider } from '@/context/LoginContext'
 import { OrderProvider } from '@/context/OrderContext'
-
+import { ProductsProvider } from '@/context/ProductContext'
+import { LocalProfilesProvider } from '@/context/LocalProfileContext'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -20,6 +21,8 @@ export default function UserLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <LocalProfilesProvider>
+        <ProductsProvider>
         <OrderProvider>
         <UsersProvider>
             <LoginProvider>
@@ -27,6 +30,8 @@ export default function UserLayout({
             </LoginProvider>
         </UsersProvider>
         </OrderProvider>
+        </ProductsProvider>
+        </LocalProfilesProvider>
       </body>
     </html>
   )

@@ -80,6 +80,7 @@ export default function CreateProduct({ params }: { params: { id: string } }) {
                         type="file"
                         name="image"
                         id="image"
+                        accept='image/*'
                         className="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0   appearance-none    peer"
                         onChange={async (e) =>{
                             if(e.target.files){
