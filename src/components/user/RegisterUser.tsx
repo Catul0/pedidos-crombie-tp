@@ -18,8 +18,10 @@ function RegisterUser() {
   const [match, setMatch] = useState(true);
   const { createUser } = useUsers();
   const [secondPassword, setSecondPassword] = useState("");
+  const imagenUrl = "https://www.openenglish.com/blog/es/wp-content/uploads/sites/2/2016/03/como-pedir-una-hamburguesa.jpg";
 
   return (
+    <div className="flex flex-col justify-center items-center w-full h-[800px] bg-cover bg-center" style={{ backgroundImage: `url(${imagenUrl})`}}>
     <form
       onSubmit={async (e) => {
         e.preventDefault();
@@ -173,6 +175,7 @@ function RegisterUser() {
         Register
       </button>
     </form>
+  </div>
   );
 }
 

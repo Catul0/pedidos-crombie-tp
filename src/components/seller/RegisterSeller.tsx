@@ -17,8 +17,10 @@ function RegisterSeller() {
   const [email, setEmail] = useState("");
   const { createLocalProfile } = useLocalProfiles();
   const router = useRouter();
+  const imagenUrl = "https://www.openenglish.com/blog/es/wp-content/uploads/sites/2/2016/03/como-pedir-una-hamburguesa.jpg";
 
   return (
+    <div className="flex absolute top-16  justify-center items-center w-full min-h-screen bg-cover bg-center" style={{ backgroundImage: `url(${imagenUrl})`}}>
       <form
         onSubmit={async (e) => {
           e.preventDefault();
@@ -163,6 +165,7 @@ function RegisterSeller() {
           Register
         </button>
       </form>
+    </div>
   );
 }
 
