@@ -118,7 +118,8 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
         </div>
 
       </div>
-      <Maps />
+      {/**<Maps /> */}
+      
     </div>
   );
 };
