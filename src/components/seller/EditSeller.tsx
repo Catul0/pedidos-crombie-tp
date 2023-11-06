@@ -84,6 +84,8 @@ function EditSeller() {
     <input
       type="file"
       name="logo"
+      id="logo"
+      accept='image/*'
       className="w-full border border-gray-300 rounded p-2"
       onChange={async (e) =>{
         if(e.target.files){
