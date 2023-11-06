@@ -36,6 +36,10 @@ body {
   .flex.items-center {
     align-items: center;
   }
+
+  .logo:hover {
+    transform: scale(1.1);
+  }
   
 
 

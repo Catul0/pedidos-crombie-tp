@@ -41,7 +41,7 @@ function RegisterUser() {
           setTimeout(() => {
             if (token)
               router.push(`/users/${(decode(token) as { id: string })?.id}`);
-          }, 3000);
+          }, 1500);
         } else {
           setAlert(false);
         }

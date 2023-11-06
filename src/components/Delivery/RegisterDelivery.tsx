@@ -24,30 +24,28 @@ function RegisterDelivery() {
       style={{ backgroundImage: `url(${imagenUrl})` }}
     >
       <form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          setMatch(password === confirmPassword);
-
-          if (password === confirmPassword) {
-            setAlert(true);
-            await createDelivery({
-              name,
-              lastName,
-              email,
-              password,
-            });
-
-            const token = Cookies.get("token");
-            if (token) {
-              setTimeout(() => {
-                router.push(
-                  `/deliverys/${(decode(token) as { id: string })?.id}`
-                );
-              }, 3000);
-            }
-          } else {
-            setAlert(false);
-          }
+  onSubmit={async (e) => {
+    e.preventDefault();
+    setMatch(password === confirmPassword);
+    
+    if (password === confirmPassword) {
+      setAlert(true);
+      await createDelivery({
+        name,
+        lastName,
+        email,
+        password,
+      });
+      
+      const token = Cookies.get("token");
+      if (token) {
+        setTimeout(() => {
+          router.push(`/deliverys/${(decode(token) as { id: string })?.id}`);
+        }, 3000);
+      }
+    } else {
+      setAlert(false);
+    }
         }}
         className="max-w-md mx-auto p-8 bg-white rounded-lg shadow-md "
       >

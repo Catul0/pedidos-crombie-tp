@@ -19,6 +19,7 @@ export type CreateLocalProfile = {
     city: string;
     password: string;
     email: string;
+    logo?:string;
 }
 
 export interface UpdateProfile {
