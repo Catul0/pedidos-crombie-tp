@@ -21,7 +21,7 @@ function Maps() {
 
   const [map, setMaps] = useState<google.maps.Map | null>(null)
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: process.env.API_KEY || '',
+    googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY || '',
     libraries: ['places'],
     
   })

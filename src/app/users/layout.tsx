@@ -6,6 +6,7 @@ import { LoginProvider } from '@/context/LoginContext'
 import { OrderProvider } from '@/context/OrderContext'
 import { ProductsProvider } from '@/context/ProductContext'
 import { LocalProfilesProvider } from '@/context/LocalProfileContext'
+import { ScoresProvider } from '@/context/ScoreContext'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function UserLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <ScoresProvider>
         <LocalProfilesProvider>
         <ProductsProvider>
         <OrderProvider>
@@ -32,6 +34,7 @@ export default function UserLayout({
         </OrderProvider>
         </ProductsProvider>
         </LocalProfilesProvider>
+        </ScoresProvider>
       </body>
     </html>
   )

@@ -14,6 +14,8 @@ import {BiUserCircle} from 'react-icons/Bi'
 import Orders from '../orders/Order';
 import { useOrderContext } from '@/context/OrderContext';
 import { useScores } from '@/context/ScoreContext';
+import {AiFillStar} from 'react-icons/Ai'
+import PuntajeConEstrellas from '../Stars';
 
 export default function SellerProfile({
   params,
@@ -30,7 +32,22 @@ export default function SellerProfile({
   const {cart} = useCart();
   const [renderedComponent, setRenderedComponent] = useState<JSX.Element | null>(null);
   const userOrdersFiltered = userOrders.filter((order: any) => order.sellerId === Number(id));
-  const {puntaje, loadSellerScores}=useScores()
+  const { loadSellerScores, scores}=useScores()
+  const [puntaje, setPuntaje] = useState(0)
+  useEffect(() => {
+    if (scores && scores.length > 0) {
+      const sellerScores = scores.filter((score) => score.localId === Number(id));
+
+      if (sellerScores.length > 0) {
+        const totalScore = sellerScores.reduce((accumulator, currentScore) => {
+          return accumulator + currentScore.score;
+        }, 0);
+        const averageScore = totalScore / sellerScores.length;
+        const roundedAverageScore = averageScore.toFixed(1);
+        setPuntaje(Number(roundedAverageScore));
+      }
+    }
+  }, [id, scores]);
   useEffect(() => {
     
     // Realiza la carga del perfil del vendedor solo si no se ha cargado previamente o si el ID ha cambiado.
@@ -99,7 +116,7 @@ export default function SellerProfile({
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
               {seller.address}, {seller.city}, Argentina
             </p>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{puntaje}</p>
+            <PuntajeConEstrellas puntaje={puntaje}/>
           </div>
           {isTrue && (
             <button

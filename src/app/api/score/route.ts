@@ -24,8 +24,8 @@ export async function POST(request: Request) {
         const { 
             userId,
             score,
-            deliveryId = null,
-            localId = null
+            deliveryId,
+            localId
         } = await request.json()
         const newScore = await prisma.score.create({
             data: {

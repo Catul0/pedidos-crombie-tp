@@ -12,6 +12,7 @@ import { BsBagPlus } from 'react-icons/Bs'
 import { useOrderContext } from '@/context/OrderContext';
 import ProductsUser from '../product/ProductsUser';
 import Maps from '../Maps';
+import RatingComponent from '../Rating';
 
 const UserProfile = ({ params }: { params: { id: string } }) => {
   const [showPopup, setShowPopup] = useState(true);
@@ -99,7 +100,16 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
                 <li key={order.id} className="mb-4 border border-gray-200 rounded-lg p-4">
                   <ProductsUser productsOrder={order.products} idSeller={order.sellerId} />
                   <h4 className="text-lg font-semibold">{order.status}</h4>
-                  {/* Agrega más detalles de los pedidos según la estructura de tus datos */}
+                  {order.status === 'RECIBIDO' ? (
+                    <div>
+                      <h1>Puntuar Local</h1>
+                      <RatingComponent idseller={order.sellerId} iduser={Number(id)} iddelivery={order.deliveryId} sellerdelivery='seller'/>
+                      <h1>Puntuar Delivery</h1>
+                      <RatingComponent idseller={order.sellerId} iduser={Number(id)} iddelivery={order.deliveryId} sellerdelivery='delivery'/>
+                    </div>
+                  ) : (
+                    <h1>hola</h1>
+                  )}
                 </li>
               ))}
             </ul>
@@ -118,7 +128,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
         </div>
 
       </div>
-      {/**<Maps /> */}
+      {/* <Maps /> */}
       
     </div>
   );

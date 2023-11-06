@@ -11,6 +11,7 @@ export const ScoreContext = createContext<{
     scores: Score[];
     puntaje:number;
     createSellerScore: (score: Score, id: number) => Promise<void>;
+    createDeliveryScore: (score: Score, id: number) => Promise<void>;
     updateScore: (id: number, score: CreateScore) => Promise<void>;
     loadDeliveryScore: (id: number) => Promise<void>;
     loadSellerScores: (id: number) => Promise<void>;
@@ -21,6 +22,7 @@ export const ScoreContext = createContext<{
     puntaje:23,
     loadDeliveryScore: async (id: number) => { },
     createSellerScore: async (score: Score, id: number) => { },
+    createDeliveryScore: async (score: Score, id: number) => { },
     updateScore: async (id: number, score: CreateScore) => { },
     loadSellerScores: async (id: number) => { },
     selectedScore: null,
@@ -41,7 +43,7 @@ export const ScoresProvider = ({ children }: Children) => {
     const [puntaje, setPuntaje]=useState(0);
     const [selectedScore, setSelectedScore] = useState<Score | null>(null);
 
-    async function loadDeliveryScore(id: number) {
+    async function loadSellerScores(id: number) {
         const res = await fetch("/api/score/" + id);
         const data = await res.json();
         let contador=0;
@@ -51,11 +53,10 @@ export const ScoresProvider = ({ children }: Children) => {
             contador++;
         } 
         setPuntaje(sumatoria/contador);
-
     }
 
     //funcion para cargar los scoreos de 1 vendedor-----------------------------------------------------------------------------------------------------
-    async function loadSellerScores(id: number) {
+    async function loadDeliveryScore(id: number) {
         try {
             const res = await fetch("/api/score/" + id);
             const data = await res.json();
@@ -92,7 +93,19 @@ export const ScoresProvider = ({ children }: Children) => {
         setScores([...scores, newScore]);
     }
 
-
+    async function createDeliveryScore(score: Score, id: number) {
+        score.deliveryId = id;
+        score.localId = null;
+        const res = await fetch('/api/score', {
+            method: 'POST',
+            body: JSON.stringify(score),
+            headers: {
+                'content-Type': 'application/json'
+            }
+        })
+        const newScore: Score = await res.json()
+        setScores([...scores, newScore]);
+    }
     //esta funcion es para actualizar la informacion de un scoreo
     async function updateScore(id: number, score: CreateScore) {
         const res = await fetch('/api/score/' + id, {
@@ -112,6 +125,7 @@ export const ScoresProvider = ({ children }: Children) => {
                 puntaje,
                 loadDeliveryScore,
                 createSellerScore,
+                createDeliveryScore,
                 updateScore,
                 loadSellerScores,
                 selectedScore,
