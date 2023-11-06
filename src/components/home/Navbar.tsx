@@ -4,8 +4,8 @@ import Link from 'next/link';
 
 function Navbar() {
   return (
-    <div className="bg-white p-4 pr-20 pl-20 h-18 flex  justify-between items-center">
-      <div className="flex items-center cursor-pointer">
+    <div className="bg-white p-4 pr-20 pl-20 h-18 flex justify-between items-center">
+      <div className="flex items-center">
         <Image alt="logo" src="/Crombie.png" width={50} height={50} />
       </div>
       <div className="space-x-4 font-bold">

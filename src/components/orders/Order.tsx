@@ -3,7 +3,7 @@ import { useOrderContext } from '@/context/OrderContext';
 
 function Orders({params}: {params: { id: string };}) {
   const id = params.id
-  const { userOrders, isLoading, handleAcceptOrder, handleRejectOrder, handlePrepareOrder, handleCookOrder, handleFinishOrder } = useOrderContext();
+  const { userOrders, isLoading, handleAcceptOrder, handleRejectOrder, handlePrepareOrder, handleCookOrder } = useOrderContext();
   const userOrdersFiltered = userOrders.filter((order: any) => order.sellerId === Number(id));
   return (
     <div className="text-center bg-gray-100 p-4 rounded-lg">
@@ -42,12 +42,12 @@ function Orders({params}: {params: { id: string };}) {
                         <button onClick={() => handleRejectOrder(order.id, order.products, order.sellerId, order.userId)} className='bg-red-500'>Cancelar</button>
                     </div>
                     )}
-                    {order.status === 'COCINADO' && (
+                    {/* {order.status === 'COCINADO' && (
                     <div>
                         <button onClick={() => handleFinishOrder(order.id, order.products, order.sellerId, order.userId)} className='bg-yellow-500'>Pedido listo</button>
                         <button onClick={() => handleRejectOrder(order.id, order.products, order.sellerId, order.userId)} className='bg-red-500'>Cancelar</button>
                     </div>
-                    )}
+                    )} */}
                 </li>
               ))}
             </ul>

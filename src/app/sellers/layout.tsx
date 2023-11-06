@@ -5,6 +5,7 @@ import { ProductsProvider } from '@/context/ProductContext'
 import { LocalProfilesProvider } from '@/context/LocalProfileContext'
 import { CartProvider } from '@/context/CartContext'
 import { OrderProvider } from '@/context/OrderContext'
+import { ScoresProvider } from '@/context/ScoreContext'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -24,7 +25,9 @@ export default function SellerLayout({
         <CartProvider>
         <LocalProfilesProvider>
           <ProductsProvider>
+            <ScoresProvider>
           {children}
+            </ScoresProvider>
           </ProductsProvider>
         </LocalProfilesProvider>
         </CartProvider>

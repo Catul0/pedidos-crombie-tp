@@ -6,9 +6,9 @@ interface Params { params: {id: string}}
 
 export async function GET(request: Request, {params}: Params) {
     try {
-        const score = await prisma.score.findFirst({
+        const score = await prisma.score.findMany({
             where: {
-                id: Number(params.id)
+                localId: Number(params.id)
             }
         })
         if (!score){
