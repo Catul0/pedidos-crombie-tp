@@ -24,34 +24,35 @@ function RegisterDelivery() {
       style={{ backgroundImage: `url(${imagenUrl})` }}
     >
       <form
-    onSubmit={async (e) => {
-      e.preventDefault();
-      setMatch(password === confirmPassword);
-      
-      if (password === confirmPassword) {
-        setAlert(true);
-        await createDelivery({
-          name,
-          lastName,
-          email,
-          password,
-        });
-        
-        const token = Cookies.get("token");
-        if (token) {
-          setTimeout(() => {
-            router.push(`/deliverys/${(decode(token) as { id: string })?.id}`);
-          }, 3000);
-        }
-      } else {
-        setAlert(false);
-      }
-    }
-    }
-        className="max-w-md mx-auto p-8 bg-opacity-80 bg-white rounded-lg drop-shadow-2xl "
+        onSubmit={async (e) => {
+          e.preventDefault();
+          setMatch(password === confirmPassword);
+
+          if (password === confirmPassword) {
+            setAlert(true);
+            await createDelivery({
+              name,
+              lastName,
+              email,
+              password,
+            });
+
+            const token = Cookies.get("token");
+            if (token) {
+              setTimeout(() => {
+                router.push(
+                  `/deliverys/${(decode(token) as { id: string })?.id}`
+                );
+              }, 3000);
+            }
+          } else {
+            setAlert(false);
+          }
+        }}
+        className="max-w-md mx-auto p-8 bg-white rounded-lg shadow-md "
       >
-        <div className="grid grid-cols-2 gap-4">
-          <div className="relative z-0 w-full mb-6 group">
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="relative z-0 w-full mb-8 group">
             <input
               type="text"
               name="name"
@@ -64,10 +65,10 @@ function RegisterDelivery() {
               form=""
               className="peer-focus:font-medium absolute text-sm text-black dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              First name
+              First name:
             </label>
           </div>
-          <div className="relative z-0 w-full mb-6 group">
+          <div className="relative z-0 w-full mb-8 group">
             <input
               type="text"
               name="LastName"
@@ -80,7 +81,8 @@ function RegisterDelivery() {
               LastName:
             </label>
           </div>
-          <div className="relative z-0 w-full mb-6 group">
+         </div>
+          <div className="relative z-0 w-full mb-8 group">
             <input
               type="email"
               name="email"
@@ -93,7 +95,8 @@ function RegisterDelivery() {
               Email:
             </label>
           </div>
-            <div className="relative z-0 w-full mb-6 group">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="relative z-0 w-full mb-8 group">
               <input
                 type="password"
                 name="password"
@@ -106,7 +109,7 @@ function RegisterDelivery() {
                 Password:
               </label>
             </div>
-            <div className="relative z-0 w-full mb-6 group">
+            <div className="relative z-0 w-full mb-8 group">
               <input
                 type="password"
                 name="confirmPassword"
@@ -120,25 +123,26 @@ function RegisterDelivery() {
               </label>
             </div>
           </div>
-          {match === false ? (
-            <div className="mb-4 span-2">
-              <p className="block text-white text-center bg-red-600 text-sm font-bold mb-2">
-                Passwords do not match
-              </p>
-            </div>
-          ) : (
-            <p></p>
-          )}
-          {alert ? (
-            <div className="mb-4 span-2">
-              <p className="block text-white text-center bg-green-400 text-sm font-bold mb-2 rounded">
-                Register Succes
-              </p>
-            </div>
-          ) : (
-            <p></p>
-          )}
-        <button className=" bg-black hover:bg-green-500 text-white  w-[100%] font-bold py-2 px-4 rounded transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300">
+        
+        {match === false ? (
+          <div className="mb-4 span-2">
+            <p className="block text-red-600 text-center text-sm font-bold mb-2">
+              Passwords do not match
+            </p>
+          </div>
+        ) : (
+          <p></p>
+        )}
+        {alert ? (
+          <div className="mb-4 span-2">
+            <p className="block text-green-400 text-center text-sm font-bold mb-2 rounded">
+              Register Succes
+            </p>
+          </div>
+        ) : (
+          <p></p>
+        )}
+        <button className="bg-green-500 hover:bg-green-600 text-white w-full font-bold py-2 px-4 rounded transform transition duration-300 hover:scale-105">
           Register
         </button>
       </form>

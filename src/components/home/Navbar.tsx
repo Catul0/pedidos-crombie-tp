@@ -11,12 +11,12 @@ function Navbar() {
       </div>
       <div className="space-x-4 font-bold">
         <Link href={"/users/register"}>
-            <button className="bg-white text-red-600 px-4 py-2 rounded-md border border-red-500 transition-all hover:bg-red-500  hover:text-white">
+            <button className="nav-button">
             Registrarse
             </button>
         </Link>
         <Link href={"/login"}>
-          <button className="bg-white text-red-600 px-4 py-2 rounded-md border border-red-500 transition-all hover:bg-red-500 hover:text-white">
+          <button className="nav-button">
             Iniciar sesión
           </button>
         </Link>
