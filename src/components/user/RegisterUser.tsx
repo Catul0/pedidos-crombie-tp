@@ -18,8 +18,10 @@ function RegisterUser() {
   const [match, setMatch] = useState(true);
   const { createUser } = useUsers();
   const [secondPassword, setSecondPassword] = useState("");
+  const imagenUrl = "https://www.openenglish.com/blog/es/wp-content/uploads/sites/2/2016/03/como-pedir-una-hamburguesa.jpg";
 
   return (
+    <div className="flex flex-col justify-center items-center w-full h-[800px] bg-cover bg-center" style={{ backgroundImage: `url(${imagenUrl})`}}>
     <form
       onSubmit={async (e) => {
         e.preventDefault();
@@ -39,12 +41,12 @@ function RegisterUser() {
           setTimeout(() => {
             if (token)
               router.push(`/users/${(decode(token) as { id: string })?.id}`);
-          }, 3000);
+          }, 1500);
         } else {
           setAlert(false);
         }
       }}
-      className="max-w-md mx-auto p-8 bg-white rounded-lg drop-shadow-2xl" 
+      className="max-w-md mx-auto p-8 bg-white rounded-lg shadow-md" 
     >
       <div className="grid md:grid-cols-2 md:gap-6">
         <div className="relative z-0 w-full mb-6 group">
@@ -153,7 +155,7 @@ function RegisterUser() {
       </div>
       {match === false ? (
         <div className="mb-4 span-2">
-          <p className="block text-white text-center bg-red-600 text-sm font-bold mb-2">
+          <p className="block text-red-600 text-center text-sm font-bold mb-2">
             Passwords do not match
           </p>
         </div>
@@ -162,17 +164,18 @@ function RegisterUser() {
       )}
       {alert ? (
         <div className="mb-4 span-2">
-          <p className="block text-white text-center bg-green-400 text-sm font-bold mb-2 rounded">
+          <p className="block text-green-400 text-center text-sm font-bold mb-2 rounded">
             Register Succes
           </p>
         </div>
       ) : (
         <p></p>
       )}
-      <button className=" bg-black text-white hover:bg-green-500 w-[100%] font-bold py-2 px-4 rounded transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300">
+      <button className="bg-green-500 hover:bg-green-600 text-white w-full font-bold py-2 px-4 rounded transform transition duration-300 hover:scale-105">
         Register
       </button>
     </form>
+  </div>
   );
 }
 

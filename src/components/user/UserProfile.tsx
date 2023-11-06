@@ -102,10 +102,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
                   <h4 className="text-lg font-semibold">{order.status}</h4>
                   {order.status === 'RECIBIDO' ? (
                     <div>
-                      <h1>Puntuar Local</h1>
-                      <RatingComponent idseller={order.sellerId} iduser={Number(id)} iddelivery={order.deliveryId} sellerdelivery='seller'/>
-                      <h1>Puntuar Delivery</h1>
-                      <RatingComponent idseller={order.sellerId} iduser={Number(id)} iddelivery={order.deliveryId} sellerdelivery='delivery'/>
+                      <RatingComponent idseller={order.sellerId} iduser={Number(id)} iddelivery={order.deliveryId} orderId={order.id} products={order.products}/>
                     </div>
                   ) : (
                     <h1>hola</h1>
@@ -129,7 +126,6 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
 
       </div>
       {/* <Maps /> */}
-      
     </div>
   );
 };

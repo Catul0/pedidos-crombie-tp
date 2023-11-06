@@ -7,18 +7,26 @@ function JoinUs(props: any) {
 
   return (
     <Link href={linkPath}>
-      <div className='max-w-sm p-6 bg-white border border-gray-200 rounded-md shadow-md dark:bg-gray-800 dark:border-gray-700'>
-        <img className='w-[400px] h-[250px] rounded' src={imageUrl} alt=''/>
-        <p className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>{paragraphText}</p>
-        <p className='inline-flex items-center px-3 py-3 text-sm font-medium text-center text-green-600 bg-green-200 rounded-lg hover:bg-green-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-white dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>{linkText}
-        <svg className="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-        </svg>
-        </p>
-        
+      <div className="max-w-md mx-auto p-6 bg-white border border-gray-300 rounded-md shadow-md dark:bg-gray-800 dark:border-gray-700 transform hover:scale-105 transition-transform">
+        <div className="relative overflow-hidden rounded-lg h-52">
+          <img className="w-full h-full object-cover rounded-lg" src={imageUrl} alt="" />
+        </div>
+        <div className="mt-4 text-xl font-semibold text-gray-900 dark:text-white">{paragraphText}</div>
+        <div className="mt-2 flex items-center transition-transform transform hover:scale-105">
+          <button className="px-4 py-2 text-sm font-semibold text-white bg-green-500 rounded-lg transition-all hover:bg-green-600 focus:ring-2 focus:ring-offset-2 focus:ring-green-600 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-2 dark:focus:ring-offset-2 dark:focus:ring-blue-800">
+            {linkText}
+          </button>
+          <svg className="w-6 h-6 ml-2 text-gray-900 dark:text-white transition-transform transform hover:rotate-90" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
       </div>
     </Link>
   );
 }
 
 export default JoinUs;
+
+
+
+

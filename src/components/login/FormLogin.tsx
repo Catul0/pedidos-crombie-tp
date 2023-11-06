@@ -111,7 +111,7 @@ function FormLogin() {
             </div>
           )}
 
-          <button type="submit" className="bg-black hover:bg-green-500 text-white  w-[100%] font-bold py-2 px-4 rounded transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300">
+          <button type="submit" className="bg-green-500 hover:bg-green-600 text-white w-full font-bold py-2 px-4 rounded transform transition duration-300 hover:scale-105">
             Iniciar sesión
           </button>
           <p className='text-sm py-2'>Todavía no tienes una cuenta? <span onClick={()=>{ goRegister()}} className='text-green-500 hover:text-black cursor-pointer text-sm'>Registrate aquí</span></p>
