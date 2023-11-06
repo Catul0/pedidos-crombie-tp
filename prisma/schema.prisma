@@ -97,7 +97,7 @@ enum Status {
   COCINADO
   EN_CAMINO
   RECIBIDO
-  FINALIZADO
+  PUNTUADOy
 }
 
 // INformacion y descripcion del veihiculo del repartidor 

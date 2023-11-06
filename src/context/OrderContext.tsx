@@ -227,7 +227,7 @@ export function OrderProvider({ children }: OrderProviderProps) {
   };
   const handleScored = (orderId: number, products: string, sellerId: number, userId: number) => {
     const updatedData = {
-        status: 'FINALIZADO',
+        status: 'EN_CAMINO',
         products: products,
         sellerId: sellerId,
         userId: userId,
