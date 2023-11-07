@@ -18,10 +18,22 @@ function RegisterUser() {
   const [match, setMatch] = useState(true);
   const { createUser } = useUsers();
   const [secondPassword, setSecondPassword] = useState("");
-  const imagenUrl = "https://www.openenglish.com/blog/es/wp-content/uploads/sites/2/2016/03/como-pedir-una-hamburguesa.jpg";
+  const imagenUrl = "https://images.pexels.com/photos/534285/pexels-photo-534285.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
   return (
-    <div className="flex flex-col justify-center items-center w-full h-[800px] bg-cover bg-center" style={{ backgroundImage: `url(${imagenUrl})`}}>
+    <div className="flex flex-row justify-center items-center w-full h-full bg-cover bg-white">
+    <div className="w-2/5 bg-black h-full flex justify-center items-center flex-col pl-10 pr-10 gap-8"
+      style={{
+        backgroundImage: `url('https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
+        backgroundSize: 'cover', // Opcional: ajusta el tamaño de la imagen de fondo
+        backgroundPosition: 'center', // Opcional: ajusta la posición de la imagen de fondo
+        backdropFilter: 'blur(8px)'
+      }}>
+      <h1 className="text-white text-7xl font-bold">¡Regístrate hoy y recibe hasta 15 días</h1>
+      <p className="text-white text-3xl font-bold">de Envíos Gratis pagando en efectivo!</p>
+    </div>
+    <div className="w-3/5 h-full flex justify-center items-center flex-col gap-20">
+      <h1 className="text-black font-bold text-3xl">Registrate o ingresá para continuar</h1>
     <form
       onSubmit={async (e) => {
         e.preventDefault();
@@ -46,8 +58,8 @@ function RegisterUser() {
           setAlert(false);
         }
       }}
-      className="max-w-md mx-auto p-8 bg-white rounded-lg shadow-md" 
-    >
+      className="max-w-md mx-auto p-8 bg-white rounded-lg shadow-lg" 
+      >
       <div className="grid md:grid-cols-2 md:gap-6">
         <div className="relative z-0 w-full mb-6 group">
           <input
@@ -69,7 +81,7 @@ function RegisterUser() {
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-slate-950 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-600 focus:outline-none focus:ring-0 focus:border-black peer"
             onChange={(e) => setLastName(e.target.value)}
             placeholder=""
-          />
+            />
           <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
             LastName:
           </label>
@@ -82,7 +94,7 @@ function RegisterUser() {
             onChange={(e) => setPhone(e.target.value)}
             placeholder=""
             required
-          />
+            />
           <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
             Phone:
           </label>
@@ -95,7 +107,7 @@ function RegisterUser() {
             onChange={(e) => setAddress(e.target.value)}
             placeholder=""
             required
-          />
+            />
           <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
             Address:
           </label>
@@ -108,7 +120,7 @@ function RegisterUser() {
             onChange={(e) => setCity(e.target.value)}
             placeholder=""
             required
-          />
+            />
           <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
             City:
           </label>
@@ -134,7 +146,7 @@ function RegisterUser() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder=""
             required
-          />
+            />
           <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
             Password:
           </label>
@@ -147,7 +159,7 @@ function RegisterUser() {
             onChange={(e) => setSecondPassword(e.target.value)}
             placeholder=""
             required
-          />
+            />
           <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
             Confirm Password:
           </label>
@@ -175,6 +187,7 @@ function RegisterUser() {
         Register
       </button>
     </form>
+    </div>
   </div>
   );
 }

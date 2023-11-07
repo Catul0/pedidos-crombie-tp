@@ -4,7 +4,6 @@ import { useLocalProfiles } from "@/context/LocalProfileContext";
 import Cookies from "js-cookie";
 import { decode } from "jsonwebtoken";
 import { useRouter } from "next/navigation";
-import uploadFile from "@/libs/update-file";
 
 function RegisterSeller() {
   const [name, setName] = useState("");
@@ -57,11 +56,16 @@ function RegisterSeller() {
   return (
     <div
       className="flex absolute top-16 justify-center items-center w-full h-full bg-cover bg-center"
-      style={{ backgroundImage: `url(${imagenUrl})` }}
+      style={{ backgroundImage: `url('https://images.unsplash.com/photo-1673212036711-b4b30c62ec11?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`
+    }}
     >
+      <div className="max-w-xl flex flex-col mr-40">
+        <h1 className="font-bold text-white text-5xl">¡Registrá tu restaurante en Pedidos Crombie Partners y vende más!</h1>
+        <p className="text-white mt-5">En el Portal Partners de Pedidos Crombie, tendrás acceso a muchas herramientas para impulsar tu empresa. Al convertirte en aliado de Pedidos Crombie, tus ventas aumentarán hasta un 30% sin incrementar costos operativos y llegando a más usuarios. ¡Crecé con Pedidos Crombie!</p>
+      </div>
       <form
         onSubmit={handleSubmit}
-        className="max-w-md mx-auto p-8 bg-opacity-80 bg-white rounded-lg shadow-lg"
+        className="max-w-md p-8 bg-white rounded-lg shadow-lg"
       >
         <h2 className="text-2xl font-semibold mb-4">Register as a Seller</h2>
         <div className="grid md:grid-cols-2 md:gap-6">
