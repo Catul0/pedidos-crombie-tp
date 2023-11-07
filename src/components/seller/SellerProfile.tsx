@@ -14,7 +14,6 @@ import {BiUserCircle} from 'react-icons/Bi'
 import Orders from '../orders/Order';
 import { useOrderContext } from '@/context/OrderContext';
 import { useScores } from '@/context/ScoreContext';
-import {AiFillStar} from 'react-icons/Ai'
 import PuntajeConEstrellas from '../Stars';
 
 export default function SellerProfile({
@@ -145,7 +144,7 @@ export default function SellerProfile({
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <div className="bg-gray-100 border w-full h-full border-gray-200 shadow-lg p-4">
             <button
-              className="bg-blue-500 text-white rounded-lg p-2"
+              className="text-black font-bold text-2xl"
               onClick={() => setIsCartOpen(!isCartOpen)}
             >
               X
