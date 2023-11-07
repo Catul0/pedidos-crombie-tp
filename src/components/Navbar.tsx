@@ -11,7 +11,9 @@ function Navbar(props: any) {
       <p className="text-black px-4 py-2 font-semibold text-lg">{text}</p>
       <div className="flex items-center space-x-4">
         <div className="flex items-center">
-          <Image alt="logo" src="/Crombie.png" width={50} height={50} />
+          <div className="relative group">
+            <Image alt="logo" src="/Crombie.png" width={50} height={50} className="w-12 h-12 group-hover:scale-110 transition-transform" />
+          </div>
         </div>
       </div>
     </div>
@@ -19,4 +21,6 @@ function Navbar(props: any) {
 }
 
 export default Navbar;
+
+
 
