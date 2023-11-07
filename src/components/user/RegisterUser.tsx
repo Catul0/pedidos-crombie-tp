@@ -1,11 +1,21 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useUsers } from "@/context/UserContext";
 import Cookies from "js-cookie";
 import { decode } from "jsonwebtoken";
 import { useRouter } from "next/navigation";
+import {
+
+  HStack,
+  Input
+} from '@chakra-ui/react';
+import {  useJsApiLoader, Autocomplete } from '@react-google-maps/api';
+require('dotenv').config();
+
 
 function RegisterUser() {
+  
+
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
@@ -18,7 +28,18 @@ function RegisterUser() {
   const [match, setMatch] = useState(true);
   const { createUser } = useUsers();
   const [secondPassword, setSecondPassword] = useState("");
+  const directionRef = useRef<HTMLInputElement | null>(null);
   const imagenUrl = "https://www.openenglish.com/blog/es/wp-content/uploads/sites/2/2016/03/como-pedir-una-hamburguesa.jpg";
+  
+  
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY || '',
+    libraries: ['places'],
+  });
+  
+  if (!isLoaded) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="flex flex-col justify-center items-center w-full h-[800px] bg-cover bg-center" style={{ backgroundImage: `url(${imagenUrl})`}}>
@@ -26,17 +47,21 @@ function RegisterUser() {
       onSubmit={async (e) => {
         e.preventDefault();
         setMatch(password === secondPassword);
+        
         if (password === secondPassword) {
           setAlert(true);
-          await createUser({
-            name,
-            lastName,
-            phone,
-            address,
-            city,
-            email,
-            password,
-          });
+          setTimeout(async ()=>{
+            await createUser({
+              name,
+              lastName,
+              phone,
+              address,
+              city,
+              email,
+              password,
+            });
+          },1000)
+          
           const token: any = Cookies.get("token");
           setTimeout(() => {
             if (token)
@@ -87,19 +112,24 @@ function RegisterUser() {
             Phone:
           </label>
         </div>
-        <div className="relative z-0 w-full mb-6 group">
-          <input
+        <HStack className="relative z-0 w-full mb-6 group">
+        <Autocomplete>
+          <Input
             type="text"
-            name="adress"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-slate-950 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-600 focus:outline-none focus:ring-0 focus:border-black peer"
-            onChange={(e) => setAddress(e.target.value)}
+            ref={directionRef}
+            onBlur={(e)=>{
+              setAddress(directionRef.current!.value)
+            }}
+            
             placeholder=""
             required
           />
+          </Autocomplete>
           <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
             Address:
           </label>
-        </div>
+        </HStack>
         <div className="relative z-0 w-full mb-6 group">
           <input
             type="text"

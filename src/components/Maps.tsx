@@ -11,12 +11,14 @@ import {
 } from '@chakra-ui/react';
 import { FaLocationArrow, FaTimes } from 'react-icons/fa';
 import { GoogleMap, useJsApiLoader, Marker, Autocomplete, DirectionsRenderer } from '@react-google-maps/api';
+import { useRouter } from 'next/navigation';
 
 require('dotenv').config();
 
 const center = { lat: 48.8584, lng: 2.2945 };
 
 function Maps() {
+  const router = useRouter()
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY || '',
     libraries: ['places'],
@@ -64,7 +66,18 @@ function Maps() {
       }
     });
   }
-
+  function clearRoute() {
+    setDirectionsResponse(null)
+    setDistance('')
+    setDuration('')
+    if(originRef.current){
+      originRef.current.value = ''
+    }
+    if(destinationRef.current){
+      destinationRef.current.value = ''
+    }
+    router.refresh();
+  }
   return (
     <Flex
       position='relative'
@@ -108,7 +121,7 @@ function Maps() {
             <IconButton
               aria-label='center back'
               icon={<FaTimes />}
-              onClick={() => alert(123)}
+              onClick={clearRoute}
             />
           </ButtonGroup>
         </HStack>
