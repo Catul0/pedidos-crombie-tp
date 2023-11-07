@@ -2,6 +2,8 @@
 import Navbar from "@/components/home/Navbar";
 import Imagen from "@/components/home/Imagen";
 import JoinUs from "@/components/home/JoinUs";
+import Footer from "@/components/home/Footer";
+
 function HomePage() {
   return (
     <div>
@@ -30,6 +32,7 @@ function HomePage() {
           linkText="Registrate como delivery"
         />
       </div>
+      <Footer/>
     </div>
   );
 }
