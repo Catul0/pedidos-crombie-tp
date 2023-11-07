@@ -16,13 +16,17 @@ function RegisterDelivery() {
   const router = useRouter();
   const [confirmPassword, setConfirmPassword] = useState("");
   const imagenUrl =
-    "https://style.shockvisual.net/wp-content/uploads/2021/01/happy-delivery-man-with-yellow-backpack-riding-mot-AXKXGMY-scaled.jpg";
+    "https://images.unsplash.com/photo-1610478920409-ec0f58e881a5?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
   return (
     <div
-      className="flex absolute top-16  justify-center items-center w-full h-full bg-cover bg-center"
+      className="flex absolute top-16  justify-center gap-10 items-center w-full h-full bg-cover bg-center pr-10 pl-10"
       style={{ backgroundImage: `url(${imagenUrl})` }}
     >
+      <div className="w-2/6 text-white flex gap-5 flex-col">
+        <h1 className="text-5xl font-bold">¡Únete hoy como repartidor en nuestra plataforma!</h1>
+        <p className="text-2xl">Conviértete en un aliado de entrega y sé parte de nuestro éxito.</p>
+      </div>
       <form
   onSubmit={async (e) => {
     e.preventDefault();
@@ -47,7 +51,7 @@ function RegisterDelivery() {
       setAlert(false);
     }
         }}
-        className="max-w-md mx-auto p-8 bg-white rounded-lg shadow-md "
+        className="max-w-md p-8 bg-white rounded-lg shadow-md "
       >
         <div className="grid md:grid-cols-2 gap-4">
           <div className="relative z-0 w-full mb-8 group">

@@ -2,6 +2,7 @@
 import React from 'react'
 import RegisterUser from '@/components/user/RegisterUser'
 import Navbar from '@/components/Navbar'
+
 const RegisterUsers = () => {
   return (
     <div>
