@@ -130,18 +130,19 @@ export default function DeliveryProfile({
                 className="mb-4 border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all duration-300"
               >
                 {localProfiles.map((seller) => (
+                  
                   seller.id === order.sellerId ?
                     <div key={seller.id}>
                       <h4 className="text-lg font-semibold text-gray-900">{seller.name}</h4>
                       <h4 className="text-lg font-semibold text-gray-900">Buscar en: {seller.address}</h4>
-                    </div> :<p></p>
-                  ))}
+                    </div> :<p key={seller.id}></p>
+                    ))}
                   {users.map((user) => (
                   user.id === order.userId ?
                     <div key={user.id}>
                       <h4 className="text-lg font-semibold text-gray-900">{user.name}</h4>
                       <h4 className="text-lg font-semibold text-gray-900">Entregar en: {user.address}</h4>
-                    </div> :<p></p>
+                    </div> :<p key={user.id}></p>
                   ))}
                 <h4 className="text-lg font-semibold text-gray-900">
                   Cantidad de productos: {order.products}
@@ -188,14 +189,14 @@ export default function DeliveryProfile({
                     <div key={seller.id}>
                       <h4 className="text-lg font-semibold text-gray-900">Seller Name: {seller.name}</h4>
                       <h4 className="text-lg font-semibold text-gray-900">seller addres: {seller.address}</h4>
-                    </div> :<p></p>
+                    </div> :<p key={seller.id}></p>
                   ))}
                   {users.map((user) => (
                   user.id === order.userId ?
                     <div key={user.id}>
                       <h4 className="text-lg font-semibold text-gray-900">Seller Name: {user.name}</h4>
                       <h4 className="text-lg font-semibold text-gray-900">seller addres: {user.address}</h4>
-                    </div> :<p></p>
+                    </div> :<p key={user.id}></p>
                   ))}
                   <h4 className="text-lg font-semibold text-gray-900">
                     Productos: {order.products}
