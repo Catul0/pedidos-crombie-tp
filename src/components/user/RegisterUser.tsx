@@ -28,7 +28,7 @@ function RegisterUser() {
   const [match, setMatch] = useState(true);
   const { createUser } = useUsers();
   const [secondPassword, setSecondPassword] = useState("");
-  const imagenUrl = "https://images.pexels.com/photos/534285/pexels-photo-534285.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+  const imagenUrl = "https://plus.unsplash.com/premium_photo-1661274039013-6cfd357c6ee2?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
   const directionRef = useRef<HTMLInputElement | null>(null);
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY || '',
