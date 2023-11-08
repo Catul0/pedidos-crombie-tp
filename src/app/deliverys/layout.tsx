@@ -5,6 +5,7 @@ import { VehiclesProvider } from "@/context/VehicleContext";
 import { OrderProvider } from "@/context/OrderContext";
 import Navbar from "@/components/Navbar";
 import { LocalProfilesProvider } from "@/context/LocalProfileContext";
+import { UsersProvider } from "@/context/UserContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function DeliveryLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <UsersProvider>
         <OrderProvider>
           <DeliverysProvider>
             <Navbar text="Pedidos Crombie - Bienvenido de vuelta!" />
@@ -31,6 +33,7 @@ export default function DeliveryLayout({
             </VehiclesProvider>
           </DeliverysProvider>
         </OrderProvider>
+        </UsersProvider>
       </body>
     </html>
   );

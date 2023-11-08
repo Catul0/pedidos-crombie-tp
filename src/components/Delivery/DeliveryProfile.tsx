@@ -7,14 +7,35 @@ import { useVehicles } from "@/context/VehicleContext";
 import { useOrderContext } from "@/context/OrderContext";
 import VehicleCard from "./VehicleCard";
 import { motion } from "framer-motion";
-
+import { useUsers } from "@/context/UserContext";
 import { useLocalProfiles } from '@/context/LocalProfileContext';
+import Maps from "../Maps";
 
 export default function DeliveryProfile({
   params,
 }: {
   params: { id: string };
 }) {
+  function getAddresses(order: any) {
+    let userAddress = "";
+    let sellerAddress = "";
+  
+    // Busca el usuario correspondiente al order.userId
+    const user = users.find((user) => user.id === order.userId);
+  
+    if (user) {
+      userAddress = user.address;
+    }
+  
+    // Busca el vendedor correspondiente al order.sellerId
+    const seller = localProfiles.find((seller) => seller.id === order.sellerId);
+  
+    if (seller) {
+      sellerAddress = seller.address;
+    }
+  
+    return { userAddress, sellerAddress };
+  }
   const { userOrders, handleDeliveryTakingOrder, handleDeliveredOrder } =
     useOrderContext();
   const userOrdersFiltered = userOrders.filter(
@@ -25,7 +46,7 @@ export default function DeliveryProfile({
   );
   const deliverysOrder = userOrders.filter(
     (order: any) =>
-      order.deliveryId === Number(params.id) && order.status != "RECIBIDO"
+      order.deliveryId === Number(params.id) && order.status != "RECIBIDO" && order.status != 'FINALIZADO'
   );
   
   const {loadLocalProfile, localProfiles}= useLocalProfiles();
@@ -33,13 +54,14 @@ export default function DeliveryProfile({
   const { loadSellerVehicles, sellerCar } = useVehicles();
   const [cargarAuto, setCargarAuto] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
+  const {loadUsers, users} = useUsers();
   const id = Number(params.id);
   const delivery: any = deliveryProfile;
 
   useEffect(() => {
     loadDeliveryProfile(Number(id));
     loadLocalProfile();
-    console.log(localProfiles)
+    loadUsers();
     loadSellerVehicles(Number(id));
   }, [id]);
 
@@ -55,8 +77,8 @@ export default function DeliveryProfile({
   }, [car]);
 
   return (
-    <div className="flex justify-center items-center gap-8 p-8">
-      <div className="w-1/4 bg-white rounded-lg shadow-lg p-6">
+    <div className="flex justify-center items-center gap-8 p-8 flex-col">
+      <div className="bg-white rounded-lg shadow-lg p-6">
         <div className="text-center">
           {showMessage && (
             <div className="bg-red-500 text-white p-2 mt-4 text-center rounded">
@@ -85,9 +107,19 @@ export default function DeliveryProfile({
         >
           {cargarAuto ? "Cancelar" : "Cargar Nuevo Auto"}
         </button>
+        {cargarAuto ? (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+          <CreateVehicle params={params} />
+        </motion.div>
+      ) : null}
       </div>
       {deliverysOrder.length > 0 ? (
-        <div className="w-1/4 bg-white rounded-lg shadow-lg p-6">
+        <div className="bg-white rounded-lg shadow-lg p-6">
           <h1 className="text-lg font-bold text-gray-900">
             Tienes un pedido que entregar:
           </h1>
@@ -100,13 +132,24 @@ export default function DeliveryProfile({
                 {localProfiles.map((seller) => (
                   seller.id === order.sellerId ?
                     <div key={seller.id}>
-                      <h4 className="text-lg font-semibold text-gray-900">Seller Name: {seller.name}</h4>
-                      <h4 className="text-lg font-semibold text-gray-900">seller addres: {seller.address}</h4>
+                      <h4 className="text-lg font-semibold text-gray-900">{seller.name}</h4>
+                      <h4 className="text-lg font-semibold text-gray-900">Buscar en: {seller.address}</h4>
+                    </div> :<p></p>
+                  ))}
+                  {users.map((user) => (
+                  user.id === order.userId ?
+                    <div key={user.id}>
+                      <h4 className="text-lg font-semibold text-gray-900">{user.name}</h4>
+                      <h4 className="text-lg font-semibold text-gray-900">Entregar en: {user.address}</h4>
                     </div> :<p></p>
                   ))}
                 <h4 className="text-lg font-semibold text-gray-900">
-                  Productos: {order.products}
+                  Cantidad de productos: {order.products}
                 </h4>
+                <Maps
+                  origin={getAddresses(order).sellerAddress}
+                  destination={getAddresses(order).userAddress}
+                />
                 <h4 className="text-lg font-semibold text-gray-900">
                   Status: {order.status}
                 </h4>
@@ -129,7 +172,7 @@ export default function DeliveryProfile({
           </ul>
         </div>
       ) : (
-        <div className="w-1/4 bg-white rounded-lg shadow-lg p-6">
+        <div className="bg-white rounded-lg shadow-lg p-6">
           <h1 className="text-lg font-bold text-gray-900">
             No tienes pedidos asignados. Elige uno:
           </h1>
@@ -145,6 +188,13 @@ export default function DeliveryProfile({
                     <div key={seller.id}>
                       <h4 className="text-lg font-semibold text-gray-900">Seller Name: {seller.name}</h4>
                       <h4 className="text-lg font-semibold text-gray-900">seller addres: {seller.address}</h4>
+                    </div> :<p></p>
+                  ))}
+                  {users.map((user) => (
+                  user.id === order.userId ?
+                    <div key={user.id}>
+                      <h4 className="text-lg font-semibold text-gray-900">Seller Name: {user.name}</h4>
+                      <h4 className="text-lg font-semibold text-gray-900">seller addres: {user.address}</h4>
                     </div> :<p></p>
                   ))}
                   <h4 className="text-lg font-semibold text-gray-900">
@@ -178,16 +228,6 @@ export default function DeliveryProfile({
           )}
         </div>
       )}
-      {cargarAuto ? (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-        >
-          <CreateVehicle params={params} />
-        </motion.div>
-      ) : null}
     </div>
   );
 }

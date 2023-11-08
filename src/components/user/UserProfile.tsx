@@ -18,7 +18,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
   const [showPopup, setShowPopup] = useState(true);
   const { userOrders } = useOrderContext();
   const id = params.id;
-  const userOrdersFiltered = userOrders.filter((order: any) => order.userId === Number(id));
+  const userOrdersFiltered = userOrders?.filter((order: any) => order.userId === Number(id));
   const { logout } = useLogin();
   const { userProfiles, loaduserProfile, setSelectedUser, selectedUser } = useUsers();
   const user: any = userProfiles;
@@ -125,7 +125,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
         </div>
 
       </div>
-      { <Maps /> }
+      {/* { <Maps /> } */}
     </div>
   );
 };

@@ -40,8 +40,9 @@ export const useLocalProfiles = () =>{
 
 export const LocalProfilesProvider = ({ children }: Children) => {
     const [localProfiles,setlocalProfiles] = useState<sellerProfile[]>([]);
-    const [sellerProfiles,setsellerProfiles] = useState<sellerProfile[]>([]);    //aca tuve que crear otro estado que sea igual que el de arriba, para almacenar 2 cosas al mismo tiempo
-                                                                                //el de arriba guarda todos los negocios y el de abajo el negocio del perfil que se quiere acceder
+    const [sellerProfiles,setsellerProfiles] = useState<sellerProfile[]>([]);
+    //aca tuve que crear otro estado que sea igual que el de arriba, para almacenar 2 cosas al mismo tiempo
+    //el de arriba guarda todos los negocios y el de abajo el negocio del perfil que se quiere acceder
     const [selectedSeller, setSelectedSeller] = useState<LocalProfile|null>(null)
     //ESTA FUNCION TRAE TODOS LOS LOCALES, NO CREO QUE LA USEMOS PERO PARA PROBAR COSAS FUNCIONA 
     async function loadLocalProfile(){
