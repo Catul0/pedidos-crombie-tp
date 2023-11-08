@@ -2,8 +2,8 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="bg-black text-white py-2 flex flex-col items-center justify-center h-full">
-      <div className="container mx-auto text-center">
+    <footer className="bg-[#F3F4F6] text-white py-2 flex flex-col items-center justify-center h-full">
+      <div className="container mx-auto text-center text-black">
         <p className="text-sm">© 2023 Pedidos Crombie. Todos los derechos reservados.</p>
         <p className="text-sm">Contáctanos:<a href="" className="hover:text-green-400 transition-colors"> @PedidosCrombie.com</a></p>
       </div>
@@ -13,7 +13,7 @@ function Footer() {
             href="https://www.facebook.com/pedidoscrombie"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white hover:text-green-400 transition-colors"
+            className="text-black hover:text-green-400 transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +30,7 @@ function Footer() {
             href="https://www.twitter.com/pedidoscrombie"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white hover:text-green-400 transition-colors"
+            className="text-black hover:text-green-400 transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +47,7 @@ function Footer() {
             href="https://www.instagram.com/pedidoscrombie"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white hover:text-green-400 transition-colors"
+            className="text-black hover:text-green-400 transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
