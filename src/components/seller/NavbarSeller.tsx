@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import BackButton from '../BackButton';
-import {GrCart} from 'react-icons/Gr'
+import {IconShoppingCartFilled} from '@tabler/icons-react'
 
 function Navbar(props: any) {
   const { text } = props;
@@ -10,7 +10,7 @@ function Navbar(props: any) {
       <BackButton />
       <p className="text-black px-4 py-2 font-semibold">{text}</p>
       <div className="flex items-center">
-        <GrCart size={40}/>
+        <IconShoppingCartFilled size={40}/>
       </div>
     </div>
   );

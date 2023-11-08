@@ -8,10 +8,9 @@ import { useLogin } from '@/context/LoginContext';
 import { useRouter } from 'next/navigation';
 import Popup from '../PopUp';
 import Link from 'next/link';
-import { BsBagPlus } from 'react-icons/Bs'
+import { IconShoppingBag } from '@tabler/icons-react'
 import { useOrderContext } from '@/context/OrderContext';
 import ProductsUser from '../product/ProductsUser';
-import Maps from '../Maps';
 import RatingComponent from '../Rating';
 
 const UserProfile = ({ params }: { params: { id: string } }) => {
@@ -112,7 +111,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
             </ul>
           ) : (
             <div className="flex flex-col items-center">
-              <BsBagPlus size={100} />
+              <IconShoppingBag size={100} />
               <p className="text-l font-bold text-black mt-4">Aún no has realizado pedidos</p>
               <p className="text-s text-black">Busca entre todas nuestras opciones y disfruta de tu primer pedido</p>
               <Link href={'/search'}>

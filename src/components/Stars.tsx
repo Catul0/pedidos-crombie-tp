@@ -1,5 +1,5 @@
 import React from 'react';
-import { BsStarFill, BsStarHalf, BsStar } from 'react-icons/Bs';
+import { IconStar, IconStarFilled, IconStarHalfFilled } from '@tabler/icons-react';
 
 function PuntajeConEstrellas({ puntaje }: any) {
   const maxPuntaje = 5;
@@ -7,11 +7,11 @@ function PuntajeConEstrellas({ puntaje }: any) {
   
   for (let i = 1; i <= maxPuntaje; i++) {
     if (puntaje >= i) {
-      iconos.push(<BsStarFill key={i} />);
+      iconos.push(<IconStarFilled key={i} />);
     } else if (puntaje + 0.5 === i) {
-      iconos.push(<BsStarHalf key={i} />);
+      iconos.push(<IconStarHalfFilled key={i} />);
     } else {
-      iconos.push(<BsStar key={i} />);
+      iconos.push(<IconStar key={i} />);
     }
   }
 

@@ -3,7 +3,7 @@ import React from 'react'
 import { Product } from '@prisma/client'
 import { useProducts } from '@/context/ProductContext'
 import { useCart } from '@/context/CartContext';
-import {BsFillCartPlusFill} from 'react-icons/Bs'
+import {IconShoppingCartPlus} from '@tabler/icons-react'
 
 function ProductCard({ product, isTrue }: { product: Product, isTrue: boolean | null }) {
     const { setSelectedProduct,deleteProduct } = useProducts();
@@ -26,7 +26,7 @@ function ProductCard({ product, isTrue }: { product: Product, isTrue: boolean | 
                 // si es false istrue va a mostrarlo y sino no
                 !isTrue && (
                 <div className='flex gap-10 items-center p-5 flex-col justify-center'>
-                    <button onClick={() => handleBuyClick()} className="text-black hover:text-green-500 transform hover:scale-110"><BsFillCartPlusFill style={{ fontSize: '2rem'}} /></button>
+                    <button onClick={() => handleBuyClick()} className="text-black hover:text-green-500 transform hover:scale-110"><IconShoppingCartPlus style={{ fontSize: '2rem'}} /></button>
                 </div>
                 )
                 }

@@ -7,10 +7,10 @@ import CreateProduct from '../product/CreateProduct';
 import EditSeller from './EditSeller';
 import Cart from '../cart/Cart';
 import BackButton from '../BackButton';
-import {GrCart} from 'react-icons/Gr'
-import {MdPendingActions} from 'react-icons/Md'
+import {IconShoppingCart, } from '@tabler/icons-react'
+import {IconBell} from '@tabler/icons-react'
 import { useCart } from '@/context/CartContext';
-import {BiUserCircle} from 'react-icons/Bi'
+import {IconUserCircle} from '@tabler/icons-react'
 import Orders from '../orders/Order';
 import { useOrderContext } from '@/context/OrderContext';
 import { useScores } from '@/context/ScoreContext';
@@ -72,7 +72,7 @@ export default function SellerProfile({
       <p className="text-black px-4 py-2 font-semibold">Pedidos Crombie - {seller.name}</p>
       <div className="flex flex-row gap-7 items-center">
         <button>
-          <BiUserCircle size={40}/>
+          <IconUserCircle size={40}/>
         </button>
         <button onClick={() => setIsCartOpen(!isCartOpen)}>
         {cart.length > 0 || userOrdersFiltered.length > 0 && (
@@ -95,7 +95,7 @@ export default function SellerProfile({
                 {isTrue ? userOrdersFiltered.length : cart.length}
               </span>
         )}
-        {isTrue ? <MdPendingActions size={35}/> : <GrCart size={35}/>}
+        {isTrue ? <IconBell size={35}/> : <IconShoppingCart size={35}/>}
         </button>
       </div>
     </div>

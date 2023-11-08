@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BsStarFill, BsStarHalf, BsStar } from 'react-icons/Bs';
+import { IconStar, IconStarFilled } from '@tabler/icons-react';
 import { useScores } from '@/context/ScoreContext';
 import { useOrderContext } from '@/context/OrderContext';
 
@@ -83,7 +83,7 @@ function RatingComponent(props: RatingComponentProps) {
         <div className="star-rating flex flex-row text-yellow-400">
           {[1, 2, 3, 4, 5].map((star) => (
             <span key={star}>
-              {star <= localRating ? <BsStarFill size={20} /> : <BsStar size={20} />}
+              {star <= localRating ? <IconStarFilled size={20} /> : <IconStar size={20} />}
             </span>
           ))}
         </div>
@@ -96,7 +96,7 @@ function RatingComponent(props: RatingComponentProps) {
               onMouseLeave={() => handleLocalStarHover(0)}
               onClick={() => handleLocalStarClick(star)}
             >
-              {star <= localRating ? <BsStarFill size={20} /> : <BsStar size={20} />}
+              {star <= localRating ? <IconStarFilled size={20} /> : <IconStar size={20} />}
             </span>
           ))}
         </div>
@@ -107,7 +107,7 @@ function RatingComponent(props: RatingComponentProps) {
         <div className="star-rating flex flex-row text-yellow-400">
           {[1, 2, 3, 4, 5].map((star) => (
             <span key={star}>
-              {star <= deliveryRating ? <BsStarFill size={20} /> : <BsStar size={20} />}
+              {star <= deliveryRating ? <IconStarFilled size={20} /> : <IconStar size={20} />}
             </span>
           ))}
         </div>
@@ -120,7 +120,7 @@ function RatingComponent(props: RatingComponentProps) {
               onMouseLeave={() => handleDeliveryStarHover(0)}
               onClick={() => handleDeliveryStarClick(star)}
             >
-              {star <= deliveryRating ? <BsStarFill size={20} /> : <BsStar size={20} />}
+              {star <= deliveryRating ? <IconStarFilled size={20} /> : <IconStar size={20} />}
             </span>
           ))}
         </div>

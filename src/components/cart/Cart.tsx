@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { Product } from '@/interfaces/Product';
 import Link from 'next/link';
-import {AiOutlinePlusCircle} from 'react-icons/Ai';
-import {AiOutlineMinusCircle} from 'react-icons/Ai'
-import {RiDeleteBin6Line} from 'react-icons/Ri'
-
+import {IconMinus,IconPlus, IconTrash } from '@tabler/icons-react'
 function Cart() {
   const { cart, total, addToCart, removeFromCart, removeAllFromCart, resetCart } = useCart();
 
@@ -50,11 +47,11 @@ function Cart() {
                 {item.productName}
                 </div>
                 <div className='flex gap-3'>
-                {item.count > 1 && ( <button onClick={() => removeFromCart(item)}><AiOutlineMinusCircle style={{ fontSize: '1.5rem' }} /></button>)}
+                {item.count > 1 && ( <button onClick={() => removeFromCart(item)}><IconMinus style={{ fontSize: '1.5rem' }} /></button>)}
                  <p className='font-bold'>{item.count}</p>
-                <button onClick={() => addToCart(item)}><AiOutlinePlusCircle style={{ fontSize: '1.5rem' }} /></button>
+                <button onClick={() => addToCart(item)}><IconPlus style={{ fontSize: '1.5rem' }} /></button>
                  <p className='font-bold'>${item.price * item.count}</p>
-                 <button onClick={() => handleRemoveAll(item)}><RiDeleteBin6Line style={{ fontSize: '1.5rem' }}/></button> 
+                 <button onClick={() => handleRemoveAll(item)}><IconTrash style={{ fontSize: '1.5rem' }}/></button> 
                 </div>
               </li>
             ))}
