@@ -1,9 +1,17 @@
 "use client";
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, useRef, ChangeEvent, FormEvent } from "react";
 import { useLocalProfiles } from "@/context/LocalProfileContext";
 import Cookies from "js-cookie";
 import { decode } from "jsonwebtoken";
 import { useRouter } from "next/navigation";
+import {
+  HStack,
+  Input
+} from '@chakra-ui/react';
+import { useJsApiLoader, Autocomplete } from '@react-google-maps/api';
+require('dotenv').config();
+
+
 
 function RegisterSeller() {
   const [name, setName] = useState("");
@@ -21,7 +29,15 @@ function RegisterSeller() {
   const { createLocalProfile } = useLocalProfiles();
   const router = useRouter();
   const imagenUrl = "https://www.openenglish.com/blog/es/wp-content/uploads/sites/2/2016/03/como-pedir-una-hamburguesa.jpg";
+  const directionRef = useRef<HTMLInputElement | null>(null);
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY || '',
+    libraries: ['places'],
+  });
 
+  if (!isLoaded) {
+    return <p>Loading...</p>;
+  }
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
@@ -56,8 +72,9 @@ function RegisterSeller() {
   return (
     <div
       className="flex absolute top-16 justify-center items-center w-full h-full bg-cover bg-center"
-      style={{ backgroundImage: `url('https://images.unsplash.com/photo-1673212036711-b4b30c62ec11?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`
-    }}
+      style={{
+        backgroundImage: `url('https://images.unsplash.com/photo-1673212036711-b4b30c62ec11?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`
+      }}
     >
       <div className="max-w-xl flex flex-col mr-40">
         <h1 className="font-bold text-white text-5xl">¡Registrá tu restaurante en Pedidos Crombie Partners y vende más!</h1>
@@ -95,19 +112,24 @@ function RegisterSeller() {
               Description:
             </label>
           </div>
-          <div className="relative z-0 w-full mb-10 group">
-            <input
-              type="text"
-              name="address"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-600 focus:outline-none focus:ring-0 focus:border-black peer"
-              onChange={(e) => setAddress(e.target.value)}
-              placeholder=" "
-              required
-            />
-            <label htmlFor="address" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+          <HStack  className="relative z-0 w-full mb-10 group">
+            <Autocomplete>
+              <Input
+                type="text"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-600 focus:outline-none focus:ring-0 focus:border-black peer"
+                ref={directionRef}
+                onBlur={(e) => {
+                  setAddress(directionRef.current!.value)
+                }}
+
+                placeholder=""
+                required
+              />
+            </Autocomplete>
+            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
               Address:
             </label>
-          </div>
+          </HStack>
           <div className="relative z-0 w-full mb-10 group">
             <input
               type="text"

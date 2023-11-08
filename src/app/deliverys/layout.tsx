@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import { DeliverysProvider } from '@/context/DeliveryContext'
 import { VehiclesProvider } from '@/context/VehicleContext'
 import { OrderProvider } from '@/context/OrderContext'
+import { LocalProfilesProvider } from '@/context/LocalProfileContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,7 +24,9 @@ export default function DeliveryLayout({
         <OrderProvider>
         <DeliverysProvider>
           <VehiclesProvider>
+            <LocalProfilesProvider>
             {children}
+            </LocalProfilesProvider>
           </VehiclesProvider>
         </DeliverysProvider>
         </OrderProvider>
