@@ -12,6 +12,7 @@
     "@chakra-ui/react": "^2.8.1",
     "@prisma/client": "^5.3.1",
     "@react-google-maps/api": "^2.19.2",
+    "@tabler/icons-react": "^2.40.0",
     "@types/jsonwebtoken": "^9.0.3",
     "@types/node": "20.6.3",
     "@types/react": "18.2.22",
