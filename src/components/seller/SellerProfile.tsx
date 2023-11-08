@@ -113,7 +113,7 @@ export default function SellerProfile({
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{seller.type}</p>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{seller.description}</p>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              {seller.address}, {seller.city}, Argentina
+              {seller.address}
             </p>
             <PuntajeConEstrellas puntaje={puntaje}/>
           </div>

@@ -37,8 +37,11 @@ export async function middleware(request: NextRequest) {
       // Obtén el id del usuario desde la ruta
       const userIdFromPath = Number(request.nextUrl.pathname.split("/")[2]);
       // Compara el id del usuario en la ruta con el id en el token
-      if (decodedToken.id !== userIdFromPath || decodedToken.rol !== 'user') {
-        throw Error("unauthorized");
+      if (decodedToken.id !== userIdFromPath) {
+        throw Error("unauthorized por id");
+      }
+      if (decodedToken.rol !== 'user') {
+        throw Error("unauthorized por rol");
       }
       return response;
     }
@@ -48,7 +51,7 @@ export async function middleware(request: NextRequest) {
       const IdFromPath = Number(request.nextUrl.pathname.split("/")[2]);
       // Compara el id del usuario en la ruta con el id en el token
       if (decodedToken.id !== IdFromPath || decodedToken.rol !== 'delivery') {
-        throw Error("unauthorized");
+        throw Error("what are u doing?");
       }
       return response;
     }

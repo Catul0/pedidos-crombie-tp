@@ -23,10 +23,6 @@ function RegisterDelivery() {
       className="flex absolute top-16  justify-center gap-10 items-center w-full h-full bg-cover bg-center pr-10 pl-10"
       style={{ backgroundImage: `url(${imagenUrl})` }}
     >
-      <div className="w-2/6 text-white flex gap-5 flex-col">
-        <h1 className="text-5xl font-bold">¡Únete hoy como repartidor en nuestra plataforma!</h1>
-        <p className="text-2xl">Conviértete en un aliado de entrega y sé parte de nuestro éxito.</p>
-      </div>
       <form
   onSubmit={async (e) => {
     e.preventDefault();
@@ -148,6 +144,10 @@ function RegisterDelivery() {
           Register
         </button>
       </form>
+        <div className="w-2/6 text-white p-4 flex gap-5 flex-col">
+          <h1 className="text-5xl font-bold">¡Únete hoy como repartidor en nuestra plataforma!</h1>
+          <p className="text-2xl">Conviértete en un aliado de entrega y sé parte de nuestro éxito.</p>
+        </div>
     </div>
   );
 }

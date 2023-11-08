@@ -60,7 +60,6 @@ function RegisterUser() {
         
         if (password === secondPassword) {
           setAlert(true);
-          setTimeout(async ()=>{
             await createUser({
               name,
               lastName,
@@ -70,13 +69,11 @@ function RegisterUser() {
               email,
               password,
             });
-          },1000)
-          
           const token: any = Cookies.get("token");
           setTimeout(() => {
             if (token)
-              router.push(`/users/${(decode(token) as { id: string })?.id}`);
-          }, 1500);
+            router.push(`/users/${(decode(token) as { id: string })?.id}`);
+          }, 3000);
         } else {
           setAlert(false);
         }
