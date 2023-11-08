@@ -17,7 +17,7 @@ require('dotenv').config();
 
 const center = { lat: 48.8584, lng: 2.2945 };
 
-function Maps() {
+function Maps({origin, destination}:any) {
   const router = useRouter()
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY || '',
