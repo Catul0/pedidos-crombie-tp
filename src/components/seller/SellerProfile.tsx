@@ -29,7 +29,7 @@ export default function SellerProfile({
   isTrue: boolean | null;
 }, request: NextRequest) {
   const token: any = Cookies.get('token');
-  const decodedToken: any = decode(token)
+  const decodedToken: any = decode(token);
   const idUser = decodedToken.id;
   const id = params.id;
   const { userOrders } = useOrderContext();
