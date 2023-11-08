@@ -15,22 +15,13 @@ import Orders from '../orders/Order';
 import { useOrderContext } from '@/context/OrderContext';
 import { useScores } from '@/context/ScoreContext';
 import PuntajeConEstrellas from '../Stars';
-import { NextRequest, NextResponse } from 'next/server';
-import { decode } from 'jsonwebtoken';
-import Link from 'next/link';
-import Cookies from 'js-cookie';
-
-
 export default function SellerProfile({
   params,
   isTrue,
 }: {
   params: { id: string };
   isTrue: boolean | null;
-}, request: NextRequest) {
-  const token: any = Cookies.get('token');
-  const decodedToken: any = decode(token);
-  const idUser = decodedToken.id;
+}) {
   const id = params.id;
   const { userOrders } = useOrderContext();
   const { sellerProfiles, loadSellerProfile, setSelectedSeller, selectedSeller } = useLocalProfiles();
@@ -79,11 +70,9 @@ export default function SellerProfile({
       <BackButton />
       <p className="text-black px-4 py-2 font-semibold">Pedidos Crombie - {seller.name}</p>
       <div className="flex flex-row gap-7 items-center">
-      <Link href={`/users/${idUser}`}>
         <button>
-          <IconUserCircle size={40} />
+          <IconUserCircle size={40}/>
         </button>
-      </Link>
         <button onClick={() => setIsCartOpen(!isCartOpen)}>
         {cart.length > 0 || userOrdersFiltered.length > 0 && (
               <span
