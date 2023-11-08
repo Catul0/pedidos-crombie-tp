@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
-import RegisterDelivery from '@/components/delivery/RegisterDelivery';
+import RegisterDelivery from '@/components/Delivery/RegisterDelivery';
 
 
 const DeliverysRegister = () => {
