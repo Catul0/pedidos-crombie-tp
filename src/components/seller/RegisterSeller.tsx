@@ -187,7 +187,7 @@ function RegisterSeller() {
         </div>
         {match === false ? (
           <div className="mb-4 span-2">
-            <p className="block text-white text-center bg-red-600 text-sm font-bold mb-2">
+            <p className="block text-red-600 text-center text-sm font-bold mb-2">
               Passwords do not match
             </p>
           </div>
@@ -196,8 +196,8 @@ function RegisterSeller() {
         )}
         {alert ? (
           <div className="mb-4 span-2">
-            <p className="block text-white text-center bg-green-400 text-sm font-bold mb-2 rounded">
-              Registration Successful
+            <p className="block text-green-400 text-center text-sm font-bold mb-2 rounded">
+              Register Succes
             </p>
           </div>
         ) : (
