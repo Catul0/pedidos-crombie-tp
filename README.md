@@ -1,34 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Pedidos Crombie
 
-## Getting Started
+## Descripción
+'Pedidos Crombie' es una aplicación web de pedidos al estilo 'pedidos ya'. En esta aplicación, se pueden crear tres tipos de perfiles: 
+- **Usuario**: Quien realiza pedidos de comida/productos.
+- **Delivery**: Quien toma los pedidos y los entrega.
+- **Vendedor**: Quien tiene menús y vende productos.
 
-First, run the development server:
+## Instalación
+Para instalar y configurar el proyecto localmente, sigue estos pasos:
+1. Ejecuta `npm install` en tu terminal.
+2. Configura el archivo `.env` en tu localhost.
+3. Ejecuta `npx migrate dev` en tu terminal.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Uso
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Usuario
+Los usuarios pueden registrarse en la aplicación haciendo clic en "Registrar". Una vez registrados, pueden buscar comida o locales y agregar productos a su carrito. El carrito puede ser editado en cualquier momento. Cuando el usuario esté listo para realizar su pedido, puede proceder al "Checkout". En el "Checkout", el usuario confirma su compra, que luego es enviada al vendedor.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Vendedor
+El vendedor recibe la compra y tiene la opción de aceptarla o declinarla. Si la acepta, prepara el pedido y actualiza el estado del mismo en la aplicación. Una vez que el pedido está listo para ser entregado, los repartidores pueden verlo y asignárselo para su entrega. Los vendedores pueden registrarse de la misma manera que los usuarios, pero para comenzar a vender deben tener al menos tres menús cargados en la aplicación.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Repartidor
+Los repartidores pueden ver los pedidos que están listos para ser entregados y asignarse a ellos para su entrega. Los repartidores pueden registrarse de la misma manera que los usuarios, pero para comenzar a entregar deben tener un vehículo cargado en la aplicación.
 
-## Learn More
+## Contribución
+Estamos abiertos a contribuciones. Si tienes alguna idea o mejora, no dudes en hacer un pull request.
 
-To learn more about Next.js, take a look at the following resources:
+## Licencia
+Este proyecto está bajo una licencia de uso con créditos a los creadores.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Contacto
+Si tienes alguna pregunta o sugerencia, no dudes en ponerte en contacto con nosotros.
