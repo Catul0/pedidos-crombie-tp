@@ -246,7 +246,6 @@ export function OrderProvider({ children }: OrderProviderProps) {
       userId: userId,
       deliveryId: deliveryId,
     };
-    console.log(updatedData);
     fetch(`/api/order/${orderId}`, {
       method: "PUT",
       headers: {

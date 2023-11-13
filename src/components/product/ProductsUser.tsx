@@ -40,7 +40,7 @@ const ProductsUser = ({ productsOrder, idSeller }: { productsOrder: string, idSe
             </div>
             <p className="cursor-pointer hover:underline" onClick={() => setShowProducts(!showProducts)}>{productosOrden.length} producto/s</p>
             {showProducts && productosUnicos.map((producto, index) => (
-            <div key={index} className='flex items-center border-b pb-4 mb-4'>
+            <div key={index} className='flex items-center justify-between border-b pb-4 mb-4'>
                 <p>{producto.productName} x{producto.count}</p>
                 <img className='w-1/6' src={producto.image} alt="" />
             </div>

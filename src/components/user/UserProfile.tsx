@@ -23,6 +23,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
   const userOrdersFiltered = userOrders?.filter(
     (order: any) => order.userId === Number(id),
   );
+  console.log(userOrdersFiltered)
   const { logout } = useLogin();
   const { userProfiles, loaduserProfile, setSelectedUser, selectedUser } =
     useUsers();
@@ -113,7 +114,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
           </Link>
           {userOrdersFiltered.length > 0 ? (
             <ul className="mt-4 w-2/4 ">
-            {[...userOrders].reverse().map((order) => (
+            {[...userOrdersFiltered].reverse().map((order) => (
               <li key={order.id} className="mb-4 border border-gray-200 rounded-lg p-4">
                 <ProductsUser productsOrder={order.products} idSeller={order.sellerId} />
                 <h4>

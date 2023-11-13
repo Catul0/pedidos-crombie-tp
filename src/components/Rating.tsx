@@ -18,7 +18,7 @@ function RatingComponent(props: RatingComponentProps) {
   const [hasRatedLocal, setHasRatedLocal] = useState(false);
   const [hasRatedDelivery, setHasRatedDelivery] = useState(false);
   const { createSellerScore, createDeliveryScore } = useScores();
-  const userId = props.idseller;
+  const userId = props.iduser;
   const localId = props.idseller;
   const deliveryId = props.iddelivery;
   const orderId = props.orderId;
