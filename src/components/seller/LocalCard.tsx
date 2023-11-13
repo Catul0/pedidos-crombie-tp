@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
-import Link from 'next/link'
+import React from "react";
+import Link from "next/link";
 
 function LocalCard({ local }: { local: any }) {
     return (
@@ -11,14 +11,14 @@ function LocalCard({ local }: { local: any }) {
         <div className="px-2 py-1">
             <div className=" text-black font-bold text-m">{local.name}</div>
             <div className="flex gap-3 items-center">
-                <div className="text-gray-600 text-sm">🕒 42 min</div>
-                <div className="text-gray-600 text-sm">🛵 GRATIS</div>
+              <div className="text-gray-600 text-sm">🕒 42 min</div>
+              <div className="text-gray-600 text-sm">🛵 GRATIS</div>
             </div>
+          </div>
         </div>
-        </div>
-        </Link>
-        </>
-    )
+      </Link>
+    </>
+  );
 }
 
-export default LocalCard
+export default LocalCard;

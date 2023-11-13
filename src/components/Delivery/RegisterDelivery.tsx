@@ -24,28 +24,30 @@ function RegisterDelivery() {
       style={{ backgroundImage: `url(${imagenUrl})` }}
     >
       <form
-  onSubmit={async (e) => {
-    e.preventDefault();
-    setMatch(password === confirmPassword);
-    
-    if (password === confirmPassword) {
-      setAlert(true);
-      await createDelivery({
-        name,
-        lastName,
-        email,
-        password,
-      });
-      
-      const token = Cookies.get("token");
-      if (token) {
-        setTimeout(() => {
-          router.push(`/deliverys/${(decode(token) as { id: string })?.id}`);
-        }, 3000);
-      }
-    } else {
-      setAlert(false);
-    }
+        onSubmit={async (e) => {
+          e.preventDefault();
+          setMatch(password === confirmPassword);
+
+          if (password === confirmPassword) {
+            setAlert(true);
+            await createDelivery({
+              name,
+              lastName,
+              email,
+              password,
+            });
+
+            const token = Cookies.get("token");
+            if (token) {
+              setTimeout(() => {
+                router.push(
+                  `/deliverys/${(decode(token) as { id: string })?.id}`,
+                );
+              }, 3000);
+            }
+          } else {
+            setAlert(false);
+          }
         }}
         className="max-w-md p-8 bg-white rounded-lg shadow-md "
       >
@@ -79,49 +81,49 @@ function RegisterDelivery() {
               LastName:
             </label>
           </div>
-         </div>
+        </div>
+        <div className="relative z-0 w-full mb-8 group">
+          <input
+            type="email"
+            name="email"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-black appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-600 focus:outline-none focus:ring-0 focus:border-black peer"
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder=""
+            required
+          />
+          <label className="peer-focus:font-medium absolute text-sm text-black dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+            Email:
+          </label>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
           <div className="relative z-0 w-full mb-8 group">
             <input
-              type="email"
-              name="email"
+              type="password"
+              name="password"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-black appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-600 focus:outline-none focus:ring-0 focus:border-black peer"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder=""
               required
             />
             <label className="peer-focus:font-medium absolute text-sm text-black dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-              Email:
+              Password:
             </label>
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="relative z-0 w-full mb-8 group">
-              <input
-                type="password"
-                name="password"
-                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-black appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-600 focus:outline-none focus:ring-0 focus:border-black peer"
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder=""
-                required
-              />
-              <label className="peer-focus:font-medium absolute text-sm text-black dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                Password:
-              </label>
-            </div>
-            <div className="relative z-0 w-full mb-8 group">
-              <input
-                type="password"
-                name="confirmPassword"
-                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-black appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-600 focus:outline-none focus:ring-0 focus:border-black peer"
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder=""
-                required
-              />
-              <label className="peer-focus:font-medium absolute text-sm text-black dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                Confirm Password:
-              </label>
-            </div>
+          <div className="relative z-0 w-full mb-8 group">
+            <input
+              type="password"
+              name="confirmPassword"
+              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-black appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-600 focus:outline-none focus:ring-0 focus:border-black peer"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder=""
+              required
+            />
+            <label className="peer-focus:font-medium absolute text-sm text-black dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+              Confirm Password:
+            </label>
           </div>
-        
+        </div>
+
         {match === false ? (
           <div className="mb-4 span-2">
             <p className="block text-red-600 text-center text-sm font-bold mb-2">
@@ -144,10 +146,14 @@ function RegisterDelivery() {
           Register
         </button>
       </form>
-        <div className="w-2/6 text-white p-4 flex gap-5 flex-col">
-          <h1 className="text-5xl font-bold">¡Únete hoy como repartidor en nuestra plataforma!</h1>
-          <p className="text-2xl">Conviértete en un aliado de entrega y sé parte de nuestro éxito.</p>
-        </div>
+      <div className="w-2/6 text-white p-4 flex gap-5 flex-col">
+        <h1 className="text-5xl font-bold">
+          ¡Únete hoy como repartidor en nuestra plataforma!
+        </h1>
+        <p className="text-2xl">
+          Conviértete en un aliado de entrega y sé parte de nuestro éxito.
+        </p>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import {IconArrowLeft} from '@tabler/icons-react'
+import { IconArrowLeft } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 export default function BackButton() {
   const router = useRouter();

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { IconStar, IconStarFilled } from '@tabler/icons-react';
-import { useScores } from '@/context/ScoreContext';
-import { useOrderContext } from '@/context/OrderContext';
+import React, { useState, useEffect } from "react";
+import { IconStar, IconStarFilled } from "@tabler/icons-react";
+import { useScores } from "@/context/ScoreContext";
+import { useOrderContext } from "@/context/OrderContext";
 
 interface RatingComponentProps {
   idseller: number;
@@ -13,7 +13,7 @@ interface RatingComponentProps {
 
 function RatingComponent(props: RatingComponentProps) {
   const [localRating, setLocalRating] = useState(0);
-  const {handleScored} = useOrderContext();
+  const { handleScored } = useOrderContext();
   const [deliveryRating, setDeliveryRating] = useState(0);
   const [hasRatedLocal, setHasRatedLocal] = useState(false);
   const [hasRatedDelivery, setHasRatedDelivery] = useState(false);
@@ -47,7 +47,7 @@ function RatingComponent(props: RatingComponentProps) {
           deliveryId: null,
           localId: null,
         },
-        localId
+        localId,
       );
       setHasRatedLocal(true);
     }
@@ -70,7 +70,7 @@ function RatingComponent(props: RatingComponentProps) {
           deliveryId: null,
           localId: null,
         },
-        deliveryId
+        deliveryId,
       );
       setHasRatedDelivery(true);
     }
@@ -83,7 +83,11 @@ function RatingComponent(props: RatingComponentProps) {
         <div className="star-rating flex flex-row text-yellow-400">
           {[1, 2, 3, 4, 5].map((star) => (
             <span key={star}>
-              {star <= localRating ? <IconStarFilled size={20} /> : <IconStar size={20} />}
+              {star <= localRating ? (
+                <IconStarFilled size={20} />
+              ) : (
+                <IconStar size={20} />
+              )}
             </span>
           ))}
         </div>
@@ -96,7 +100,11 @@ function RatingComponent(props: RatingComponentProps) {
               onMouseLeave={() => handleLocalStarHover(0)}
               onClick={() => handleLocalStarClick(star)}
             >
-              {star <= localRating ? <IconStarFilled size={20} /> : <IconStar size={20} />}
+              {star <= localRating ? (
+                <IconStarFilled size={20} />
+              ) : (
+                <IconStar size={20} />
+              )}
             </span>
           ))}
         </div>
@@ -107,7 +115,11 @@ function RatingComponent(props: RatingComponentProps) {
         <div className="star-rating flex flex-row text-yellow-400">
           {[1, 2, 3, 4, 5].map((star) => (
             <span key={star}>
-              {star <= deliveryRating ? <IconStarFilled size={20} /> : <IconStar size={20} />}
+              {star <= deliveryRating ? (
+                <IconStarFilled size={20} />
+              ) : (
+                <IconStar size={20} />
+              )}
             </span>
           ))}
         </div>
@@ -120,7 +132,11 @@ function RatingComponent(props: RatingComponentProps) {
               onMouseLeave={() => handleDeliveryStarHover(0)}
               onClick={() => handleDeliveryStarClick(star)}
             >
-              {star <= deliveryRating ? <IconStarFilled size={20} /> : <IconStar size={20} />}
+              {star <= deliveryRating ? (
+                <IconStarFilled size={20} />
+              ) : (
+                <IconStar size={20} />
+              )}
             </span>
           ))}
         </div>

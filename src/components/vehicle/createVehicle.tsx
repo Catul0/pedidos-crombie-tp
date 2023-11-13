@@ -26,7 +26,7 @@ export default function CreateVehicle({ params }: { params: { id: string } }) {
             carYear,
             color,
             licensePlate,
-            params.id
+            params.id,
           );
           e.preventDefault();
           const year = Number(carYear);
@@ -42,7 +42,7 @@ export default function CreateVehicle({ params }: { params: { id: string } }) {
                 licensePlate,
                 vehicleOwner: 0,
               },
-              Number(params.id)
+              Number(params.id),
             );
           }, 2000);
         }}

@@ -1,5 +1,11 @@
-"use client"
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+"use client";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
 type Product = {
   id: number;
@@ -28,8 +34,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   // Recupera el carrito y el total del localStorage al cargar la página
   useEffect(() => {
-    const savedCart = localStorage.getItem('cart');
-    const savedTotal = localStorage.getItem('total');
+    const savedCart = localStorage.getItem("cart");
+    const savedTotal = localStorage.getItem("total");
 
     if (savedCart) {
       setCart(JSON.parse(savedCart));
@@ -41,8 +47,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   // Guarda el carrito y el total en el localStorage cuando cambian
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-    localStorage.setItem('total', total.toString());
+    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("total", total.toString());
   }, [cart, total]);
 
   const addToCart = (product: Product) => {
@@ -84,7 +90,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, total, removeFromCart, removeAllFromCart, resetCart }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        total,
+        removeFromCart,
+        removeAllFromCart,
+        resetCart,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
@@ -93,7 +108,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 export function useCart() {
   const context = useContext(CartContext);
   if (!context) {
-    throw new Error('useCart must be used within a CartProvider');
+    throw new Error("useCart must be used within a CartProvider");
   }
   return context;
 }

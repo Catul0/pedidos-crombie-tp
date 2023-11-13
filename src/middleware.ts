@@ -1,17 +1,32 @@
 import { NextResponse, NextRequest } from "next/server";
-import { decode } from 'jsonwebtoken';
+import { decode } from "jsonwebtoken";
 
 export const config = {
-  matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|/login).*)",
-  ],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|/login).*)"],
 };
 
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
   const cookieStore = request.cookies;
-//   estas rutas son a las que se les permite acceder sin token
-  if (['/', '/login', '/users/register', '/deliverys/register', '/sellers/register', '/api/login','api/idSeller','api/order', '/api/deliverys', '/api/users', '/api/locals', '/spinner', '/api/score' ].includes(request.nextUrl.pathname) || request.nextUrl.pathname.startsWith("/api/score")) {
+  //   estas rutas son a las que se les permite acceder sin token
+  if (
+    [
+      "/",
+      "/login",
+      "/users/register",
+      "/deliverys/register",
+      "/sellers/register",
+      "/api/login",
+      "api/idSeller",
+      "api/order",
+      "/api/deliverys",
+      "/api/users",
+      "/api/locals",
+      "/spinner",
+      "/api/score",
+    ].includes(request.nextUrl.pathname) ||
+    request.nextUrl.pathname.startsWith("/api/score")
+  ) {
     return response;
   }
 
@@ -22,10 +37,10 @@ export async function middleware(request: NextRequest) {
       throw Error("need token");
     }
 
-    const decodedToken: any = decode(token)
+    const decodedToken: any = decode(token);
     // si la ruta comienza con /search y el rol del user no es 'user' no lo deja ver
     if (request.nextUrl.pathname.startsWith("/search")) {
-      if (decodedToken.rol !== 'user') {
+      if (decodedToken.rol !== "user") {
         throw Error("unauthorized");
       }
       return response;
@@ -40,7 +55,7 @@ export async function middleware(request: NextRequest) {
       if (decodedToken.id !== userIdFromPath) {
         throw Error("unauthorized por id");
       }
-      if (decodedToken.rol !== 'user') {
+      if (decodedToken.rol !== "user") {
         throw Error("unauthorized por rol");
       }
       return response;
@@ -50,15 +65,13 @@ export async function middleware(request: NextRequest) {
       // Obtén el id del usuario desde la ruta
       const IdFromPath = Number(request.nextUrl.pathname.split("/")[2]);
       // Compara el id del usuario en la ruta con el id en el token
-      if (decodedToken.id !== IdFromPath || decodedToken.rol !== 'delivery') {
+      if (decodedToken.id !== IdFromPath || decodedToken.rol !== "delivery") {
         throw Error("what are u doing?");
       }
       return response;
     }
-
-    
   } catch (err: any) {
     //en caso de error
-     return NextResponse.json({ error: err.message }, { status: 401 });
+    return NextResponse.json({ error: err.message }, { status: 401 });
   }
 }

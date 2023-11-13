@@ -14,19 +14,19 @@ export interface sellerProfile {
 }
 
 export type CreateLocalProfile = {
-    description: string;
-    name: string;
-    address: string;
-    city: string;
-    password: string;
-    email: string;
-    logo?:string;
-}
+  description: string;
+  name: string;
+  address: string;
+  city: string;
+  password: string;
+  email: string;
+  logo?: string;
+};
 
 export interface UpdateProfile {
-    description?: string;
-    name?: string;
-    address?: string;
-    city?: string;
-    logo?:string;
+  description?: string;
+  name?: string;
+  address?: string;
+  city?: string;
+  logo?: string;
 }

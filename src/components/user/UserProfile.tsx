@@ -1,4 +1,4 @@
-"use client"
+"use client";
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react';
 import { useUsers } from '@/context/UserContext';
@@ -20,9 +20,12 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
   const [showPopup, setShowPopup] = useState(true);
   const { userOrders } = useOrderContext();
   const id = params.id;
-  const userOrdersFiltered = userOrders?.filter((order: any) => order.userId === Number(id));
+  const userOrdersFiltered = userOrders?.filter(
+    (order: any) => order.userId === Number(id),
+  );
   const { logout } = useLogin();
-  const { userProfiles, loaduserProfile, setSelectedUser, selectedUser } = useUsers();
+  const { userProfiles, loaduserProfile, setSelectedUser, selectedUser } =
+    useUsers();
   const user: any = userProfiles;
   const router = useRouter();
   useEffect(() => {
@@ -47,14 +50,18 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
         {showPopup && <Popup message={`¡Hola ${user.name}!`} />}
         {/* lado izq */}
         <div className="w-1/3 bg-[#F3F4F6] p-6">
-          <div className='bg-white rounded p-5  shadow-lg'>
+          <div className="bg-white rounded p-5  shadow-lg">
             <div className="text-center">
               <img
                 className="w-16 h-16 rounded-full border-4 border-green-500 mx-auto "
-                src={"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"}
+                src={
+                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                }
                 alt="User Profile"
               />
-              <h2 className="text-2xl font-semibold text-gray-800">{user.name} {user.lastName}</h2>
+              <h2 className="text-2xl font-semibold text-gray-800">
+                {user.name} {user.lastName}
+              </h2>
               <p className="text-gray-600">{user.email}</p>
             </div>
             <div className="mt-6 flex flex-col justify-center gap-5">
@@ -68,21 +75,22 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
               </div>
             </div>
             <div className="mt-6">
-              <button className="bg-[#FF9B50] hover:bg-orange-500 text-white py-2 px-4 w-full font-bold rounded-lg transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300"
+              <button
+                className="bg-[#FF9B50] hover:bg-orange-500 text-white py-2 px-4 w-full font-bold rounded-lg transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300"
                 onClick={() => {
                   if (selectedUser) {
-                    setSelectedUser(null)
+                    setSelectedUser(null);
                   } else {
-                    setSelectedUser(user)
+                    setSelectedUser(user);
                   }
                 }}
               >
                 {selectedUser ? "CANCELAR" : "EDITAR PERFIL"}
               </button>
               {selectedUser ? <EditUser /> : <p></p>}
-              <button className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 w-full mt-4 font-bold rounded-lg transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300"
+              <button
+                className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 w-full mt-4 font-bold rounded-lg transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300"
                 onClick={() => {
-
                   setTimeout(() => {
                     logout();
                     router.push("/login")
@@ -169,7 +177,6 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
             </div>
           )}
         </div>
-
       </div>
     </div>
   );

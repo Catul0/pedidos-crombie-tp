@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Navbar from "@/components/home/Navbar";
 import Imagen from "@/components/home/Imagen";
 import JoinUs from "@/components/home/JoinUs";
@@ -6,10 +6,10 @@ import Footer from "@/components/home/Footer";
 function HomePage() {
   return (
     <div>
-      <Navbar/>
-      <Imagen/>
-      <div className="flex flex-col justify-center items-center mt-[50px] mb-[50px] sm:mt-[100px] sm:mb-[100px]">
-        <h1 className="text-black text-1x1 font-bold w-full sm:w-[600px] text-center px-4">Sabores que Despiertan los Sentidos, Cuidados que te Confortan, y la Comodidad de Todo lo que Necesitas, Cuando lo Necesitas.</h1>
+      <Navbar />
+      <Imagen />
+      <div className="flex flex-col justify-center items-center mt-[50px] mb-[50px]">
+        <h1 className="text-black text-1x1 font-bold w-[600px] text-center">Sabores que Despiertan los Sentidos, Cuidados que te Confortan, y la Comodidad de Todo lo que Necesitas, Cuando lo Necesitas.🍕❤️</h1>
       </div>
       <div className="w-full flex flex-col sm:flex-row mb-[100px] justify-evenly items-center">
         <JoinUs
@@ -31,7 +31,7 @@ function HomePage() {
           linkText="Registrate como delivery"
         />
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

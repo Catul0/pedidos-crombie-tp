@@ -1,7 +1,7 @@
-"use client"
-import React from 'react'
-import RegisterUser from '@/components/user/RegisterUser'
-import Navbar from '@/components/Navbar'
+"use client";
+import React from "react";
+import RegisterUser from "@/components/user/RegisterUser";
+import Navbar from "@/components/Navbar";
 
 const RegisterUsers = () => {
   return (
@@ -11,8 +11,7 @@ const RegisterUsers = () => {
         <RegisterUser />
       </div>
     </div>
+  );
+};
 
-  )
-}
-
-export default RegisterUsers
+export default RegisterUsers;

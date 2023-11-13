@@ -1,16 +1,16 @@
-import React from 'react'
-import RegisterSeller from '@/components/seller/RegisterSeller'
-import Navbar from '@/components/Navbar'
+import React from "react";
+import RegisterSeller from "@/components/seller/RegisterSeller";
+import Navbar from "@/components/Navbar";
 
 function Register() {
   return (
     <div className="h-screen bg-gray-100">
-      <Navbar text="Pedidos Crombie - Tu local a domicilio"/>
+      <Navbar text="Pedidos Crombie - Tu local a domicilio" />
       <div className="flex flex-col items-center justify-center my-16">
-        <RegisterSeller/>
+        <RegisterSeller />
       </div>
     </div>
-  )
+  );
 }
 
-export default Register
+export default Register;

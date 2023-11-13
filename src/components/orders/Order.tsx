@@ -9,7 +9,9 @@ function Orders({params}: {params: { id: string };}) {
   const userOrdersFiltered = [...userOrders].filter((order: any) => order.sellerId === Number(id)).reverse();
   return (
     <div className="text-center bg-gray-100 p-4 rounded-lg">
-      <h2 className="text-gray-800 text-2xl font-bold mb-4"><b>Ordenes actuales</b></h2>
+      <h2 className="text-gray-800 text-2xl font-bold mb-4">
+        <b>Ordenes actuales</b>
+      </h2>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
@@ -28,21 +30,21 @@ function Orders({params}: {params: { id: string };}) {
                         <button onClick={() => handleAcceptOrder(order.id, order.products, order.sellerId, order.userId)} className='text-white p-2 bg-green-500 rounded-md m-2'>Aceptar</button>
                         <button onClick={() => handleRejectOrder(order.id, order.products, order.sellerId, order.userId)} className='text-white p-2 bg-red-500 rounded-md m-2'>Rechazar</button>
                     </div>
-                    )}
-                    {order.status === 'RECHAZADO' && (
+                  )}
+                  {order.status === "RECHAZADO" && (
                     <div>
                         <h4 className="text-lg font-semibold">Rechazaste este pedido</h4>
                         <button onClick={() => handleAcceptOrder(order.id, order.products, order.sellerId, order.userId)} className='text-white p-2 bg-blue-500 rounded-md m-2'>Aceptar</button>
                     </div>
-                    )}
-                    {order.status === 'ACEPTADO' && (
+                  )}
+                  {order.status === "ACEPTADO" && (
                     <div>
                         <h4 className="text-lg font-semibold">Pedido pendiente de preparación</h4>
                         <button onClick={() => handlePrepareOrder(order.id, order.products, order.sellerId, order.userId)} className='text-white p-2 bg-blue-500 rounded-md m-2'>Preparar</button>
                         <button onClick={() => handleRejectOrder(order.id, order.products, order.sellerId, order.userId)} className='text-white p-2 bg-red-500 rounded-md m-2'>Cancelar</button>
                     </div>
-                    )}
-                    {order.status === 'PREPARANDO' && (
+                  )}
+                  {order.status === "PREPARANDO" && (
                     <div>
                         <h4 className="text-lg font-semibold">Preparando pedido</h4>
                         <button onClick={() => handleCookOrder(order.id, order.products, order.sellerId, order.userId)} className='text-white p-2 bg-yellow-500 rounded-md m-2'>Listo para retirar</button>
