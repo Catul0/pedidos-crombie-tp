@@ -1,10 +1,10 @@
-import React from 'react'
-import Link from 'next/link'
+import React from "react";
+import Link from "next/link";
 
 function Buttons() {
   return (
     <div>
-        <Link href="/sellers">
+      <Link href="/sellers">
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">
           Ver Locales y Registrar nuevo local
         </button>
@@ -20,7 +20,7 @@ function Buttons() {
         </button>
       </Link>
     </div>
-  )
+  );
 }
 
-export default Buttons
+export default Buttons;

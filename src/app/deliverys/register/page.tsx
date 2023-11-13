@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import Navbar from '@/components/Navbar';
-import RegisterDelivery from '@/components/Delivery/RegisterDelivery';
-
+import React, { useState } from "react";
+import Navbar from "@/components/Navbar";
+import RegisterDelivery from "@/components/Delivery/RegisterDelivery";
 
 const DeliverysRegister = () => {
-
   return (
     <div className="h-screen bg-gray-100">
       <Navbar text="Pedidos Crombie - ¡Reparte con nosotros! 🛵🚲" />

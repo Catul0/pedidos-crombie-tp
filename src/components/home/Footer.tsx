@@ -4,8 +4,16 @@ function Footer() {
   return (
     <footer className="bg-[#F3F4F6] text-white py-2 flex flex-col items-center justify-center h-full">
       <div className="container mx-auto text-center text-black">
-        <p className="text-sm">© 2023 Pedidos Crombie. Todos los derechos reservados.</p>
-        <p className="text-sm">Contáctanos:<a href="" className="hover:text-green-400 transition-colors"> @PedidosCrombie.com</a></p>
+        <p className="text-sm">
+          © 2023 Pedidos Crombie. Todos los derechos reservados.
+        </p>
+        <p className="text-sm">
+          Contáctanos:
+          <a href="" className="hover:text-green-400 transition-colors">
+            {" "}
+            @PedidosCrombie.com
+          </a>
+        </p>
       </div>
       <div className="mt-4">
         <div className="flex justify-center space-x-4">

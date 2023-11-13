@@ -21,7 +21,8 @@ export default function VehicleCard({ car }: { car: Vehicle }) {
           Year: <span className="text-black font-semibold">{car?.year}</span>
         </p>
         <p className="font-normal text-gray-700 dark-text-gray-400">
-          License Plate: <span className="text-black font-semibold">{car?.licensePlate}</span>
+          License Plate:{" "}
+          <span className="text-black font-semibold">{car?.licensePlate}</span>
         </p>
       </div>
     </>

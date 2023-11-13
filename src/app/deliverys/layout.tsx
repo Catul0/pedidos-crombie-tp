@@ -23,16 +23,14 @@ export default function DeliveryLayout({
     <html lang="en">
       <body className={inter.className}>
         <UsersProvider>
-        <OrderProvider>
-          <DeliverysProvider>
-            <Navbar text="Pedidos Crombie - Bienvenido de vuelta!" />
-            <VehiclesProvider>
-              <LocalProfilesProvider>
-                {children}
-              </LocalProfilesProvider>
-            </VehiclesProvider>
-          </DeliverysProvider>
-        </OrderProvider>
+          <OrderProvider>
+            <DeliverysProvider>
+              <Navbar text="Pedidos Crombie - Bienvenido de vuelta!" />
+              <VehiclesProvider>
+                <LocalProfilesProvider>{children}</LocalProfilesProvider>
+              </VehiclesProvider>
+            </DeliverysProvider>
+          </OrderProvider>
         </UsersProvider>
       </body>
     </html>

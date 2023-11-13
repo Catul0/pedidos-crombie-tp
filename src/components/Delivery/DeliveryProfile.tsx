@@ -8,7 +8,7 @@ import { useOrderContext } from "@/context/OrderContext";
 import VehicleCard from "./VehicleCard";
 import { motion } from "framer-motion";
 import { useUsers } from "@/context/UserContext";
-import { useLocalProfiles } from '@/context/LocalProfileContext';
+import { useLocalProfiles } from "@/context/LocalProfileContext";
 import Maps from "../Maps";
 
 export default function DeliveryProfile({
@@ -19,21 +19,21 @@ export default function DeliveryProfile({
   function getAddresses(order: any) {
     let userAddress = "";
     let sellerAddress = "";
-  
+
     // Busca el usuario correspondiente al order.userId
     const user = users.find((user) => user.id === order.userId);
-  
+
     if (user) {
       userAddress = user.address;
     }
-  
+
     // Busca el vendedor correspondiente al order.sellerId
     const seller = localProfiles.find((seller) => seller.id === order.sellerId);
-  
+
     if (seller) {
       sellerAddress = seller.address;
     }
-  
+
     return { userAddress, sellerAddress };
   }
   const { userOrders, handleDeliveryTakingOrder, handleDeliveredOrder } =
@@ -42,19 +42,21 @@ export default function DeliveryProfile({
     (order: any) =>
       order.deliveryId === null &&
       order.status != "RECHAZADO" &&
-      order.status != "PENDIENTE"
+      order.status != "PENDIENTE",
   );
   const deliverysOrder = userOrders.filter(
     (order: any) =>
-      order.deliveryId === Number(params.id) && order.status != "RECIBIDO" && order.status != 'FINALIZADO'
+      order.deliveryId === Number(params.id) &&
+      order.status != "RECIBIDO" &&
+      order.status != "FINALIZADO",
   );
-  
-  const {loadLocalProfile, localProfiles}= useLocalProfiles();
+
+  const { loadLocalProfile, localProfiles } = useLocalProfiles();
   const { deliveryProfile, loadDeliveryProfile } = useDeliverys();
   const { loadSellerVehicles, sellerCar } = useVehicles();
   const [cargarAuto, setCargarAuto] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
-  const {loadUsers, users} = useUsers();
+  const { loadUsers, users } = useUsers();
   const id = Number(params.id);
   const delivery: any = deliveryProfile;
 
@@ -108,15 +110,15 @@ export default function DeliveryProfile({
           {cargarAuto ? "Cancelar" : "Cargar Nuevo Auto"}
         </button>
         {cargarAuto ? (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-        >
-          <CreateVehicle params={params} />
-        </motion.div>
-      ) : null}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
+            <CreateVehicle params={params} />
+          </motion.div>
+        ) : null}
       </div>
       {deliverysOrder.length > 0 ? (
         <div className="bg-white rounded-lg shadow-lg p-6">
@@ -129,21 +131,34 @@ export default function DeliveryProfile({
                 key={order.id}
                 className="mb-4 border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all duration-300"
               >
-                {localProfiles.map((seller) => (
-                  
-                  seller.id === order.sellerId ?
+                {localProfiles.map((seller) =>
+                  seller.id === order.sellerId ? (
                     <div key={seller.id}>
-                      <h4 className="text-lg font-semibold text-gray-900">{seller.name}</h4>
-                      <h4 className="text-lg font-semibold text-gray-900">Buscar en: {seller.address}</h4>
-                    </div> :<p key={seller.id}></p>
-                    ))}
-                  {users.map((user) => (
-                  user.id === order.userId ?
+                      <h4 className="text-lg font-semibold text-gray-900">
+                        {seller.name}
+                      </h4>
+                      <h4 className="text-lg font-semibold text-gray-900">
+                        Buscar en: {seller.address}
+                      </h4>
+                    </div>
+                  ) : (
+                    <p key={seller.id}></p>
+                  ),
+                )}
+                {users.map((user) =>
+                  user.id === order.userId ? (
                     <div key={user.id}>
-                      <h4 className="text-lg font-semibold text-gray-900">{user.name}</h4>
-                      <h4 className="text-lg font-semibold text-gray-900">Entregar en: {user.address}</h4>
-                    </div> :<p key={user.id}></p>
-                  ))}
+                      <h4 className="text-lg font-semibold text-gray-900">
+                        {user.name}
+                      </h4>
+                      <h4 className="text-lg font-semibold text-gray-900">
+                        Entregar en: {user.address}
+                      </h4>
+                    </div>
+                  ) : (
+                    <p key={user.id}></p>
+                  ),
+                )}
                 <h4 className="text-lg font-semibold text-gray-900">
                   Cantidad de productos: {order.products}
                 </h4>
@@ -161,7 +176,7 @@ export default function DeliveryProfile({
                       order.products,
                       order.sellerId,
                       order.userId,
-                      Number(id)
+                      Number(id),
                     )
                   }
                   className="bg-red-500 text-white text-base font-semibold py-2 px-4 rounded-full mt-4 hover:bg-red-600 transition-all duration-300 focus:outline-none"
@@ -184,20 +199,34 @@ export default function DeliveryProfile({
                   key={order.id}
                   className="mb-4 border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all duration-300"
                 >
-                  {localProfiles.map((seller) => (
-                  seller.id === order.sellerId ?
-                    <div key={seller.id}>
-                      <h4 className="text-lg font-semibold text-gray-900">Seller Name: {seller.name}</h4>
-                      <h4 className="text-lg font-semibold text-gray-900">seller addres: {seller.address}</h4>
-                    </div> :<p key={seller.id}></p>
-                  ))}
-                  {users.map((user) => (
-                  user.id === order.userId ?
-                    <div key={user.id}>
-                      <h4 className="text-lg font-semibold text-gray-900">Seller Name: {user.name}</h4>
-                      <h4 className="text-lg font-semibold text-gray-900">seller addres: {user.address}</h4>
-                    </div> :<p key={user.id}></p>
-                  ))}
+                  {localProfiles.map((seller) =>
+                    seller.id === order.sellerId ? (
+                      <div key={seller.id}>
+                        <h4 className="text-lg font-semibold text-gray-900">
+                          Seller Name: {seller.name}
+                        </h4>
+                        <h4 className="text-lg font-semibold text-gray-900">
+                          seller addres: {seller.address}
+                        </h4>
+                      </div>
+                    ) : (
+                      <p key={seller.id}></p>
+                    ),
+                  )}
+                  {users.map((user) =>
+                    user.id === order.userId ? (
+                      <div key={user.id}>
+                        <h4 className="text-lg font-semibold text-gray-900">
+                          Seller Name: {user.name}
+                        </h4>
+                        <h4 className="text-lg font-semibold text-gray-900">
+                          seller addres: {user.address}
+                        </h4>
+                      </div>
+                    ) : (
+                      <p key={user.id}></p>
+                    ),
+                  )}
                   <h4 className="text-lg font-semibold text-gray-900">
                     Productos: {order.products}
                   </h4>
@@ -210,7 +239,7 @@ export default function DeliveryProfile({
                             order.products,
                             order.sellerId,
                             order.userId,
-                            Number(id)
+                            Number(id),
                           )
                         }
                         className="bg-red-500 text-white text-base font-semibold py-2 px-4 rounded-full mt-4 hover:bg-red-600 transition-all duration-300 focus:outline-none"

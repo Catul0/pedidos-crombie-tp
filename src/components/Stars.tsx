@@ -1,10 +1,14 @@
-import React from 'react';
-import { IconStar, IconStarFilled, IconStarHalfFilled } from '@tabler/icons-react';
+import React from "react";
+import {
+  IconStar,
+  IconStarFilled,
+  IconStarHalfFilled,
+} from "@tabler/icons-react";
 
 function PuntajeConEstrellas({ puntaje }: any) {
   const maxPuntaje = 5;
   const iconos = [];
-  
+
   for (let i = 1; i <= maxPuntaje; i++) {
     if (puntaje >= i) {
       iconos.push(<IconStarFilled key={i} />);

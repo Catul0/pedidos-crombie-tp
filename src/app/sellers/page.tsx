@@ -1,13 +1,13 @@
-"use client"
-import LocalsProfiles from '@/components/seller/LocalsProfiles'
-import React from 'react'
+"use client";
+import LocalsProfiles from "@/components/seller/LocalsProfiles";
+import React from "react";
 
 const Sellers = () => {
   return (
     <>
-    <LocalsProfiles/>
+      <LocalsProfiles />
     </>
-  )
-}
+  );
+};
 
-export default Sellers
+export default Sellers;
