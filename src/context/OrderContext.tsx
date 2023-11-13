@@ -9,6 +9,7 @@ type Order = {
   status: string;
   userId: number;
   deliveryId: number;
+  orderDate: string;
 };
 
 // Definir el tipo del contexto

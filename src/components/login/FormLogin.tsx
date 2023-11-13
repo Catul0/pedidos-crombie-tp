@@ -39,7 +39,11 @@ function FormLogin() {
       // aca tengo que obtener el id del usuario mediante su cookie
       const token: any = Cookies.get("token");
       if (token)
-        router.push(`/${userType}s/${(decode(token) as { id: string })?.id}`);
+        if(userType==='user'){
+          router.push('/search')
+        } else {
+          router.push(`/${userType}s/${(decode(token) as { id: string })?.id}`);
+        }
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);

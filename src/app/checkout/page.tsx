@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Cookies from 'js-cookie';
 import { decode } from 'jsonwebtoken';
+import { useRouter } from 'next/navigation';
 
 type Product = {
   id: number;
@@ -26,7 +27,7 @@ function Checkout() {
   const [orderResult, setOrderResult] = useState(null);
   const token: any = Cookies.get('token');
   const decodedToken: any = decode(token);
-
+  const router = useRouter();
 
   useEffect(() => {
     const savedCart = localStorage.getItem('cart');
@@ -62,11 +63,9 @@ function Checkout() {
   useEffect(() => {
     const fetchSellerData = async (sellerId: number) => {
       try {
-        console.log(sellerId)
         const response = await fetch(`api/locals/${sellerId}`);
         if (response.ok) {
           const sellerData = await response.json();
-          console.log(sellerData)
           setSellerData(sellerData)
         } else {
           console.error(`Error al obtener los datos del vendedor con sellerId: ${sellerId}`);
@@ -104,7 +103,7 @@ function Checkout() {
       .then((response) => response.json())
       .then((data) => {
         setOrderResult(data);
-        alert('Tu pedido fue realizado con exito')
+        router.push("/users/"+orderData.userId)
       })
       .catch((error) => {
         console.error('Error al crear la orden:', error);

@@ -12,7 +12,7 @@ function ProductCard({ product, isTrue }: { product: Product, isTrue: boolean | 
         addToCart(product);
     }
     return (
-        <div key={product.id} className='bg-[#F7F8F9] p-5 rounded-md gap-20 flex justify-between w-full transform hover:scale-110 transition-transform duration-300 ease-in-out'>
+        <div key={product.id} className='bg-[#F7F8F9] p-5 rounded-md gap-20 flex justify-between w-full transform hover:scale-105 transition-transform duration-300 ease-in-out'>
             <div className='h-max w-full rounded-lg flex gap-8 shadow-md bg-white p-5 justify-between'>
                 <div className='flex flex-row items-center gap-7'>
                     {product.image ? <img src={product.image} className='w-1/4' alt="imagen del negocio" /> : <img src="https://static.vecteezy.com/system/resources/thumbnails/007/126/739/small/question-mark-icon-free-vector.jpg" alt="" />}

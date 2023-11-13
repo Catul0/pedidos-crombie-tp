@@ -10,6 +10,7 @@ export interface sellerProfile {
     rol: string;
     password: string;
     email: string;
+    logo: string;
 }
 
 export type CreateLocalProfile = {

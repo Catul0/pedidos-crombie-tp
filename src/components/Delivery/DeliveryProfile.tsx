@@ -20,14 +20,12 @@ export default function DeliveryProfile({
     let userAddress = "";
     let sellerAddress = "";
   
-    // Busca el usuario correspondiente al order.userId
     const user = users.find((user) => user.id === order.userId);
   
     if (user) {
       userAddress = user.address;
     }
-  
-    // Busca el vendedor correspondiente al order.sellerId
+
     const seller = localProfiles.find((seller) => seller.id === order.sellerId);
   
     if (seller) {
@@ -103,9 +101,9 @@ export default function DeliveryProfile({
             cargarAuto
               ? "bg-red-500 hover:bg-red-600 transform scale-105"
               : "bg-green-500 hover:bg-green-600 transform scale-105"
-          } text-white text-xl mt-4 py-2 px-4 rounded-full w-full transition-all duration-500`}
+          } text-white mt-4 py-2 px-4 rounded-md w-full transition-all duration-500`}
         >
-          {cargarAuto ? "Cancelar" : "Cargar Nuevo Auto"}
+          {cargarAuto ? "Cancelar" : "Cargar Nuevo Vehiculo"}
         </button>
         {cargarAuto ? (
         <motion.div
@@ -145,15 +143,12 @@ export default function DeliveryProfile({
                     </div> :<p key={user.id}></p>
                   ))}
                 <h4 className="text-lg font-semibold text-gray-900">
-                  Cantidad de productos: {order.products}
+                  Cantidad de productos: {order.products.split(',').length}
                 </h4>
                 <Maps
                   origin={getAddresses(order).sellerAddress}
                   destination={getAddresses(order).userAddress}
                 />
-                <h4 className="text-lg font-semibold text-gray-900">
-                  Status: {order.status}
-                </h4>
                 <button
                   onClick={() =>
                     handleDeliveredOrder(
@@ -164,7 +159,7 @@ export default function DeliveryProfile({
                       Number(id)
                     )
                   }
-                  className="bg-red-500 text-white text-base font-semibold py-2 px-4 rounded-full mt-4 hover:bg-red-600 transition-all duration-300 focus:outline-none"
+                  className="bg-red-500 text-white text-base font-semibold py-2 px-4 rounded-md mt-4 hover:bg-red-600 transition-all duration-300 focus:outline-none"
                 >
                   Ya entregué el pedido
                 </button>
@@ -173,7 +168,7 @@ export default function DeliveryProfile({
           </ul>
         </div>
       ) : (
-        <div className="bg-white rounded-lg shadow-lg p-6">
+        <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col gap-5">
           <h1 className="text-lg font-bold text-gray-900">
             No tienes pedidos asignados. Elige uno:
           </h1>
@@ -187,20 +182,20 @@ export default function DeliveryProfile({
                   {localProfiles.map((seller) => (
                   seller.id === order.sellerId ?
                     <div key={seller.id}>
-                      <h4 className="text-lg font-semibold text-gray-900">Seller Name: {seller.name}</h4>
-                      <h4 className="text-lg font-semibold text-gray-900">seller addres: {seller.address}</h4>
+                      <h4 className="text-lg font-semibold text-gray-900">Local: {seller.name}</h4>
+                      <h4 className="text-lg font-semibold text-gray-900">Buscar en: {seller.address}</h4>
                     </div> :<p key={seller.id}></p>
                   ))}
                   {users.map((user) => (
                   user.id === order.userId ?
                     <div key={user.id}>
-                      <h4 className="text-lg font-semibold text-gray-900">Seller Name: {user.name}</h4>
-                      <h4 className="text-lg font-semibold text-gray-900">seller addres: {user.address}</h4>
+                      <h4 className="text-lg font-semibold text-gray-900">Cliente: {user.name}</h4>
+                      <h4 className="text-lg font-semibold text-gray-900">Entregar en: {user.address}</h4>
                     </div> :<p key={user.id}></p>
                   ))}
-                  <h4 className="text-lg font-semibold text-gray-900">
-                    Productos: {order.products}
-                  </h4>
+                <h4 className="text-lg font-semibold text-gray-900">
+                  Cantidad de productos: {order.products.split(',').length}
+                </h4>
                   {order.status === "COCINADO" && (
                     <div>
                       <button
@@ -213,7 +208,7 @@ export default function DeliveryProfile({
                             Number(id)
                           )
                         }
-                        className="bg-red-500 text-white text-base font-semibold py-2 px-4 rounded-full mt-4 hover:bg-red-600 transition-all duration-300 focus:outline-none"
+                        className="bg-red-500 text-white text-base font-semibold py-2 px-4 rounded-md mt-4 hover:bg-red-600 transition-all duration-300 focus:outline-none"
                       >
                         Tomar pedido
                       </button>
