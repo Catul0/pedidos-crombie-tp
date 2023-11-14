@@ -19,10 +19,10 @@ function Imagen() {
         <h1 className="text-4xl font-bold animate-bounce">
           ¡Pedí lo que quieras!
         </h1>
-        <p className="text-2xl font-semibold animate-pulse">
+        <p className="text-2xl font-semibold">
           Restaurantes, mercados, kioscos, farmacias y mucho más.
         </p>
-        <p className="text-2xl font-semibold animate-pulse">
+        <p className="text-2xl font-semibold">
           Inicia sesión o regístrate para comenzar
         </p>
     </div>

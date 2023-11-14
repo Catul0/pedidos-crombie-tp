@@ -56,7 +56,7 @@ function EditUser() {
       </div>
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2">
-          Name:
+          Nombre:
         </label>
         <input
           type="text"
@@ -68,7 +68,7 @@ function EditUser() {
       </div>
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2">
-          Phone:
+          Telefono:
         </label>
         <input
           type="text"
@@ -80,7 +80,7 @@ function EditUser() {
       </div>
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2">
-          City:
+          Ciudad:
         </label>
         <input
           type="text"
@@ -92,7 +92,7 @@ function EditUser() {
       </div>
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2">
-          Address:
+          Dirección:
         </label>
         <input
           type="text"
@@ -102,8 +102,8 @@ function EditUser() {
           onChange={(e) => setAddress(e.target.value)}
         />
       </div>
-      <button className="col-span-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300">
-        Update
+      <button className="col-span-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300">
+        Guardar
       </button>
     </form>
   );

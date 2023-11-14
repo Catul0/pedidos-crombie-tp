@@ -15,6 +15,11 @@ import Orders from "../orders/Order";
 import { useOrderContext } from "@/context/OrderContext";
 import { useScores } from "@/context/ScoreContext";
 import PuntajeConEstrellas from "../Stars";
+import { decode } from "jsonwebtoken";
+import Cookies from "js-cookie";
+import Link from "next/link";
+
+
 export default function SellerProfile({
   params,
   isTrue,
@@ -22,6 +27,12 @@ export default function SellerProfile({
   params: { id: string };
   isTrue: boolean | null;
 }) {
+  const token: any = Cookies.get("token");
+  let iduser;
+  if (token) {
+    const decodedToken: any = decode(token);
+    iduser = decodedToken.id;
+  }
   const id = params.id;
   const { userOrders } = useOrderContext();
   const {
@@ -38,6 +49,7 @@ export default function SellerProfile({
   const userOrdersFiltered = userOrders.filter(
     (order: any) => order.sellerId === Number(id),
   );
+  const pendingOrders = userOrdersFiltered.filter(order => order.status === 'PENDIENTE');
   const { loadSellerScores, scores } = useScores();
   const [puntaje, setPuntaje] = useState(0);
   useEffect(() => {
@@ -73,6 +85,15 @@ export default function SellerProfile({
     }
   }, [isTrue, params]);
 
+  useEffect(() => {
+    // Desactiva el desplazamiento en el cuerpo de la página cuando se abre la ventana emergente
+    if (isCartOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isCartOpen]);
+
   return (
     <>
       <div className="bg-white h-16 flex items-center justify-between px-10 border-b border-gray-300">
@@ -81,12 +102,10 @@ export default function SellerProfile({
           Pedidos Crombie - {seller.name}
         </p>
         <div className="flex flex-row gap-7 items-center">
-          <button>
-            <IconUserCircle size={40} />
-          </button>
-          <button onClick={() => setIsCartOpen(!isCartOpen)}>
+        {isTrue ? <p></p> : <Link href={'/users/' + iduser}><IconUserCircle size={40} /></Link>}
+        <button onClick={() => setIsCartOpen(!isCartOpen)}>
             {cart.length > 0 ||
-              (userOrdersFiltered.length > 0 && (
+              (pendingOrders.length > 0 && (
                 <span
                   style={{
                     position: "absolute",
@@ -103,7 +122,7 @@ export default function SellerProfile({
                     zIndex: 1,
                   }}
                 >
-                  {isTrue ? userOrdersFiltered.length : cart.length}
+                  {isTrue ? pendingOrders.length : cart.length}
                 </span>
               ))}
             {isTrue ? <IconBell size={35} /> : <IconShoppingCart size={35} />}
@@ -156,7 +175,7 @@ export default function SellerProfile({
         {/* carrito */}
         {/* ventana emergente del carrito utilizando clases de Tailwind CSS */}
         {isCartOpen && (
-          <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="absolute inset-0 flex items-center justify-center z-50 overflow-auto">
             <div className="bg-gray-100 border w-full h-full border-gray-200 shadow-lg p-4">
               <button
                 className="text-black font-bold text-2xl"

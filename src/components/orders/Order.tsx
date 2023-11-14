@@ -1,6 +1,5 @@
 import React from 'react';
 import { useOrderContext } from '@/context/OrderContext';
-import ProductsUser from '../product/ProductsUser';
 import ProductsOrder from '../product/ProductsOrder';
 
 function Orders({params}: {params: { id: string };}) {
@@ -19,7 +18,7 @@ function Orders({params}: {params: { id: string };}) {
           {userOrders.length > 0 ? (
             <ul className="mt-4">
               {userOrdersFiltered.map((order) => (
-                <li key={order.id} className="mb-4 border border-gray-200 rounded-lg p-4">
+                <li key={order.id} className="mb-4 border border-gray-200 rounded-lg p-4 bg-white">
                   <h4>
                     {new Date(order.orderDate).toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' })} - {new Date(order.orderDate).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })}
                   </h4>
@@ -33,8 +32,8 @@ function Orders({params}: {params: { id: string };}) {
                   )}
                   {order.status === "RECHAZADO" && (
                     <div>
-                        <h4 className="text-lg font-semibold">Rechazaste este pedido</h4>
-                        <button onClick={() => handleAcceptOrder(order.id, order.products, order.sellerId, order.userId)} className='text-white p-2 bg-blue-500 rounded-md m-2'>Aceptar</button>
+                        <h4 className="text-lg font-semibold text-red-500">Rechazaste este pedido</h4>
+                        <button onClick={() => handleAcceptOrder(order.id, order.products, order.sellerId, order.userId)} className='text-white p-2 bg-blue-500 rounded-md m-2'>Aceptar pedido</button>
                     </div>
                   )}
                   {order.status === "ACEPTADO" && (

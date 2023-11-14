@@ -21,7 +21,7 @@ export default function SearchLayout({
       <body className={inter.className}>
         <LocalProfilesProvider>
           <ProductsProvider>
-            <Navbar text="Pedidos Crombie - Busca lo que quieras" />
+            {/* <Navbar text="Pedidos Crombie - Busca lo que quieras" /> */}
             {children}
           </ProductsProvider>
         </LocalProfilesProvider>

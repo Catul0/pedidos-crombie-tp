@@ -13,19 +13,19 @@ function HomePage() {
       </div>
       <div className="w-full flex flex-col sm:flex-row mb-[100px] justify-evenly items-center">
         <JoinUs
-          imageUrl="https://images.pexels.com/photos/280453/pexels-photo-280453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          imageUrl="https://th.bing.com/th/id/OIG.j1P1jlAUGBgBz7Udziy9?pid=ImgGn&w=1024&h=1024&rs=1"
           paragraphText="Pedite un antojo"
           linkPath="/users/register"
           linkText="Registrate como usuario"
         />
         <JoinUs
-          imageUrl="https://images.pexels.com/photos/6994138/pexels-photo-6994138.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          imageUrl="https://th.bing.com/th/id/OIG.Ei15uciXnoveiSoN8PZx?pid=ImgGn"
           paragraphText="Tu local, a domicilio"
           linkPath="/sellers/register"
           linkText="Registrate como local"
         />
         <JoinUs
-          imageUrl="https://images.pexels.com/photos/4392039/pexels-photo-4392039.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          imageUrl="https://th.bing.com/th/id/OIG.jRqTfNQtB9_dXl3k51A_?pid=ImgGn"
           paragraphText="Reparte con nosotros"
           linkPath="/deliverys/register"
           linkText="Registrate como delivery"

@@ -23,7 +23,6 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
   const userOrdersFiltered = userOrders?.filter(
     (order: any) => order.userId === Number(id),
   );
-  console.log(userOrdersFiltered)
   const { logout } = useLogin();
   const { userProfiles, loaduserProfile, setSelectedUser, selectedUser } =
     useUsers();
@@ -127,7 +126,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
                     )}
                     {order.status === 'RECHAZADO' && (
                     <div>
-                        <h4 className="text-lg font-semibold">El local rechazo tu pedido</h4>
+                        <h4 className="text-lg font-semibold text-red-500">El local rechazó tu pedido</h4>
                     </div>
                     )}
                     {order.status === 'ACEPTADO' && (
@@ -147,7 +146,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
                     )}
                     {order.status === 'FINALIZADO' && (
                     <div>
-                        <h4 className="text-lg font-semibold">Entregado</h4>
+                        <h4 className="text-lg font-semibold text-green-500">Entregado</h4>
                     </div>
                     )}
                     {order.status === 'EN_CAMINO' && (
@@ -157,7 +156,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
                     )}
                     {order.status === 'ENTREGADO' && (
                     <div>
-                        <h4 className="text-lg font-semibold">Entregado</h4>
+                        <h4 className="text-lg font-semibold text-green-500">Entregado</h4>
                     </div>
                     )}
                 {order.status === 'RECIBIDO' ? (

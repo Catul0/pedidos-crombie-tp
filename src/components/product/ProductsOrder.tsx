@@ -28,7 +28,7 @@ const ProductsOrder = ({ productsOrder, idSeller }: { productsOrder: string, idS
     })
     return (
         <div>
-            <p className="cursor-pointer hover:underline" onClick={() => setShowProducts(!showProducts)}>{productosOrden.length} producto/s</p>
+            <p className="cursor-pointer hover:underline mb-3 mt-3" onClick={() => setShowProducts(!showProducts)}>{productosOrden.length} producto/s</p>
             {showProducts && productosUnicos.map((producto, index) => (
             <div key={index} className='flex items-center justify-center border-b pb-4 mb-4'>
                 <p>{producto.productName} <b>x{producto.count}</b></p>
