@@ -15,7 +15,6 @@ Para instalar y configurar el proyecto localmente, sigue estos pasos:
 ## Uso
 
 Demo de uso:
-https://clipchamp.com/watch/P0e5XivfTHW
 
 ### Usuario
 Los usuarios pueden registrarse en la aplicación haciendo clic en "Registrar". Una vez registrados, pueden buscar comida o locales y agregar productos a su carrito. El carrito puede ser editado en cualquier momento. Cuando el usuario esté listo para realizar su pedido, puede proceder al "Checkout". En el "Checkout", el usuario confirma su compra, que luego es enviada al vendedor. Los usuarios pueden editar su perfil, ver su perfil, ver la pagina /search (donde se buscan productos y locales) y perfiles de locales. Los usuarios NO pueden: ver ni editar perfiles de deliverys, editar perfiles de locales.
