@@ -195,7 +195,7 @@ function Checkout() {
               <div className="w-full flex justify-between p-3">
                 <p>Propina Crombie Delivery</p>
                 <input
-                  className="w-12 rounded border border-gray-400"
+                  className="w-16 rounded border border-gray-400"
                   type="text"
                   value={tipAmount}
                   onChange={handleTipChange}

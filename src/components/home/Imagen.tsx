@@ -25,11 +25,6 @@ function Imagen() {
         <p className="text-2xl font-semibold animate-pulse">
           Inicia sesión o regístrate para comenzar
         </p>
-      <div className='flex flex-col justify-center items-center text-white text-center p-6 space-y-4'>
-        <h1 className="text-4xl font-bold animate-bounce">¡Pedí lo que quieras!</h1>
-        <p className="text-2xl font-semibold animate-pulse">Restaurantes, mercados, kioscos, farmacias y mucho más.</p>
-        <p className="text-2xl font-semibold animate-pulse">Inicia sesión o regístrate para comenzar</p>
-      </div>
     </div>
     </div>
 

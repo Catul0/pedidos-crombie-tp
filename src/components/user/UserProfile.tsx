@@ -162,6 +162,8 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
                     )}
                 {order.status === 'RECIBIDO' ? (
                   <div>
+                    <h1><b>Entregado</b></h1>
+                    <h1>Puntúanos!</h1>
                     <RatingComponent idseller={order.sellerId} iduser={Number(id)} iddelivery={order.deliveryId} orderId={order.id} products={order.products}/>
                   </div>
                 ) : (
