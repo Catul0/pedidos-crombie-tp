@@ -116,9 +116,9 @@ function Checkout() {
     <div>
       <Navbar text="Pedidos Crombie - Checkout" />
       <div className="w-full h-auto flex py-10 items-center flex-col bg-[#F7F8F9]">
-        <div className="w-4/5 flex justify-center gap-5 flex-row">
+        <div className="flex-col md:flex-row w-4/5 flex justify-center gap-5">
           {/* izq */}
-          <div className="w-3/5 flex flex-col gap-5">
+          <div className="w-full md:w-3/5 flex flex-col gap-5">
             {/* direccion */}
             <div className="w-full bg-white border rounded border-gray-300">
               <div className="w-full border-b border-gray-300 p-3">
@@ -173,7 +173,7 @@ function Checkout() {
             </div>
           </div>
           {/* resumen */}
-          <div className="w-2/5 bg-[#F7F8F9] flex flex-col gap-5">
+          <div className="w-full md:w-2/5 bg-[#F7F8F9] flex flex-col gap-5">
             <div className="w-full bg-white border rounded border-gray-300">
               <div className="w-full border-b border-gray-300 p-3">
                 <h1 className="font-black f">Resumen</h1>

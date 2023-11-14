@@ -34,9 +34,9 @@ function RegisterUser() {
   }
 
   return (
-    <div className="flex flex-row justify-center items-center w-full h-full bg-cover bg-white">
+    <div className="flex flex-col md:flex-row justify-center items-center w-full h-full bg-cover bg-white">
       <div
-        className="w-2/5 bg-black h-full flex justify-center items-center flex-col pl-10 pr-10 gap-8"
+        className="hidden md:flex md:w-2/5 bg-black h-full justify-center items-center flex-col pl-10 pr-10 gap-8"
         style={{
           backgroundImage: `url('https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
           backgroundSize: "cover", // Opcional: ajusta el tamaño de la imagen de fondo
@@ -51,8 +51,8 @@ function RegisterUser() {
           de Envíos Gratis pagando en efectivo!
         </p>
       </div>
-      <div className="w-3/5 h-full flex justify-center items-center flex-col gap-20">
-        <h1 className="text-black font-bold text-3xl">
+      <div className="w-full md:w-3/5 h-full flex justify-center items-center flex-col gap-20">
+        <h1 className="text-black text-center font-bold text-3xl">
           Registrate o ingresá para continuar
         </h1>
         <form
@@ -77,7 +77,7 @@ function RegisterUser() {
                   router.push(
                     `/users/${(decode(token) as { id: string })?.id}`,
                   );
-              }, 3000);
+              }, 1000);
             } else {
               setAlert(false);
             }
@@ -95,7 +95,7 @@ function RegisterUser() {
                 required
               />
               <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                Name:
+                Nombre:
               </label>
             </div>
             <div className="relative z-0 w-full mb-6 group">
@@ -107,7 +107,7 @@ function RegisterUser() {
                 placeholder=""
               />
               <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                LastName:
+                Apellido:
               </label>
             </div>
             <div className="relative z-0 w-full mb-6 group">
@@ -120,7 +120,7 @@ function RegisterUser() {
                 required
               />
               <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                Phone:
+                Telefono:
               </label>
             </div>
             <HStack className="relative z-0 w-full mb-6 group">
@@ -137,7 +137,7 @@ function RegisterUser() {
                 />
               </Autocomplete>
               <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                Address:
+                Dirección:
               </label>
             </HStack>
             <div className="relative z-0 w-full mb-6 group">
@@ -150,7 +150,7 @@ function RegisterUser() {
                 required
               />
               <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                City:
+                Ciudad:
               </label>
             </div>
             <div className="relative z-0 w-full mb-6 group">
@@ -176,7 +176,7 @@ function RegisterUser() {
                 required
               />
               <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                Password:
+                Contraseña:
               </label>
             </div>
             <div className="relative z-0 w-full mb-6 group">
@@ -189,14 +189,14 @@ function RegisterUser() {
                 required
               />
               <label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                Confirm Password:
+                Confirmar contraseña:
               </label>
             </div>
           </div>
           {match === false ? (
             <div className="mb-4 span-2">
               <p className="block text-red-600 text-center text-sm font-bold mb-2">
-                Passwords do not match
+                Las contraseñas no coinciden
               </p>
             </div>
           ) : (
@@ -205,14 +205,14 @@ function RegisterUser() {
           {alert ? (
             <div className="mb-4 span-2">
               <p className="block text-green-400 text-center text-sm font-bold mb-2 rounded">
-                Register Succes
+                Registrado correctamente
               </p>
             </div>
           ) : (
             <p></p>
           )}
           <button className="bg-green-500 hover:bg-green-600 text-white w-full font-bold py-2 px-4 rounded transform transition duration-300 hover:scale-105">
-            Register
+            Registrarse
           </button>
         </form>
       </div>

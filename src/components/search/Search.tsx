@@ -73,21 +73,20 @@ function Search() {
         <div className='flex items-center justify-center bg-white h-[100%] p-10' id='sellers' >
             <div className='flex flex-col items-center justify-center bg-white h-[100%]'>
                 <h1 className="text-black text-left font-bold py-1">Restaurantes:</h1>
-                <div className="grid grid-cols-3 md:grid-cols-3 gap-4 px-24">
-                    {searchTerm === ''
-                        ? filteredLocalProfiles.slice(0, initialResultsCount).map((local) => (
-                          <LocalCard local={local} key={local.id} />
-                        ))
-                        : filteredLocalProfiles.map((local) => (
-                          <LocalCard local={local} key={local.id} />
-                          ))}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 md:px-24">
+                  {searchTerm === ''
+                    ? filteredLocalProfiles.slice(0, initialResultsCount).map((local) => (
+                      <LocalCard local={local} key={local.id} />
+                    ))
+                    : filteredLocalProfiles.map((local) => (
+                      <LocalCard local={local} key={local.id} />
+                    ))}
                 </div>
-
                 {searchTerm === '' && (
                   <button className='hover:text-green-700' onClick={() => setInitialResultsCount(initialResultsCount + 6)}>Cargar más resultados</button>
                   )}
                 <h1 className="text-black text-center font-bold py-1">Comidas:</h1>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 px-24">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 md:px-24">
                     {searchTerm === ''
                         ? filteredProducts.slice(0, initialResultsCount).map((product) => (
                           <ProductCard product={product} key={product.id} />

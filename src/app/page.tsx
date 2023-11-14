@@ -8,10 +8,10 @@ function HomePage() {
     <div>
       <Navbar />
       <Imagen />
-      <div className="flex flex-col justify-center items-center mt-[50px] mb-[50px]">
-        <h1 className="text-black text-1x1 font-bold w-[600px] text-center">Sabores que Despiertan los Sentidos, Cuidados que te Confortan, y la Comodidad de Todo lo que Necesitas, Cuando lo Necesitas.🍕❤️</h1>
+      <div className="flex flex-col justify-center items-center mt-[50px] mb-[50px] px-4 sm:px-0">
+        <h1 className="text-black text-1x1 font-bold w-full sm:w-[600px] text-center">Sabores que Despiertan los Sentidos, Cuidados que te Confortan, y la Comodidad de Todo lo que Necesitas, Cuando lo Necesitas.🍕❤️</h1>
       </div>
-      <div className="w-full flex flex-col sm:flex-row mb-[100px] justify-evenly items-center">
+      <div className="w-full flex flex-col sm:flex-row mb-12 justify-evenly items-center space-y-4 sm:space-y-0">
         <JoinUs
           imageUrl="https://th.bing.com/th/id/OIG.j1P1jlAUGBgBz7Udziy9?pid=ImgGn&w=1024&h=1024&rs=1"
           paragraphText="Pedite un antojo"
@@ -31,6 +31,7 @@ function HomePage() {
           linkText="Registrate como delivery"
         />
       </div>
+
       <Footer />
     </div>
   );

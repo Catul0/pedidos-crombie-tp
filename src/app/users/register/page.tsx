@@ -7,7 +7,7 @@ const RegisterUsers = () => {
   return (
     <div>
       <Navbar text="Pedidos Crombie - Disfruta de lo mejor!" />
-      <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+      <div className="flex flex-col sm:flex-row items-center justify-center h-screen bg-gray-100">
         <RegisterUser />
       </div>
     </div>

@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import { DeliverysProvider } from "@/context/DeliveryContext";
 import { VehiclesProvider } from "@/context/VehicleContext";
 import { OrderProvider } from "@/context/OrderContext";
-import Navbar from "@/components/Navbar";
 import { LocalProfilesProvider } from "@/context/LocalProfileContext";
 import { UsersProvider } from "@/context/UserContext";
 
@@ -25,7 +24,6 @@ export default function DeliveryLayout({
         <UsersProvider>
           <OrderProvider>
             <DeliverysProvider>
-              <Navbar text="Pedidos Crombie - Bienvenido de vuelta!" />
               <VehiclesProvider>
                 <LocalProfilesProvider>{children}</LocalProfilesProvider>
               </VehiclesProvider>

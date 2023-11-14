@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { useUsers } from "@/context/UserContext";
 import { useLocalProfiles } from "@/context/LocalProfileContext";
 import Maps from "../Maps";
+import Navbar from "../Navbar";
 
 export default function DeliveryProfile({
   params,
@@ -77,6 +78,8 @@ export default function DeliveryProfile({
   }, [car]);
 
   return (
+    <>
+    <Navbar text="Pedidos Crombie - Bienvenido de vuelta!" />
     <div className="flex justify-center items-center gap-8 p-8 flex-col">
       <div className="bg-white rounded-lg shadow-lg p-6">
         <div className="text-center">
@@ -101,18 +104,18 @@ export default function DeliveryProfile({
           }}
           className={`${
             cargarAuto
-              ? "bg-red-500 hover:bg-red-600 transform scale-105"
-              : "bg-green-500 hover:bg-green-600 transform scale-105"
+            ? "bg-red-500 hover:bg-red-600 transform scale-105"
+            : "bg-green-500 hover:bg-green-600 transform scale-105"
           } text-white mt-4 py-2 px-4 rounded-md w-full transition-all duration-500`}
-        >
+          >
           {cargarAuto ? "Cancelar" : "Cargar Nuevo Vehiculo"}
         </button>
         {cargarAuto ? (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           >
             <CreateVehicle params={params} />
           </motion.div>
@@ -126,8 +129,8 @@ export default function DeliveryProfile({
           <ul>
             {deliverysOrder.map((order) => (
               <li
-                key={order.id}
-                className="mb-4 border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all duration-300"
+              key={order.id}
+              className="mb-4 border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all duration-300"
               >
                 {localProfiles.map((seller) =>
                   seller.id === order.sellerId ? (
@@ -141,8 +144,8 @@ export default function DeliveryProfile({
                     </div>
                   ) : (
                     <p key={seller.id}></p>
-                  ),
-                )}
+                    ),
+                    )}
                 {users.map((user) =>
                   user.id === order.userId ? (
                     <div key={user.id}>
@@ -155,15 +158,15 @@ export default function DeliveryProfile({
                     </div>
                   ) : (
                     <p key={user.id}></p>
-                  ),
-                )}
+                    ),
+                    )}
                 <h4 className="text-lg font-semibold text-gray-900">
                   Cantidad de productos: {order.products.split(',').length}
                 </h4>
                 <Maps
                   origin={getAddresses(order).sellerAddress}
                   destination={getAddresses(order).userAddress}
-                />
+                  />
                 <button
                   onClick={() =>
                     handleDeliveredOrder(
@@ -172,10 +175,10 @@ export default function DeliveryProfile({
                       order.sellerId,
                       order.userId,
                       Number(id),
-                    )
-                  }
-                  className="bg-red-500 text-white text-base font-semibold py-2 px-4 rounded-md mt-4 hover:bg-red-600 transition-all duration-300 focus:outline-none"
-                >
+                      )
+                    }
+                    className="bg-red-500 text-white text-base font-semibold py-2 px-4 rounded-md mt-4 hover:bg-red-600 transition-all duration-300 focus:outline-none"
+                    >
                   Ya entregué el pedido
                 </button>
               </li>
@@ -191,8 +194,8 @@ export default function DeliveryProfile({
             <ul>
               {userOrdersFiltered.map((order) => (
                 <li
-                  key={order.id}
-                  className="mb-4 border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all duration-300"
+                key={order.id}
+                className="mb-4 border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all duration-300"
                 >
                   {localProfiles.map((seller) => (
                   seller.id === order.sellerId ?
@@ -202,7 +205,7 @@ export default function DeliveryProfile({
                     </div> :<p key={seller.id}></p>
                   ))}
                   {users.map((user) => (
-                  user.id === order.userId ?
+                    user.id === order.userId ?
                     <div key={user.id}>
                       <h4 className="text-lg font-semibold text-gray-900">Cliente: {user.name}</h4>
                       <h4 className="text-lg font-semibold text-gray-900">Entregar en: {user.address}</h4>
@@ -221,10 +224,10 @@ export default function DeliveryProfile({
                             order.sellerId,
                             order.userId,
                             Number(id),
-                          )
-                        }
-                        className="bg-red-500 text-white text-base font-semibold py-2 px-4 rounded-md mt-4 hover:bg-red-600 transition-all duration-300 focus:outline-none"
-                      >
+                            )
+                          }
+                          className="bg-red-500 text-white text-base font-semibold py-2 px-4 rounded-md mt-4 hover:bg-red-600 transition-all duration-300 focus:outline-none"
+                          >
                         Tomar pedido
                       </button>
                     </div>
@@ -240,5 +243,6 @@ export default function DeliveryProfile({
         </div>
       )}
     </div>
+    </>
   );
 }

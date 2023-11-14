@@ -20,7 +20,7 @@ function RegisterDelivery() {
 
   return (
     <div
-      className="flex absolute top-16  justify-center gap-10 items-center w-full h-full bg-cover bg-center pr-10 pl-10"
+      className="flex absolute md:flex-row top-16  justify-center gap-10 items-center w-full h-full bg-cover bg-center pr-10 pl-10"
       style={{ backgroundImage: `url(${imagenUrl})` }}
     >
       <form
@@ -49,7 +49,7 @@ function RegisterDelivery() {
             setAlert(false);
           }
         }}
-        className="max-w-md p-8 bg-white rounded-lg shadow-md "
+        className="max-w-sm p-8 bg-white rounded-lg shadow-md "
       >
         <div className="grid md:grid-cols-2 gap-4">
           <div className="relative z-0 w-full mb-8 group">
@@ -146,7 +146,7 @@ function RegisterDelivery() {
           Register
         </button>
       </form>
-      <div className="w-2/6 text-white p-4 flex gap-5 flex-col">
+      <div className="hidden md:flex md:w-2/6 text-white p-4 flex gap-5 flex-col">
         <h1 className="text-5xl font-bold">
           ¡Únete hoy como repartidor en nuestra plataforma!
         </h1>

@@ -98,7 +98,7 @@ export default function SellerProfile({
     <>
       <div className="bg-white h-16 flex items-center justify-between px-10 border-b border-gray-300">
         <BackButton />
-        <p className="text-black px-4 py-2 font-semibold">
+        <p className="hidden md:flex text-black px-4 py-2 font-semibold">
           Pedidos Crombie - {seller.name}
         </p>
         <div className="flex flex-row gap-7 items-center">
@@ -130,8 +130,8 @@ export default function SellerProfile({
         </div>
       </div>
 
-      <div className="flex bg-[#F7F8F9] h-auto py-10 justify-center">
-        <div className="w-1/4 bg-[#F7F8F9]">
+      <div className="flex flex-col md:flex-row bg-[#F7F8F9] m-5 h-auto py-10 justify-center">
+        <div className="w-full md:w-1/4 bg-[#F7F8F9]">
           <div className="flex flex-col items-center p-4 text-center bg-white border border-gray-200 ml-5 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <img className="rounded-t-lg px-2 max-w" src={seller.logo} alt="" />
             <div className="p-5">
@@ -169,7 +169,7 @@ export default function SellerProfile({
           </div>
         </div>
         {/* productos */}
-        <div className="w-2/4">
+        <div className="w-full md:w-2/4">
           <SellersProducts params={params} isTrue={isTrue} />
         </div>
         {/* carrito */}
@@ -189,7 +189,7 @@ export default function SellerProfile({
         )}
         {/* crear producto */}
         {isTrue && (
-          <div className="w-1/4 p-4 bg-white border border-gray-200 mr-5 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <div className="w-full md:w-1/4 p-4 bg-white border border-gray-200 mr-5 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <CreateProduct params={params} />
           </div>
         )}

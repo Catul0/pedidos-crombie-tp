@@ -18,10 +18,7 @@ function ProductCard({
     addToCart(product);
   };
   return (
-    <div
-      key={product.id}
-      className="bg-[#F7F8F9] p-5 rounded-md gap-20 flex justify-between w-full transform hover:scale-105 transition-transform duration-300 ease-in-out"
-    >
+    <div key={product.id} className="bg-[#F7F8F9] p-5 rounded-md gap-20 flex flex-col md:flex-row justify-between w-full transform hover:scale-105 transition-transform duration-300 ease-in-out">
       <div className="h-max w-full rounded-lg flex gap-8 shadow-md bg-white p-5 justify-between">
         <div className="flex flex-row items-center gap-7">
           {product.image ? (
@@ -40,9 +37,9 @@ function ProductCard({
             <h2>
               <b>{product.productName}</b>
             </h2>
-            <p>{product.description}</p>
+            <p className="hidden md:flex">{product.description}</p>
             <p>
-              <b>${product.price}</b>
+            <b>${product.price}</b>
             </p>
           </div>
         </div>
