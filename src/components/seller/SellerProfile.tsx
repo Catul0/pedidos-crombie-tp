@@ -18,6 +18,7 @@ import PuntajeConEstrellas from "../Stars";
 import { decode } from "jsonwebtoken";
 import Cookies from "js-cookie";
 import Link from "next/link";
+import Popup from "../PopUp";
 
 
 export default function SellerProfile({
@@ -93,7 +94,7 @@ export default function SellerProfile({
       document.body.style.overflow = 'unset';
     }
   }, [isCartOpen]);
-
+  const [showPopup, setShowPopup] = useState(false);
   return (
     <>
       <div className="bg-white h-16 flex items-center justify-between px-10 border-b border-gray-300">
@@ -131,6 +132,7 @@ export default function SellerProfile({
       </div>
 
       <div className="flex flex-col md:flex-row bg-[#F7F8F9] m-5 h-auto py-10 justify-center">
+      {showPopup && <Popup message={`Producto añadido al carrito`} />}
         <div className="w-full md:w-1/4 bg-[#F7F8F9]">
           <div className="flex flex-col items-center p-4 text-center bg-white border border-gray-200 ml-5 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <img className="rounded-t-lg px-2 max-w" src={seller.logo} alt="" />
@@ -170,7 +172,7 @@ export default function SellerProfile({
         </div>
         {/* productos */}
         <div className="w-full md:w-2/4">
-          <SellersProducts params={params} isTrue={isTrue} />
+          <SellersProducts setShowPopup={setShowPopup} params={params} isTrue={isTrue} />
         </div>
         {/* carrito */}
         {/* ventana emergente del carrito utilizando clases de Tailwind CSS */}

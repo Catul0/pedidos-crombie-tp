@@ -6,9 +6,11 @@ import { useProducts } from "@/context/ProductContext";
 function SellersProducts({
   params,
   isTrue,
+  setShowPopup,
 }: {
   params: { id: string };
   isTrue: boolean | null;
+  setShowPopup: (show: boolean) => void;
 }) {
   const { products, loadSellerProducts } = useProducts();
   const id = Number(params.id);
@@ -29,7 +31,7 @@ function SellersProducts({
 
         <div className="">
           {products.map((product) => (
-            <ProductCard product={product} key={product.id} isTrue={isTrue} />
+            <ProductCard setShowPopup={setShowPopup} product={product} key={product.id} isTrue={isTrue} />
           ))}
         </div>
       </div>

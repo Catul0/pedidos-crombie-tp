@@ -8,14 +8,20 @@ import { IconShoppingCartPlus } from "@tabler/icons-react";
 function ProductCard({
   product,
   isTrue,
+  setShowPopup,
 }: {
   product: Product;
   isTrue: boolean | null;
+  setShowPopup: (show: boolean) => void;
 }) {
   const { setSelectedProduct, deleteProduct } = useProducts();
   const { addToCart } = useCart();
   const handleBuyClick = () => {
     addToCart(product);
+    setShowPopup(true);
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 3000);
   };
   return (
     <div key={product.id} className="bg-[#F7F8F9] p-5 rounded-md gap-20 flex flex-col md:flex-row justify-between w-full transform hover:scale-105 transition-transform duration-300 ease-in-out">
@@ -48,7 +54,7 @@ function ProductCard({
           !isTrue && (
             <div className="flex gap-10 items-center p-5 flex-col justify-center">
               <button
-                onClick={() => handleBuyClick()}
+                onClick={() => handleBuyClick()} 
                 className="text-black hover:text-green-500 transform hover:scale-110"
               >
                 <IconShoppingCartPlus style={{ fontSize: "2rem" }} />

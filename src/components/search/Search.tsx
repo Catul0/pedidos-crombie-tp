@@ -43,7 +43,6 @@ function Search() {
     );
     setFilteredProducts(filteredProds);
   }, [searchTerm, localProfiles, products]);
-  
   return (
     <>
     <div className="fixed z-10 w-full bg-white h-16 flex items-center justify-between px-10 border-b border-gray-300">

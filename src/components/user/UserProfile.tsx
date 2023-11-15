@@ -53,9 +53,9 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
           <div className="bg-white rounded p-5  shadow-lg">
             <div className="text-center">
               <img
-                className="w-16 h-16 rounded-full border-4 border-green-500 mx-auto "
+                className="w-16 h-16 rounded-full border-2 border-green-500 mx-auto"
                 src={
-                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                  "https://th.bing.com/th/id/OIG.qEapJt_1k2dhaziETMJI?pid=ImgGn"
                 }
                 alt="User Profile"
               />
