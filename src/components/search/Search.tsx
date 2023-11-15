@@ -46,7 +46,7 @@ function Search() {
   
   return (
     <>
-    <div className="bg-white h-16 flex items-center justify-between px-10 border-b border-gray-300">
+    <div className="fixed z-10 w-full bg-white h-16 flex items-center justify-between px-10 border-b border-gray-300">
       <BackButton />
       <p className="text-black px-4 py-2 font-semibold">
         Pedidos Crombie
@@ -58,7 +58,7 @@ function Search() {
       </div>
     </div>
     <div
-      className="flex items-center justify-center bg-white h-[100%] p-10"
+      className="flex items-center justify-center bg-white h-[100%] p-10 pt-20"
       id="sellers"
       >
       <div className="flex flex-col items-center justify-center bg-white h-[100%]">

@@ -14,7 +14,7 @@ export const ScoreContext = createContext<{
   createDeliveryScore: (score: Score, id: number) => Promise<void>;
   updateScore: (id: number, score: CreateScore) => Promise<void>;
   loadDeliveryScore: (id: number) => Promise<void>;
-  loadSellerScores: (id: number) => Promise<void>;
+  loadScores: () => Promise<void>;
   selectedScore: Score | null;
   setSelectedScore: (score: Score | null) => void;
 }>({
@@ -24,7 +24,7 @@ export const ScoreContext = createContext<{
   createSellerScore: async (score: Score, id: number) => {},
   createDeliveryScore: async (score: Score, id: number) => {},
   updateScore: async (id: number, score: CreateScore) => {},
-  loadSellerScores: async (id: number) => {},
+  loadScores: async () => {},
   selectedScore: null,
   setSelectedScore: (score: Score | null) => {},
 });
@@ -43,16 +43,10 @@ export const ScoresProvider = ({ children }: Children) => {
   const [puntaje, setPuntaje] = useState(0);
   const [selectedScore, setSelectedScore] = useState<Score | null>(null);
 
-  async function loadSellerScores(id: number) {
-    const res = await fetch("/api/score/" + id);
+  async function loadScores() {
+    const res = await fetch("/api/score");
     const data = await res.json();
-    let contador = 0;
     setScores(data);
-    for (let i = 0; i < scores.length; i++) {
-      setSumatoria(sumatoria + scores[i].score);
-      contador++;
-    }
-    setPuntaje(sumatoria / contador);
   }
 
   //funcion para cargar los scoreos de 1 vendedor-----------------------------------------------------------------------------------------------------
@@ -65,16 +59,6 @@ export const ScoresProvider = ({ children }: Children) => {
       console.log(error);
     }
   }
-  async function loadSellerScore(id: number) {
-    try {
-      const res = await fetch("/api/orderScore/" + id);
-      const data = await res.json();
-      setScores(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   //esta funcion lo que hace es crear un nuevo scoreo, y ademas agrega al estado donde estan todos los scoreos el nuevo
   //despues uno tiene que mostrar el estado ese nomas y se muestra actualizado
   async function createSellerScore(score: Score, id: number) {
@@ -125,7 +109,7 @@ export const ScoresProvider = ({ children }: Children) => {
         createSellerScore,
         createDeliveryScore,
         updateScore,
-        loadSellerScores,
+        loadScores,
         selectedScore,
         setSelectedScore,
       }}

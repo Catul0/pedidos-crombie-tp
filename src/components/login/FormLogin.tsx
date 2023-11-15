@@ -52,7 +52,7 @@ function FormLogin() {
   };
 
   return (
-    <div className="bg-white p-10 rounded shadow-lg w-96">
+    <div className="bg-white p-10 rounded shadow-lg h-min mt-20">
       <h2 className="text-2xl font-semibold mb-4">Iniciar sesión</h2>
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700 py-2">

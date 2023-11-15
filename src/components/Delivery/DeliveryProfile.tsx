@@ -11,6 +11,12 @@ import { useUsers } from "@/context/UserContext";
 import { useLocalProfiles } from "@/context/LocalProfileContext";
 import Maps from "../Maps";
 import Navbar from "../Navbar";
+import { useScores } from "@/context/ScoreContext";
+import PuntajeConEstrellas from "../Stars";
+import BackButton from "../BackButton";
+import { IconUserCircle } from "@tabler/icons-react";
+import {IconBike} from '@tabler/icons-react'
+import {IconToolsKitchen2} from '@tabler/icons-react'
 
 export default function DeliveryProfile({
   params,
@@ -59,15 +65,9 @@ export default function DeliveryProfile({
   const id = Number(params.id);
   const delivery: any = deliveryProfile;
 
-  useEffect(() => {
-    loadDeliveryProfile(Number(id));
-    loadLocalProfile();
-    loadUsers();
-    loadSellerVehicles(Number(id));
-  }, [id]);
-
+  
   const car: any = sellerCar;
-
+  
   useEffect(() => {
     // Verificar si el contenido de car es "vehicle not found" y mostrar el mensaje
     if (car && car.message === "Vehicle not found") {
@@ -77,10 +77,54 @@ export default function DeliveryProfile({
     }
   }, [car]);
 
+  const { scores, loadScores } = useScores();
+  const [puntaje, setPuntaje] = useState(0);
+  useEffect(() => {
+    if (scores && scores.length > 0) {
+      const deliveryScores = scores.filter(
+        (score) => score.deliveryId === Number(id),
+      );
+      
+      if (deliveryScores.length > 0) {
+        const totalScore = deliveryScores.reduce((accumulator, currentScore) => {
+          return accumulator + currentScore.score;
+        }, 0);
+        const averageScore = totalScore / deliveryScores.length;
+        const roundedAverageScore = averageScore.toFixed(1);
+        console.log(puntaje)
+        setPuntaje(Number(roundedAverageScore));
+      }
+    }
+  }, [id, scores]);
+  useEffect(() => {
+    // Realiza la carga del perfil del vendedor solo si no se ha cargado previamente o si el ID ha cambiado.
+    if (!delivery || delivery.id !== Number(id)) {
+
+      loadDeliveryProfile(Number(id));
+      loadScores();
+    }
+  }, [id, delivery, loadScores]);
+  useEffect(() => {
+    loadLocalProfile();
+    loadUsers();
+    loadSellerVehicles(Number(id));
+    
+  }, [id]);
+  const [isInfoOpen, setIsInfoOpen] = useState(false);
   return (
     <>
-    <Navbar text="Pedidos Crombie - Bienvenido de vuelta!" />
+    <div className="bg-white h-16 flex items-center justify-between px-10 border-b shadow-lg">
+      <BackButton />
+      <div className="flex items-center space-x-4">
+        <div className="flex items-center">
+          <div className="flex items-center gap-5">
+            <IconUserCircle width={50} height={50} className="cursor-pointer" onClick={() => setIsInfoOpen(!isInfoOpen)}/>
+          </div>
+        </div>
+      </div>
+    </div>
     <div className="flex justify-center items-center gap-8 p-8 flex-col">
+    {isInfoOpen && (
       <div className="bg-white rounded-lg shadow-lg p-6">
         <div className="text-center">
           {showMessage && (
@@ -92,8 +136,9 @@ export default function DeliveryProfile({
             {delivery.name} {delivery.lastName}
           </h2>
           <p className="text-gray-700 mb-4">
-            Puntaje Promedio: {delivery.averageScore}
+            Puntaje Promedio: 
           </p>
+          <PuntajeConEstrellas puntaje={puntaje} />
         </div>
         <div className="border-t border-gray-200 mt-6 pt-6">
           <VehicleCard car={car} />
@@ -120,7 +165,7 @@ export default function DeliveryProfile({
             <CreateVehicle params={params} />
           </motion.div>
         ) : null}
-      </div>
+      </div>)}
       {deliverysOrder.length > 0 ? (
         <div className="bg-white rounded-lg shadow-lg p-6">
           <h1 className="text-lg font-bold text-gray-900">
@@ -199,20 +244,19 @@ export default function DeliveryProfile({
                 >
                   {localProfiles.map((seller) => (
                   seller.id === order.sellerId ?
-                    <div key={seller.id}>
-                      <h4 className="text-lg font-semibold text-gray-900">Local: {seller.name}</h4>
-                      <h4 className="text-lg font-semibold text-gray-900">Buscar en: {seller.address}</h4>
+                    <div className="flex gap-2" key={seller.id}>
+                      <h4 className="text-lg text-gray-900"><b>Local:</b> {seller.name} - {seller.address}</h4>
                     </div> :<p key={seller.id}></p>
                   ))}
                   {users.map((user) => (
                     user.id === order.userId ?
                     <div key={user.id}>
-                      <h4 className="text-lg font-semibold text-gray-900">Cliente: {user.name}</h4>
-                      <h4 className="text-lg font-semibold text-gray-900">Entregar en: {user.address}</h4>
+                      <h4 className="text-lg text-gray-900"><b>Cliente:</b> {user.name}</h4>
+                      <h4 className="text-lg text-gray-900"><b>Entregar en:</b> {user.address}</h4>
                     </div> :<p key={user.id}></p>
                   ))}
-                <h4 className="text-lg font-semibold text-gray-900">
-                  Cantidad de productos: {order.products.split(',').length}
+                <h4 className="text-lg text-gray-900">
+                  <b>Cantidad de productos:</b> {order.products.split(',').length}
                 </h4>
                   {order.status === "COCINADO" && (
                     <div>

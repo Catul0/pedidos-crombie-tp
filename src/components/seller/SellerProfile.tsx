@@ -50,7 +50,7 @@ export default function SellerProfile({
     (order: any) => order.sellerId === Number(id),
   );
   const pendingOrders = userOrdersFiltered.filter(order => order.status === 'PENDIENTE');
-  const { loadSellerScores, scores } = useScores();
+  const { loadScores, scores } = useScores();
   const [puntaje, setPuntaje] = useState(0);
   useEffect(() => {
     if (scores && scores.length > 0) {
@@ -72,7 +72,7 @@ export default function SellerProfile({
     // Realiza la carga del perfil del vendedor solo si no se ha cargado previamente o si el ID ha cambiado.
     if (!seller || seller.id !== Number(id)) {
       loadSellerProfile(Number(id));
-      loadSellerScores(Number(id));
+      loadScores();
     }
   }, [id, seller, loadSellerProfile]);
 

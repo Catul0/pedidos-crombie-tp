@@ -46,10 +46,10 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
 
   return (
     <div>
-      <div className="flex min-h-screen bg-gray-100">
+      <div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
         {showPopup && <Popup message={`¡Hola ${user.name}!`} />}
         {/* lado izq */}
-        <div className="w-1/3 bg-[#F3F4F6] p-6">
+        <div className="w-full md:w-1/3 bg-[#F3F4F6] p-6">
           <div className="bg-white rounded p-5  shadow-lg">
             <div className="text-center">
               <img
@@ -104,7 +104,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
         </div>
 
         {/* lado derecho, pedidos */}
-        <div className="w-2/3 p-8 flex flex-col items-center bg-white shadow-lg">
+        <div className="w-full md:w-2/3 p-8 flex flex-col items-center bg-white shadow-lg">
           <h3 className="text-2xl font-semibold text-gray-800">Tus pedidos</h3>
           <Link href={'/search'}>
                 <button className="bg-green-400 hover:bg-green-600 text-white py-2 px-4 mt-4 font-bold rounded-lg transition ease-in-out delay-150 hover:-translate-x hover:scale-105 duration-300">
