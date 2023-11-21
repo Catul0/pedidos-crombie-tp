@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
 import { UsersProvider } from "@/context/UserContext";
 import { LoginProvider } from "@/context/LoginContext";
 import { OrderProvider } from "@/context/OrderContext";
 import { ProductsProvider } from "@/context/ProductContext";
 import { LocalProfilesProvider } from "@/context/LocalProfileContext";
 import { ScoresProvider } from "@/context/ScoreContext";
-const inter = Inter({ subsets: ["latin"] });
+const nunito = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +20,7 @@ export default function UserLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={nunito.className}>
         <ScoresProvider>
           <LocalProfilesProvider>
             <ProductsProvider>

@@ -7,7 +7,7 @@ function Navbar() {
     <div className="fixed w-full z-10">
       <div className="bg-white w-full h-18 flex justify-between items-center p-4 sm:pr-20 sm:pl-20 z-10">
         <div className="flex items-center">
-          <Image alt="logo" src="/Crombie.png" width={50} height={50} />
+          <Image alt="logo" src="https://crombie.dev/icon.png?8d1968610d7f50f7" width={50} height={50} />
         </div>
         <div className="space-x-4 font-bold">
           <Link href={"/users/register"}>

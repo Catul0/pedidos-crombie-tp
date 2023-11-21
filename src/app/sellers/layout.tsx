@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
 import { ProductsProvider } from "@/context/ProductContext";
 import { LocalProfilesProvider } from "@/context/LocalProfileContext";
 import { CartProvider } from "@/context/CartContext";
 import { OrderProvider } from "@/context/OrderContext";
 import { ScoresProvider } from "@/context/ScoreContext";
-const inter = Inter({ subsets: ["latin"] });
+const nunito = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Pedidos Crombie",
@@ -19,7 +19,7 @@ export default function SellerLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={nunito.className}>
         <OrderProvider>
           <CartProvider>
             <LocalProfilesProvider>

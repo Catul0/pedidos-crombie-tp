@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
 import { ProductsProvider } from "@/context/ProductContext";
 import { LocalProfilesProvider } from "@/context/LocalProfileContext";
-import Navbar from "@/components/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const nunito = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Pedidos Crombie",
@@ -18,10 +17,9 @@ export default function SearchLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={nunito.className}>
         <LocalProfilesProvider>
           <ProductsProvider>
-            {/* <Navbar text="Pedidos Crombie - Busca lo que quieras" /> */}
             {children}
           </ProductsProvider>
         </LocalProfilesProvider>
