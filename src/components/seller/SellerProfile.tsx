@@ -7,10 +7,8 @@ import CreateProduct from "../product/CreateProduct";
 import EditSeller from "./EditSeller";
 import Cart from "../cart/Cart";
 import BackButton from "../BackButton";
-import { IconShoppingCart } from "@tabler/icons-react";
-import { IconBell } from "@tabler/icons-react";
+import { IconShoppingCart, IconBell, IconUserCircle } from "@tabler/icons-react";
 import { useCart } from "@/context/CartContext";
-import { IconUserCircle } from "@tabler/icons-react";
 import Orders from "../orders/Order";
 import { useOrderContext } from "@/context/OrderContext";
 import { useScores } from "@/context/ScoreContext";
@@ -60,7 +58,7 @@ export default function SellerProfile({
 		}
 	}, [id, scores]);
 	useEffect(() => {
-		// Realiza la carga del perfil del vendedor solo si no se ha cargado previamente o si el ID ha cambiado.
+		// realiza la carga del perfil del vendedor solo si no se ha cargado previamente o si el ID ha cambiado
 		if (!seller || seller.id !== Number(id)) {
 			loadSellerProfile(Number(id));
 			loadOrders(Number(id));
@@ -78,7 +76,7 @@ export default function SellerProfile({
 	}, [isTrue, params]);
 
 	useEffect(() => {
-		// Desactiva el desplazamiento en el cuerpo de la página cuando se abre la ventana emergente
+		// desactiva el desplazamiento en el cuerpo de la página cuando se abre la ventana emergente
 		if (isCartOpen) {
 			document.body.style.overflow = "hidden";
 		} else {
@@ -166,7 +164,6 @@ export default function SellerProfile({
 					<SellersProducts setShowPopup={setShowPopup} params={params} isTrue={isTrue} />
 				</div>
 				{/* carrito */}
-				{/* ventana emergente del carrito utilizando clases de Tailwind CSS */}
 				{isCartOpen && (
 					<div className="absolute inset-0 flex items-center justify-center z-50 overflow-auto">
 						<div className="bg-gray-100 border w-full h-full border-gray-200 shadow-lg p-4">

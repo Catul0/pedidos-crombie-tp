@@ -10,13 +10,10 @@ import { motion } from "framer-motion";
 import { useUsers } from "@/context/UserContext";
 import { useLocalProfiles } from "@/context/LocalProfileContext";
 import Maps from "../Maps";
-import Navbar from "../Navbar";
 import { useScores } from "@/context/ScoreContext";
 import PuntajeConEstrellas from "../Stars";
 import BackButton from "../BackButton";
 import { IconUserCircle } from "@tabler/icons-react";
-import { IconBike } from "@tabler/icons-react";
-import { IconToolsKitchen2 } from "@tabler/icons-react";
 
 export default function DeliveryProfile({ params }: { params: { id: string } }) {
 	function getAddresses(order: any) {

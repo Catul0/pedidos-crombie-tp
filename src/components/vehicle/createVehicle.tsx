@@ -1,7 +1,6 @@
 "use client";
 import { useVehicles } from "@/context/VehicleContext";
-import { TIMEOUT } from "dns";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { setTimeout } from "timers";
 
 export default function CreateVehicle({ params }: { params: { id: string } }) {
@@ -11,7 +10,7 @@ export default function CreateVehicle({ params }: { params: { id: string } }) {
 	const [color, setColor] = useState("");
 	const [carYear, setYear] = useState("");
 
-	const { createVehicle, vehicles, deleteVehicle, loadSellerVehicles } = useVehicles();
+	const { createVehicle, deleteVehicle } = useVehicles();
 
 	return (
 		<div className="px-[100px]">

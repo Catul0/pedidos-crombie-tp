@@ -1,7 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
-// Definir el tipo de una orden
 type Order = {
 	id: number;
 	sellerId: number;
@@ -12,7 +11,6 @@ type Order = {
 	orderDate: string;
 };
 
-// Definir el tipo del contexto
 type OrderContextType = {
 	userOrders: Order[];
 	localOrders: Order[];
@@ -62,12 +60,11 @@ export function OrderProvider({ children }: OrderProviderProps) {
 	const [isLoading, setIsLoading] = useState(true);
 	const [timer, setTimer] = useState(0);
 
+	//aca se esta haciendo un fetch a order cada 10 segundos asi el local puede ver las ordenes nuevas que le lleguen en tiempo real
 	useEffect(() => {
-		// Mover aquí tu solicitud inicial para obtener órdenes
 		fetch("/api/order")
 			.then((response) => response.json())
 			.then((data: Order[]) => {
-				// Actualiza el estado de userOrders
 				setUserOrders(data);
 				setIsLoading(false);
 			})
@@ -76,9 +73,10 @@ export function OrderProvider({ children }: OrderProviderProps) {
 			});
 		setTimeout(() => {
 			setTimer(timer + 1);
-		}, 5000);
+		}, 10000);
 	}, [timer]);
 
+	//esto carga todas las ordenes
 	async function loadOrders(id: number) {
 		try {
 			const res = await fetch("/api/ordersLocal/" + id);
@@ -89,7 +87,7 @@ export function OrderProvider({ children }: OrderProviderProps) {
 		}
 		setTimeout(() => loadOrders(id), 5000);
 	}
-
+	//esto carga las ordenes de un usuario
 	async function loadOrdersUser(id: number) {
 		try {
 			const res = await fetch("/api/ordersUser/" + id);
@@ -99,6 +97,7 @@ export function OrderProvider({ children }: OrderProviderProps) {
 			console.log(error);
 		}
 	}
+  //estos son los handle para manejar el estado de la orden (cuando el local y el delivery cambian su estado)
 	const handleAcceptOrder = (
 		orderId: number,
 		products: string,

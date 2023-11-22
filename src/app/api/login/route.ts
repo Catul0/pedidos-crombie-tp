@@ -1,7 +1,7 @@
-import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { sign } from "jsonwebtoken";
-import { NextRequest, NextResponse } from "next/server";
+import {NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
 const prisma = new PrismaClient();

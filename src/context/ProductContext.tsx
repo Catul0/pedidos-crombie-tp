@@ -6,7 +6,6 @@ interface Children {
 	children: React.ReactNode;
 }
 
-//ACA ES DONDE SE CREA EL CONTEXTO EN SI Y SE EXPORTAN TODAS LAS FUNCIONES QUE ABAJO DECLARAREMOS EN EL PROVIDER
 export const ProductContext = createContext<{
 	products: Product[];
 	loadProducts: () => Promise<void>;
@@ -45,7 +44,7 @@ export const ProductsProvider = ({ children }: Children) => {
 		setProducts(data);
 	}
 
-	//funcion para cargar los productos de 1 vendedor-----------------------------------------------------------------------------------------------------
+	//obtener los productos de un vendedor mediante ID
 	async function loadSellerProducts(id: number) {
 		try {
 			const res = await fetch("/api/product/" + id);
@@ -55,18 +54,7 @@ export const ProductsProvider = ({ children }: Children) => {
 			console.log(error);
 		}
 	}
-	async function loadProduct(id: number) {
-		try {
-			const res = await fetch("/api/orderProduct/" + id);
-			const data = await res.json();
-			setProducts(data);
-		} catch (error) {
-			console.log(error);
-		}
-	}
-
-	//esta funcion lo que hace es crear un nuevo producto, y ademas agrega al estado donde estan todos los productos el nuevo
-	//despues uno tiene que mostrar el estado ese nomas y se muestra actualizado
+	//crear nuevo producto
 	async function createProduct(product: Product, id: number) {
 		product.sellerId = id;
 		const res = await fetch("/api/product", {
@@ -85,7 +73,6 @@ export const ProductsProvider = ({ children }: Children) => {
 		const res = await fetch("/api/product/" + id, {
 			method: "DELETE",
 		});
-		const data = await res.json();
 		setProducts(products.filter((product) => product.id != id));
 	}
 

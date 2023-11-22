@@ -6,7 +6,6 @@ interface Children {
 	children: React.ReactNode;
 }
 
-//ACA ES DONDE SE CREA EL CONTEXTO EN SI Y SE EXPORTAN TODAS LAS FUNCIONES QUE ABAJO DECLARAREMOS EN EL PROVIDER
 export const VehicleContext = createContext<{
 	vehicles: Vehicle[];
 	sellerCar: Vehicle | null;
@@ -49,7 +48,6 @@ export const VehiclesProvider = ({ children }: Children) => {
 		setVehicles(data);
 	}
 
-	//funcion para cargar los vehicleos de 1 vendedor-----------------------------------------------------------------------------------------------------
 	async function loadSellerVehicles(id: number) {
 		try {
 			const res = await fetch("/api/vehicle/" + id);
@@ -60,8 +58,7 @@ export const VehiclesProvider = ({ children }: Children) => {
 		}
 	}
 
-	//esta funcion lo que hace es crear un nuevo vehicleo, y ademas agrega al estado donde estan todos los vehicleos el nuevo
-	//despues uno tiene que mostrar el estado ese nomas y se muestra actualizado
+	//crear nuevo vehiculo
 	async function createVehicle(vehicle: Vehicle, delivery_id: number) {
 		vehicle.vehicleOwner = delivery_id;
 		const res = await fetch("/api/vehicle", {
@@ -82,7 +79,6 @@ export const VehiclesProvider = ({ children }: Children) => {
 		const res = await fetch("/api/vehicle/" + id, {
 			method: "DELETE",
 		});
-		const data = await res.json();
 		setVehicles(vehicles.filter((vehicle) => vehicle.id != id));
 	}
 

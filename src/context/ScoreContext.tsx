@@ -6,7 +6,6 @@ interface Children {
 	children: React.ReactNode;
 }
 
-//ACA ES DONDE SE CREA EL CONTEXTO EN SI Y SE EXPORTAN TODAS LAS FUNCIONES QUE ABAJO DECLARAREMOS EN EL PROVIDER
 export const ScoreContext = createContext<{
 	scores: Score[];
 	puntaje: number;
@@ -39,7 +38,6 @@ export const useScores = () => {
 
 export const ScoresProvider = ({ children }: Children) => {
 	const [scores, setScores] = useState<Score[]>([]);
-	const [sumatoria, setSumatoria] = useState(0);
 	const [puntaje, setPuntaje] = useState(0);
 	const [selectedScore, setSelectedScore] = useState<Score | null>(null);
 
@@ -49,7 +47,7 @@ export const ScoresProvider = ({ children }: Children) => {
 		setScores(data);
 	}
 
-	//funcion para cargar los scoreos de 1 vendedor-----------------------------------------------------------------------------------------------------
+	//cargar el score de un vendedor
 	async function loadDeliveryScore(id: number) {
 		try {
 			const res = await fetch("/api/score/" + id);
@@ -59,8 +57,7 @@ export const ScoresProvider = ({ children }: Children) => {
 			console.log(error);
 		}
 	}
-	//esta funcion lo que hace es crear un nuevo scoreo, y ademas agrega al estado donde estan todos los scoreos el nuevo
-	//despues uno tiene que mostrar el estado ese nomas y se muestra actualizado
+	//crear nuevo score al local
 	async function createSellerScore(score: Score, id: number) {
 		score.localId = id;
 		score.deliveryId = null;
@@ -74,7 +71,7 @@ export const ScoresProvider = ({ children }: Children) => {
 		const newScore: Score = await res.json();
 		setScores([...scores, newScore]);
 	}
-
+  // crear nuevo score al delivery
 	async function createDeliveryScore(score: Score, id: number) {
 		score.deliveryId = id;
 		score.localId = null;
@@ -88,7 +85,7 @@ export const ScoresProvider = ({ children }: Children) => {
 		const newScore: Score = await res.json();
 		setScores([...scores, newScore]);
 	}
-	//esta funcion es para actualizar la informacion de un scoreo
+	//actualizar score
 	async function updateScore(id: number, score: CreateScore) {
 		const res = await fetch("/api/score/" + id, {
 			body: JSON.stringify(score),

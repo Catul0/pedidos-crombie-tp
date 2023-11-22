@@ -1,6 +1,6 @@
 "use client";
 import { useVehicles } from "@/context/VehicleContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 export default function UpdateVehicle({ params }: { params: { id: string } }) {
 	const [brand, setBrand] = useState("");
 	const [model, setModel] = useState("");

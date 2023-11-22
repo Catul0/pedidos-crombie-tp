@@ -6,6 +6,7 @@ import { decode } from "jsonwebtoken";
 import { useRouter } from "next/navigation";
 import { HStack, Input } from "@chakra-ui/react";
 import { useJsApiLoader, Autocomplete } from "@react-google-maps/api";
+import * as yup from "yup";
 require("dotenv").config();
 
 function RegisterSeller() {
@@ -18,6 +19,7 @@ function RegisterSeller() {
 	const [match, setMatch] = useState(true);
 	const [alert, setAlert] = useState(false);
 	const [email, setEmail] = useState("");
+	const [passwordError, setPasswordError] = useState("");
 	const { createLocalProfile } = useLocalProfiles();
 	const router = useRouter();
 	const directionRef = useRef<HTMLInputElement | null>(null);
@@ -29,9 +31,6 @@ function RegisterSeller() {
 	if (!isLoaded) {
 		return <p>Loading...</p>;
 	}
-	const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setPassword(e.target.value);
-	};
 
 	const handleSecondPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setSecondPassword(e.target.value);
@@ -58,7 +57,25 @@ function RegisterSeller() {
 			setAlert(false);
 		}
 	};
-
+	const passwordSchema = yup
+		.string()
+		.min(8, "La contraseña debe tener al menos 8 caracteres")
+		.matches(/[a-z]/, "La contraseña debe contener al menos una letra minúscula")
+		.matches(/[A-Z]/, "La contraseña debe contener al menos una letra mayúscula")
+		.matches(/\d/, "La contraseña debe contener al menos un número")
+		.required("La contraseña es requerida");
+	const cities = [
+		"CABA",
+		"Córdoba",
+		"Rosario",
+		"Mendoza",
+		"San Miguel de Tucumán",
+		"La Plata",
+		"Mar del Plata",
+		"Salta",
+		"Santa Fe",
+		"San Juan",
+	];
 	return (
 		<div
 			className="flex absolute md:flex-row top-16 justify-center items-center w-full h-full bg-cover bg-center"
@@ -77,7 +94,7 @@ function RegisterSeller() {
 				</p>
 			</div>
 			<form onSubmit={handleSubmit} className="max-w-sm p-8 bg-white rounded-lg shadow-lg">
-				<h2 className="text-2xl font-semibold mb-4">Register as a Seller</h2>
+				<h2 className="text-2xl font-semibold mb-4">Registrarse como vendedor</h2>
 				<div className="grid md:grid-cols-2 md:gap-6">
 					<div className="relative z-0 w-full mb-4 group">
 						<input
@@ -91,7 +108,7 @@ function RegisterSeller() {
 						<label
 							htmlFor="name"
 							className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-							Name:
+							Nombre del local:
 						</label>
 					</div>
 					<div className="relative z-0 w-full mb-4 group">
@@ -106,7 +123,7 @@ function RegisterSeller() {
 						<label
 							htmlFor="description"
 							className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-							Description:
+							Descripción:
 						</label>
 					</div>
 					<HStack className="relative z-0 w-full mb-10 group">
@@ -123,22 +140,24 @@ function RegisterSeller() {
 							/>
 						</Autocomplete>
 						<label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-							Address:
+							Dirección:
 						</label>
 					</HStack>
-					<div className="relative z-0 w-full mb-10 group">
-						<input
-							type="text"
+					<div className="relative z-0 w-full mb-6 group">
+						<select
 							name="city"
-							className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-600 focus:outline-none focus:ring-0 focus:border-black peer"
+							className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-slate-950 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-600 focus:outline-none focus:ring-0 focus:border-black peer"
 							onChange={(e) => setCity(e.target.value)}
-							placeholder=" "
-							required
-						/>
-						<label
-							htmlFor="city"
-							className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-							City:
+							required>
+							<option value="">Selecciona una ciudad</option>
+							{cities.map((city) => (
+								<option key={city} value={city}>
+									{city}
+								</option>
+							))}
+						</select>
+						<label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+							Ciudad:
 						</label>
 					</div>
 				</div>
@@ -158,20 +177,30 @@ function RegisterSeller() {
 					</label>
 				</div>
 				<div className="grid grid-cols-2 gap-4">
-					<div className="relative z-0 w-full mb-10 group">
+					<div className="relative z-0 w-full mb-6 group">
 						<input
 							type="password"
 							name="password"
-							className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-600 focus:outline-none focus:ring-0 focus:border-black peer"
-							onChange={handlePasswordChange}
-							placeholder=" "
+							className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-slate-950 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-600 focus:outline-none focus:ring-0 focus:border-black peer"
+							onChange={(e) => {
+								const password = e.target.value;
+								passwordSchema
+									.validate(password)
+									.then(() => {
+										setPassword(password);
+										setPasswordError("");
+									})
+									.catch((error) => {
+										setPasswordError(error.message);
+									});
+							}}
+							placeholder=""
 							required
 						/>
-						<label
-							htmlFor="password"
-							className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-							Password:
+						<label className="peer-focus:font-medium absolute text-sm text-slate-950 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+							Contraseña:
 						</label>
+						{passwordError && <p className="text-red-500">{passwordError}</p>}
 					</div>
 					<div className="relative z-0 w-full mb-10 group">
 						<input
@@ -185,30 +214,28 @@ function RegisterSeller() {
 						<label
 							htmlFor="secondPassword"
 							className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-focus:dark:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-							Confirm Password:
+							Confirmar contraseña:
 						</label>
+						{match === false ? (
+							<div className="mb-4 span-2">
+								<p className="text-red-500">Las contraseñas no coinciden</p>
+							</div>
+						) : (
+							<p></p>
+						)}
 					</div>
 				</div>
-				{match === false ? (
-					<div className="mb-4 span-2">
-						<p className="block text-red-600 text-center text-sm font-bold mb-2">
-							Passwords do not match
-						</p>
-					</div>
-				) : (
-					<p></p>
-				)}
 				{alert ? (
 					<div className="mb-4 span-2">
 						<p className="block text-green-400 text-center text-sm font-bold mb-2 rounded">
-							Register Succes
+							Registrado correctamente
 						</p>
 					</div>
 				) : (
 					<p></p>
 				)}
 				<button className="bg-green-500 hover:bg-green-600 text-white w-full font-bold py-2 px-4 rounded transform transition duration-300 hover:scale-105">
-					Register
+					Registrarse
 				</button>
 			</form>
 		</div>

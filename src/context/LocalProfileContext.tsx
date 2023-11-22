@@ -7,7 +7,6 @@ interface Children {
 	children: React.ReactNode;
 }
 
-//ACA ES DONDE SE CREA EL CONTEXTO EN SI Y SE EXPORTAN TODAS LAS FUNCIONES QUE ABAJO DECLARAREMOS EN EL PROVIDER
 export const LocalProfileContext = createContext<{
 	localProfiles: sellerProfile[];
 	sellerProfile: sellerProfile[];
@@ -50,13 +49,13 @@ export const LocalProfilesProvider = ({ children }: Children) => {
 	const [allProducts, setAllProducts] = useState<any[]>([]);
 	const [cityLocals, setCityLocals] = useState<sellerProfile[]>([]);
 	const [selectedSeller, setSelectedSeller] = useState<LocalProfile | null>(null);
-	//ESTA FUNCION TRAE TODOS LOS LOCALES
+	//obtiene todos los locales
 	async function loadLocalProfile() {
 		const res = await fetch("/api/locals");
 		const data = await res.json();
 		setlocalProfiles(data);
 	}
-	//ESTO LO QUE HACE ES MOSTRAR SOLO 1 NEGOCIO
+	//trae un solo local por id
 	async function loadSellerProfile(id: number) {
 		try {
 			const res = await fetch("/api/locals/" + id);
@@ -66,7 +65,7 @@ export const LocalProfilesProvider = ({ children }: Children) => {
 			console.log(error);
 		}
 	}
-
+// trae todos los locales que el usuario puede ver segun su ciudad
 	async function loadLocalsCity(id: number) {
 		try {
 			const res = await fetch("/api/localsByCity/" + id);
@@ -80,8 +79,7 @@ export const LocalProfilesProvider = ({ children }: Children) => {
 			console.log(error);
 		}
 	}
-	//esta funcion lo que hace es crear un nuevo negocio, y ademas agrega al estado donde estan todos los negocios el nuevo
-	//despues uno tiene que mostrar el estado ese nomas y se muestra actualizado
+	//crear nuevo negocio y actualiza localprofiles
 	const [local, setLocal] = useState(null);
 	async function createLocalProfile(localProfile: CreateLocalProfile) {
 		const res = await fetch("/api/locals", {
@@ -97,16 +95,15 @@ export const LocalProfilesProvider = ({ children }: Children) => {
 		setlocalProfiles([...localProfiles, newLocal]);
 	}
 
-	//esta funcion es para eliminar y elimina del estado el negocio eliminado
+	//eliminar local
 	async function deleteLocalProfile(id: number) {
 		const res = await fetch("/api/locals/" + id, {
 			method: "DELETE",
 		});
-		const data = await res.json();
 		setlocalProfiles(localProfiles.filter((local) => local.id != id));
 	}
 
-	//esta funcion es para actualizar la informacion de un negocio
+	//editar negocio
 	async function updateLocalProfile(id: number, local: UpdateProfile) {
 		const res = await fetch("/api/locals/" + id, {
 			body: JSON.stringify(local),

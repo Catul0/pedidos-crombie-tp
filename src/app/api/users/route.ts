@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { Prisma, User } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/libs/prisma";
 import bcrypt from "bcrypt";
 import { sign } from "jsonwebtoken";
