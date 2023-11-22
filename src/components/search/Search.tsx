@@ -16,8 +16,8 @@ import Link from "next/link";
 
 function Search() {
   const token: any = Cookies.get("token");
-    const { localProfiles, loadLocalProfile, loadLocalsCity, cityLocals, allProducts } = useLocalProfiles();
-    const { products, loadProducts } = useProducts();
+    const {loadLocalProfile, loadLocalsCity, cityLocals, allProducts } = useLocalProfiles();
+    const {loadProducts } = useProducts();
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredLocalProfiles, setFilteredLocalProfiles] = useState<sellerProfile[]>([]);
     const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
@@ -79,7 +79,7 @@ function Search() {
 
         <div className='flex items-center justify-center bg-white h-[100%] p-10' id='sellers' >
             <div className='flex flex-col items-center justify-center bg-white h-[100%]'>
-                <h1 className="text-black text-left font-bold py-1">Restaurantes:</h1>
+                <h1 className="text-black text-left font-bold py-1">Te recomendamos:</h1>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 md:px-24">
                   {searchTerm === ''
                     ? filteredLocalProfiles.slice(0, initialResultsCount).map((local) => (
@@ -92,7 +92,7 @@ function Search() {
                 {searchTerm === '' && (
                   <button className='hover:text-green-700' onClick={() => setInitialResultsCount(initialResultsCount + 6)}>Cargar más resultados</button>
                   )}
-                <h1 className="text-black text-center font-bold py-1">Comidas:</h1>
+                <h1 className="text-black text-center font-bold py-1">Más pedidos:</h1>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 md:px-24">
                     {searchTerm === ''
                         ? filteredProducts.slice(0, initialResultsCount).map((product) => (
