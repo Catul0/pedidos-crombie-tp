@@ -11,21 +11,23 @@ import { IconShoppingBag, IconPhone, IconHome2 } from "@tabler/icons-react";
 import { useOrderContext } from "@/context/OrderContext";
 import ProductsUser from "../product/ProductsUser";
 import RatingComponent from "../Rating";
-
+interface StatusMessages {
+	[key: string]: string | JSX.Element;
+}
 const UserProfile = ({ params }: { params: { id: string } }) => {
-	const [showPopup, setShowPopup] = useState(true);
+	const { userProfiles, loaduserProfile, setSelectedUser, selectedUser } = useUsers();
 	const { oneUserOrders, loadOrdersUser } = useOrderContext();
+	const { logout } = useLogin();
+	const router = useRouter();
+	const [showPopup, setShowPopup] = useState(true);
 	const id = params.id;
 	const userOrdersFiltered = oneUserOrders;
-	const { logout } = useLogin();
-	const { userProfiles, loaduserProfile, setSelectedUser, selectedUser } = useUsers();
 	const user: any = userProfiles;
-	const router = useRouter();
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
 			setShowPopup(false);
-		}, 5000); // Oculta el popup después de 5 segundos
+		}, 5000);
 		return () => {
 			clearTimeout(timeout);
 		};
@@ -37,7 +39,16 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
 			loadOrdersUser(Number(id));
 		}
 	}, [id, user, loaduserProfile]);
-
+	const statusMessages: StatusMessages = {
+		PENDIENTE: "Pedido pendiente",
+		RECHAZADO: <span className="text-red-500">El local rechazó tu pedido</span>,
+		ACEPTADO: "El local está preparando tu pedido",
+		PREPARANDO: "El local está preparando tu pedido",
+		COCINADO: "Esperando al repartidor",
+		FINALIZADO: <span className="text-green-500">Entregado</span>,
+		EN_CAMINO: "En camino. A cargo del repartidor.",
+		ENTREGADO: <span className="text-green-500">Entregado</span>,
+	};
 	return (
 		<div>
 			<div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
@@ -88,7 +99,6 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
 									}, 1000);
 								}}>
 								CERRAR SESIÓN
-								{/* esto todavia no anda */}
 							</button>
 						</div>
 					</div>
@@ -119,48 +129,6 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
 											minute: "2-digit",
 										})}
 									</h4>
-									{order.status === "PENDIENTE" && (
-										<div>
-											<h4 className="text-lg font-semibold">Pedido pendiente</h4>
-										</div>
-									)}
-									{order.status === "RECHAZADO" && (
-										<div>
-											<h4 className="text-lg font-semibold text-red-500">
-												El local rechazó tu pedido
-											</h4>
-										</div>
-									)}
-									{order.status === "ACEPTADO" && (
-										<div>
-											<h4 className="text-lg font-semibold">El local esta preparando tu pedido</h4>
-										</div>
-									)}
-									{order.status === "PREPARANDO" && (
-										<div>
-											<h4 className="text-lg font-semibold">El local esta preparando tu pedido</h4>
-										</div>
-									)}
-									{order.status === "COCINADO" && (
-										<div>
-											<h4 className="text-lg font-semibold">Esperando al repartidor</h4>
-										</div>
-									)}
-									{order.status === "FINALIZADO" && (
-										<div>
-											<h4 className="text-lg font-semibold text-green-500">Entregado</h4>
-										</div>
-									)}
-									{order.status === "EN_CAMINO" && (
-										<div>
-											<h4 className="text-lg font-semibold">En camino. A cargo del repartidor.</h4>
-										</div>
-									)}
-									{order.status === "ENTREGADO" && (
-										<div>
-											<h4 className="text-lg font-semibold text-green-500">Entregado</h4>
-										</div>
-									)}
 									{order.status === "RECIBIDO" ? (
 										<div>
 											<h1>
@@ -176,7 +144,9 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
 											/>
 										</div>
 									) : (
-										<h1></h1>
+										<h4 className="text-lg font-semibold">
+											{statusMessages[order.status] || <h1></h1>}
+										</h4>
 									)}
 								</li>
 							))}

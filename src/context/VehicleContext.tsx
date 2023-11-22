@@ -75,7 +75,6 @@ export const VehiclesProvider = ({ children }: Children) => {
 
 	//esta funcion es para eliminar y elimina del estado el vehicleo eliminado
 	async function deleteVehicle(id: number) {
-		console.log("entra a la funcion eliminar");
 		const res = await fetch("/api/vehicle/" + id, {
 			method: "DELETE",
 		});

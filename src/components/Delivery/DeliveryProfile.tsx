@@ -78,7 +78,6 @@ export default function DeliveryProfile({ params }: { params: { id: string } }) 
 				}, 0);
 				const averageScore = totalScore / deliveryScores.length;
 				const roundedAverageScore = averageScore.toFixed(1);
-				console.log(puntaje);
 				setPuntaje(Number(roundedAverageScore));
 			}
 		}

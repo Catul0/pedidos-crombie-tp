@@ -6,7 +6,7 @@ const Popup = ({ message }: any) => {
 	useEffect(() => {
 		const timeout = setTimeout(() => {
 			setVisible(false);
-		}, 3000); // Oculta el popup después de 5 segundos
+		}, 3000);
 
 		return () => {
 			clearTimeout(timeout);

@@ -33,8 +33,7 @@ export default function SellerProfile({
 	}
 	const id = params.id;
 	const { loadOrders, localOrders } = useOrderContext();
-	const { sellerProfile, loadSellerProfile, setSelectedSeller, selectedSeller } =
-		useLocalProfiles();
+	const { sellerProfile, loadSellerProfile, setSelectedSeller, selectedSeller } = useLocalProfiles();
 	const { cart } = useCart();
 	const { loadScores, scores } = useScores();
 	const seller: any = sellerProfile;
@@ -66,14 +65,11 @@ export default function SellerProfile({
 		}
 	}, [id, seller, loadSellerProfile]);
 
-	useEffect(() => {
-		// decide qué componente renderizar en función de isTrue
-		if (isTrue) {
-			setRenderedComponent(<Orders params={params} />);
-		} else {
-			setRenderedComponent(<Cart />);
-		}
-	}, [isTrue, params]);
+	//decide que renderizar segun si quien esta viendo la pag es un usuario (cart) o un vendedor (orders)
+	useEffect(
+		() => setRenderedComponent(isTrue ? <Orders params={params} /> : <Cart />),
+		[isTrue, params]
+	);
 
 	useEffect(() => {
 		// desactiva el desplazamiento en el cuerpo de la página cuando se abre la ventana emergente

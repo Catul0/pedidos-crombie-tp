@@ -17,9 +17,7 @@ function RegisterDelivery() {
 	const [alert, setAlert] = useState(false);
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [passwordError, setPasswordError] = useState("");
-	const imagenUrl =
-		"https://images.unsplash.com/photo-1610478920409-ec0f58e881a5?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
-
+	const imagenUrl = "https://images.unsplash.com/photo-1610478920409-ec0f58e881a5?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 	const passwordSchema = yup
 		.string()
 		.min(8, "La contraseña debe tener al menos 8 caracteres")

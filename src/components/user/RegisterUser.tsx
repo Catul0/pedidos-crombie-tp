@@ -39,18 +39,7 @@ function RegisterUser() {
 		.matches(/[A-Z]/, "La contraseña debe contener al menos una letra mayúscula")
 		.matches(/\d/, "La contraseña debe contener al menos un número")
 		.required("La contraseña es requerida");
-	const cities = [
-		"CABA",
-		"Córdoba",
-		"Rosario",
-		"Mendoza",
-		"San Miguel de Tucumán",
-		"La Plata",
-		"Mar del Plata",
-		"Salta",
-		"Santa Fe",
-		"San Juan",
-	];
+	const cities = ["CABA","Córdoba","Rosario","Mendoza","San Miguel de Tucumán","La Plata","Mar del Plata","Salta","Santa Fe","San Juan",];
 	return (
 		<div className="flex flex-col md:flex-row justify-center items-center w-full h-full bg-cover bg-white">
 			<div

@@ -37,7 +37,6 @@ function EditUser() {
 					email,
 					phone,
 				});
-				console.log(id);
 				setSelectedUser(null);
 			}}
 			className="max-w-md mx-auto p-4 bg-white rounded shadow ">

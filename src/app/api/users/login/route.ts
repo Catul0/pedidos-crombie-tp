@@ -28,8 +28,6 @@ export async function POST(req: Request, res: Response) {
 		// genera el token
 		const token = sign({ userId: user.id }, "SECRETO", { expiresIn: "1h" });
 
-		// devuelve el token
-		console.log("sesión iniciada con éxito");
 		return NextResponse.json(
 			{ token },
 			{
