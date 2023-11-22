@@ -3,6 +3,7 @@ import { useCart } from "@/context/CartContext";
 import { Product } from "@/interfaces/Product";
 import Link from "next/link";
 import { IconMinus, IconPlus, IconTrash } from "@tabler/icons-react";
+import Swal from 'sweetalert2'
 function Cart() {
 	const { cart, total, addToCart, removeFromCart, removeAllFromCart, resetCart } = useCart();
 
@@ -18,23 +19,45 @@ function Cart() {
 	const uniqueCart = Object.values(productCount);
 
 	const handleRemoveAll = (item: any) => {
-		const confirmed = window.confirm(
-			"¿Estás seguro de que deseas eliminar todos los productos de este tipo del carrito?"
-		);
-
-		if (confirmed) {
-			removeAllFromCart(item);
-		}
+		Swal.fire({
+			title: "¿Estás seguro de que deseas eliminar todos los productos de este tipo del carrito?",
+			text: "No podrás revertir esto",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "green",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Si, borrar!"
+		  }).then((result) => {
+			if (result.isConfirmed) {
+				removeAllFromCart(item);
+			  Swal.fire({
+				title: "Borrado!",
+				text: "Los productos se han borrado del carrito",
+				icon: "success"
+			  });
+			}
+		  });
 	};
 
 	const handleResetCart = () => {
-		const confirmed = window.confirm(
-			"¿Estás seguro de que deseas eliminar todos los productos del carrito?"
-		);
-
-		if (confirmed) {
-			resetCart();
-		}
+		Swal.fire({
+			title: "¿Estás seguro de que deseas eliminar todos los productos del carrito?",
+			text: "No podrás revertir esto",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "green",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Si, borrar!"
+		  }).then((result) => {
+			if (result.isConfirmed) {
+				resetCart();
+			  Swal.fire({
+				title: "Borrado!",
+				text: "Todos los productos se han borrado del carrito",
+				icon: "success"
+			  });
+			}
+		  });
 	};
 
 	return (
