@@ -33,7 +33,8 @@ export default function SellerProfile({
 	}
 	const id = params.id;
 	const { loadOrders, localOrders } = useOrderContext();
-	const { sellerProfile, loadSellerProfile, setSelectedSeller, selectedSeller } = useLocalProfiles();
+	const { sellerProfile, loadSellerProfile, setSelectedSeller, selectedSeller } =
+		useLocalProfiles();
 	const { cart } = useCart();
 	const { loadScores, scores } = useScores();
 	const seller: any = sellerProfile;
@@ -41,7 +42,7 @@ export default function SellerProfile({
 	const pendingOrders = userOrdersFiltered.filter((order) => order.status === "PENDIENTE");
 	const [isCartOpen, setIsCartOpen] = useState(false);
 	const [renderedComponent, setRenderedComponent] = useState<JSX.Element | null>(null);
-	const [puntaje, setPuntaje] = useState(0);
+	const [puntaje, setPuntaje] = useState(5);
 	useEffect(() => {
 		if (scores && scores.length > 0) {
 			const sellerScores = scores.filter((score) => score.localId === Number(id));
@@ -95,15 +96,15 @@ export default function SellerProfile({
 							<IconUserCircle size={40} />
 						</Link>
 					)}
-					<button onClick={() => setIsCartOpen(!isCartOpen)}>
-						{cart.length > 0 ||
-							(pendingOrders.length > 0 && (
+					{isTrue ? (
+						<button onClick={() => setIsCartOpen(!isCartOpen)}>
+							{pendingOrders.length > 0 && (
 								<span
 									style={{
 										position: "absolute",
 										top: "5px",
 										right: "35px",
-										backgroundColor: "green",
+										backgroundColor: "#0E9F6E",
 										color: "white",
 										borderRadius: "50%",
 										width: "20px",
@@ -113,11 +114,35 @@ export default function SellerProfile({
 										justifyContent: "center",
 										zIndex: 1,
 									}}>
-									{isTrue ? pendingOrders.length : cart.length}
+									{pendingOrders.length}
 								</span>
-							))}
-						{isTrue ? <IconBell size={35} /> : <IconShoppingCart size={35} />}
-					</button>
+							)}
+							<IconBell size={35} />
+						</button>
+					) : (
+						<button onClick={() => setIsCartOpen(!isCartOpen)}>
+							{cart.length > 0 && (
+								<span
+									style={{
+										position: "absolute",
+										top: "5px",
+										right: "35px",
+										backgroundColor: "##0E9F6E",
+										color: "white",
+										borderRadius: "50%",
+										width: "20px",
+										height: "20px",
+										display: "flex",
+										alignItems: "center",
+										justifyContent: "center",
+										zIndex: 1,
+									}}>
+									{cart.length}
+								</span>
+							)}
+							<IconShoppingCart size={35} />
+						</button>
+					)}
 				</div>
 			</div>
 
@@ -141,7 +166,7 @@ export default function SellerProfile({
 						</div>
 						{isTrue && (
 							<button
-								className="bg-green-600 text-slate-100 rounded-lg w-1/2 p-2"
+								className="bg-green-600 text-white text-bold rounded-lg w-1/2 p-2"
 								onClick={() => {
 									if (selectedSeller) {
 										setSelectedSeller(null);
@@ -149,7 +174,7 @@ export default function SellerProfile({
 										setSelectedSeller(seller);
 									}
 								}}>
-								{selectedSeller ? "CANCELAR" : "EDITAR PERFIL"}
+								{selectedSeller ? "Cancelar" : "Editar perfil"}
 							</button>
 						)}
 						{selectedSeller ? <EditSeller /> : <p></p>}

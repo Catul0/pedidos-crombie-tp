@@ -4,6 +4,7 @@ import { Product } from "@prisma/client";
 import { useProducts } from "@/context/ProductContext";
 import { useCart } from "@/context/CartContext";
 import { IconShoppingCartPlus } from "@tabler/icons-react";
+import Swal from "sweetalert2";
 
 function ProductCard({
 	product,
@@ -71,9 +72,24 @@ function ProductCard({
 						</button>
 						<button
 							onClick={async () => {
-								if (confirm("Estas seguro de que quieres eliminar producto?")) {
-									await deleteProduct(product.id);
-								}
+								Swal.fire({
+									title: "¿Quieres eliminar este producto?",
+									text: "No podrás revertir esto",
+									icon: "warning",
+									showCancelButton: true,
+									confirmButtonColor: "green",
+									cancelButtonColor: "#d33",
+									confirmButtonText: "Si, borrar!"
+								  }).then((result) => {
+									if (result.isConfirmed) {
+										deleteProduct(product.id)
+									  Swal.fire({
+										title: "Borrado!",
+										text: "Se ha borrado este producto",
+										icon: "success"
+									  });
+									}
+								  });
 							}}
 							className="text-white font-bold bg-red-600 p-2 rounded-md w-full hover:bg-red-500">
 							Eliminar

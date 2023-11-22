@@ -85,7 +85,7 @@ function EditSeller() {
 					name="logo"
 					id="logo"
 					accept="image/*"
-					className="w-full border border-gray-300 rounded p-2"
+					className="w-full border border-gray-300 rounded p-2 mb-3"
 					onChange={async (e) => {
 						if (e.target.files) {
 							const result = await uploadFile(e.target.files[0]);

@@ -64,18 +64,7 @@ function RegisterSeller() {
 		.matches(/[A-Z]/, "La contraseña debe contener al menos una letra mayúscula")
 		.matches(/\d/, "La contraseña debe contener al menos un número")
 		.required("La contraseña es requerida");
-	const cities = [
-		"CABA",
-		"Córdoba",
-		"Rosario",
-		"Mendoza",
-		"San Miguel de Tucumán",
-		"La Plata",
-		"Mar del Plata",
-		"Salta",
-		"Santa Fe",
-		"San Juan",
-	];
+	const cities = ["CABA","Córdoba","Rosario","Mendoza","San Miguel de Tucumán","La Plata","Mar del Plata","Salta","Santa Fe","San Juan",];
 	return (
 		<div
 			className="flex absolute md:flex-row top-16 justify-center items-center w-full h-full bg-cover bg-center"
