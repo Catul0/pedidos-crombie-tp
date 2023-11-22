@@ -30,7 +30,18 @@ export async function GET(request: Request, { params }: Params) {
         },
     });
 
-    return NextResponse.json(localProfiles)
+    const allProducts = [];
+
+    for (const profile of localProfiles) {
+      const products = await prisma.product.findMany({
+        where: {
+          sellerId: profile.id,
+        },
+      });
+      allProducts.push(...products);
+    }
+
+    return NextResponse.json({localProfiles,allProducts});
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(

@@ -16,7 +16,7 @@ import Link from "next/link";
 
 function Search() {
   const token: any = Cookies.get("token");
-    const { localProfiles, loadLocalProfile, loadLocalsCity, cityLocals } = useLocalProfiles();
+    const { localProfiles, loadLocalProfile, loadLocalsCity, cityLocals, allProducts } = useLocalProfiles();
     const { products, loadProducts } = useProducts();
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredLocalProfiles, setFilteredLocalProfiles] = useState<sellerProfile[]>([]);
@@ -44,12 +44,13 @@ function Search() {
         );
         setFilteredLocalProfiles(filteredProfiles);
       }
-    
-      const filteredProds = products.filter((prod) =>
+      if (Array.isArray(allProducts)) {
+      const filteredProds = allProducts.filter((prod) =>
         prod.productName.toLowerCase().includes(searchTerm.toLowerCase()),
       );
       setFilteredProducts(filteredProds);
-    }, [searchTerm, localProfiles, products]);  
+      }
+    }, [searchTerm, cityLocals, allProducts]);  
   return (
     <>
     <div className="fixed z-10 w-full bg-white h-16 flex items-center justify-between px-10 border-b border-gray-300">

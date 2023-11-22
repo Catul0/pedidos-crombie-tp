@@ -16,6 +16,7 @@ export const LocalProfileContext = createContext<{
   localProfiles: sellerProfile[];
   sellerProfile: sellerProfile[];
   cityLocals:sellerProfile[];
+  allProducts:any[];
   loadLocalProfile: () => Promise<void>;
   loadSellerProfile: (id: number) => Promise<void>;
   loadLocalsCity: (id: number) => Promise<void>;
@@ -26,6 +27,7 @@ export const LocalProfileContext = createContext<{
   setSelectedSeller: (seller: LocalProfile | null) => void;
 }>({
   cityLocals: [],
+  allProducts:[],
   localProfiles: [],
   sellerProfile: [],
   loadLocalProfile: async () => {},
@@ -51,6 +53,7 @@ export const useLocalProfiles = () => {
 export const LocalProfilesProvider = ({ children }: Children) => {
   const [localProfiles, setlocalProfiles] = useState<sellerProfile[]>([]);
   const [sellerProfile, setsellerProfile] = useState<sellerProfile[]>([]);
+  const [allProducts, setAllProducts] = useState<any[]>([]);
   const [cityLocals, setCityLocals] = useState<sellerProfile[]>([]);
   const [selectedSeller, setSelectedSeller] = useState<LocalProfile | null>(
     null,
@@ -76,7 +79,11 @@ export const LocalProfilesProvider = ({ children }: Children) => {
     try {
       const res = await fetch("/api/localsByCity/" + id);
       const data = await res.json();
-      setCityLocals(data);
+  
+      const localProfiles = data.localProfiles;
+      const allProducts = data.allProducts;
+      setCityLocals(localProfiles);
+      setAllProducts(allProducts);
     } catch (error) {
       console.log(error);
     }
@@ -124,6 +131,7 @@ export const LocalProfilesProvider = ({ children }: Children) => {
   return (
     <LocalProfileContext.Provider
       value={{
+        allProducts,
         loadLocalsCity,
         localProfiles,
         cityLocals,
