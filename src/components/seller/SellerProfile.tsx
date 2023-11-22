@@ -35,23 +35,15 @@ export default function SellerProfile({
     iduser = decodedToken.id;
   }
   const id = params.id;
-  const { userOrders } = useOrderContext();
-  const {
-    sellerProfiles,
-    loadSellerProfile,
-    setSelectedSeller,
-    selectedSeller,
-  } = useLocalProfiles();
-  const seller: any = sellerProfiles;
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const {loadOrders, localOrders} = useOrderContext();
+  const {sellerProfile, loadSellerProfile, setSelectedSeller, selectedSeller} = useLocalProfiles();
   const { cart } = useCart();
-  const [renderedComponent, setRenderedComponent] =
-    useState<JSX.Element | null>(null);
-  const userOrdersFiltered = userOrders.filter(
-    (order: any) => order.sellerId === Number(id),
-  );
-  const pendingOrders = userOrdersFiltered.filter(order => order.status === 'PENDIENTE');
   const { loadScores, scores } = useScores();
+  const seller: any = sellerProfile;
+  const userOrdersFiltered = localOrders;
+  const pendingOrders = userOrdersFiltered.filter(order => order.status === 'PENDIENTE');
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [renderedComponent, setRenderedComponent] = useState<JSX.Element | null>(null);
   const [puntaje, setPuntaje] = useState(0);
   useEffect(() => {
     if (scores && scores.length > 0) {
@@ -73,6 +65,7 @@ export default function SellerProfile({
     // Realiza la carga del perfil del vendedor solo si no se ha cargado previamente o si el ID ha cambiado.
     if (!seller || seller.id !== Number(id)) {
       loadSellerProfile(Number(id));
+      loadOrders(Number(id))
       loadScores();
     }
   }, [id, seller, loadSellerProfile]);

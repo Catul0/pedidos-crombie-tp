@@ -14,19 +14,23 @@ interface Children {
 //ACA ES DONDE SE CREA EL CONTEXTO EN SI Y SE EXPORTAN TODAS LAS FUNCIONES QUE ABAJO DECLARAREMOS EN EL PROVIDER
 export const LocalProfileContext = createContext<{
   localProfiles: sellerProfile[];
-  sellerProfiles: sellerProfile[];
+  sellerProfile: sellerProfile[];
+  cityLocals:sellerProfile[];
   loadLocalProfile: () => Promise<void>;
   loadSellerProfile: (id: number) => Promise<void>;
+  loadLocalsCity: (id: number) => Promise<void>;
   createLocalProfile: (local: CreateLocalProfile) => Promise<void>;
   updateLocalProfile: (id: number, local: UpdateProfile) => Promise<void>;
   deleteLocalProfile: (id: number) => Promise<void>;
   selectedSeller: LocalProfile | null;
   setSelectedSeller: (seller: LocalProfile | null) => void;
 }>({
+  cityLocals: [],
   localProfiles: [],
-  sellerProfiles: [],
+  sellerProfile: [],
   loadLocalProfile: async () => {},
   loadSellerProfile: async (id: number) => {},
+  loadLocalsCity: async (id: number) => {},
   createLocalProfile: async (nota: CreateLocalProfile) => {},
   updateLocalProfile: async (id: number, local: UpdateProfile) => {},
   deleteLocalProfile: async (id: number) => {},
@@ -46,13 +50,12 @@ export const useLocalProfiles = () => {
 
 export const LocalProfilesProvider = ({ children }: Children) => {
   const [localProfiles, setlocalProfiles] = useState<sellerProfile[]>([]);
-  const [sellerProfiles, setsellerProfiles] = useState<sellerProfile[]>([]);
-  //aca tuve que crear otro estado que sea igual que el de arriba, para almacenar 2 cosas al mismo tiempo
-  //el de arriba guarda todos los negocios y el de abajo el negocio del perfil que se quiere acceder
+  const [sellerProfile, setsellerProfile] = useState<sellerProfile[]>([]);
+  const [cityLocals, setCityLocals] = useState<sellerProfile[]>([]);
   const [selectedSeller, setSelectedSeller] = useState<LocalProfile | null>(
     null,
   );
-  //ESTA FUNCION TRAE TODOS LOS LOCALES, NO CREO QUE LA USEMOS PERO PARA PROBAR COSAS FUNCIONA
+  //ESTA FUNCION TRAE TODOS LOS LOCALES
   async function loadLocalProfile() {
     const res = await fetch("/api/locals");
     const data = await res.json();
@@ -63,12 +66,21 @@ export const LocalProfilesProvider = ({ children }: Children) => {
     try {
       const res = await fetch("/api/locals/" + id);
       const data = await res.json();
-      setsellerProfiles(data);
+      setsellerProfile(data);
     } catch (error) {
       console.log(error);
     }
   }
 
+  async function loadLocalsCity(id: number) {
+    try {
+      const res = await fetch("/api/localsByCity/" + id);
+      const data = await res.json();
+      setCityLocals(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   //esta funcion lo que hace es crear un nuevo negocio, y ademas agrega al estado donde estan todos los negocios el nuevo
   //despues uno tiene que mostrar el estado ese nomas y se muestra actualizado
   const [local, setLocal] = useState(null);
@@ -112,8 +124,10 @@ export const LocalProfilesProvider = ({ children }: Children) => {
   return (
     <LocalProfileContext.Provider
       value={{
+        loadLocalsCity,
         localProfiles,
-        sellerProfiles,
+        cityLocals,
+        sellerProfile,
         loadSellerProfile,
         loadLocalProfile,
         createLocalProfile,
@@ -127,8 +141,3 @@ export const LocalProfilesProvider = ({ children }: Children) => {
     </LocalProfileContext.Provider>
   );
 };
-
-// FALTAN UN PAR DE FUNCIONES PARA HACER:
-// - FALTA HACER LA FUNCION DE TRAER 1 SOLO NEGOCIO
-// - FALTA HACER LA FUNCION DE LOGIN
-// - Y FALTA HACER FUNCIONES ASOCIADAS CON PRODUCTOS AUN

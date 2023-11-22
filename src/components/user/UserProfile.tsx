@@ -1,38 +1,32 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useUsers } from '@/context/UserContext';
 import EditUser from './EditUser';
-import { useEffect } from 'react';
 import { useLogin } from '@/context/LoginContext';
 import { useRouter } from 'next/navigation';
 import Popup from '../PopUp';
 import Link from 'next/link';
-import { IconShoppingBag } from '@tabler/icons-react'
-import {IconPhone} from '@tabler/icons-react'
-import {IconBuilding} from '@tabler/icons-react'
-import {IconHome2} from '@tabler/icons-react'
+import { IconShoppingBag, IconPhone, IconHome2 } from '@tabler/icons-react'
 import { useOrderContext } from '@/context/OrderContext';
 import ProductsUser from '../product/ProductsUser';
 import RatingComponent from '../Rating';
 
+
 const UserProfile = ({ params }: { params: { id: string } }) => {
   const [showPopup, setShowPopup] = useState(true);
-  const { userOrders } = useOrderContext();
+  const {oneUserOrders, loadOrdersUser } = useOrderContext();
   const id = params.id;
-  const userOrdersFiltered = userOrders?.filter(
-    (order: any) => order.userId === Number(id),
-  );
+  const userOrdersFiltered = oneUserOrders;
   const { logout } = useLogin();
-  const { userProfiles, loaduserProfile, setSelectedUser, selectedUser } =
-    useUsers();
+  const { userProfiles, loaduserProfile, setSelectedUser, selectedUser } = useUsers();
   const user: any = userProfiles;
   const router = useRouter();
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       setShowPopup(false);
     }, 5000); // Oculta el popup después de 5 segundos
-
     return () => {
       clearTimeout(timeout);
     };
@@ -41,6 +35,7 @@ const UserProfile = ({ params }: { params: { id: string } }) => {
   useEffect(() => {
     if (user && user.id !== Number(id)) {
       loaduserProfile(Number(id));
+      loadOrdersUser(Number(id))
     }
   }, [id, user, loaduserProfile]);
 

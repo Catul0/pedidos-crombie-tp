@@ -21,7 +21,11 @@ type Order = {
 // Definir el tipo del contexto
 type OrderContextType = {
   userOrders: Order[];
+  localOrders: Order[];
+  oneUserOrders: Order[];
   isLoading: boolean;
+  loadOrders: (id: number) => Promise<void>;
+  loadOrdersUser: (id: number) => Promise<void>;
   handleAcceptOrder: (
     orderId: number,
     products: string,
@@ -84,11 +88,13 @@ type OrderProviderProps = {
 
 export function OrderProvider({ children }: OrderProviderProps) {
   const [userOrders, setUserOrders] = useState<Order[]>([]);
+  const [oneUserOrders, setOneUserOrders] = useState<Order[]>([]);
+  const [localOrders, setLocalOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [timer, setTimer] = useState(0);
+
   useEffect(() => {
     // Mover aquí tu solicitud inicial para obtener órdenes
-
     fetch("/api/order")
       .then((response) => response.json())
       .then((data: Order[]) => {
@@ -101,9 +107,29 @@ export function OrderProvider({ children }: OrderProviderProps) {
       });
     setTimeout(() => {
       setTimer(timer + 1);
-    }, 10000);
+    }, 5000);
   }, [timer]);
 
+  async function loadOrders(id: number) {
+    try {
+        const res = await fetch("/api/ordersLocal/" + id);
+        const data = await res.json();
+        setLocalOrders(data);
+    } catch (error) {
+        console.log(error);
+    }
+    setTimeout(() => loadOrders(id), 5000);
+  }
+
+  async function loadOrdersUser(id: number) {
+    try {
+        const res = await fetch("/api/ordersUser/" + id);
+        const data = await res.json();
+        setOneUserOrders(data);
+    } catch (error) {
+        console.log(error);
+    }
+  }
   const handleAcceptOrder = (
     orderId: number,
     products: string,
@@ -335,6 +361,10 @@ export function OrderProvider({ children }: OrderProviderProps) {
   return (
     <OrderContext.Provider
       value={{
+        loadOrdersUser,
+        oneUserOrders,
+        loadOrders,
+        localOrders,
         handleScored,
         handleDeliveredOrder,
         userOrders,

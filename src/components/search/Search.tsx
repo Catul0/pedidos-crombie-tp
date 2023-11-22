@@ -16,33 +16,40 @@ import Link from "next/link";
 
 function Search() {
   const token: any = Cookies.get("token");
-    const { localProfiles, loadLocalProfile } = useLocalProfiles();
+    const { localProfiles, loadLocalProfile, loadLocalsCity, cityLocals } = useLocalProfiles();
     const { products, loadProducts } = useProducts();
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredLocalProfiles, setFilteredLocalProfiles] = useState<sellerProfile[]>([]);
     const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
     const [initialResultsCount, setInitialResultsCount] = useState(6);
-    let id;
-    if (token) {
-      const decodedToken: any = decode(token);
-      id = decodedToken.id;
-    }
+    const [id, setId] = useState('')
+
+    useEffect(() => {
+      if (token) {
+        const decodedToken: any = decode(token);
+        setId(decodedToken.id);
+      }
+    }, [token]);
+    
     useEffect(() => {
         loadLocalProfile();
         loadProducts();
-    }, []);
-
-  useEffect(() => {
-    const filteredProfiles = localProfiles.filter((local) =>
-      local.name.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
-    setFilteredLocalProfiles(filteredProfiles);
-
-    const filteredProds = products.filter((prod) =>
-      prod.productName.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
-    setFilteredProducts(filteredProds);
-  }, [searchTerm, localProfiles, products]);
+        loadLocalsCity(Number(id))
+    }, [id]);
+    
+    useEffect(() => {
+      if (Array.isArray(cityLocals)) {
+        const filteredProfiles = cityLocals.filter((local) =>
+          local.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredLocalProfiles(filteredProfiles);
+      }
+    
+      const filteredProds = products.filter((prod) =>
+        prod.productName.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
+      setFilteredProducts(filteredProds);
+    }, [searchTerm, localProfiles, products]);  
   return (
     <>
     <div className="fixed z-10 w-full bg-white h-16 flex items-center justify-between px-10 border-b border-gray-300">
