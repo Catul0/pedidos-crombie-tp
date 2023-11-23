@@ -17,6 +17,7 @@ import { decode } from "jsonwebtoken";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import Popup from "../PopUp";
+import NotificationButton from "../CartButton";
 
 export default function SellerProfile({
 	params,
@@ -96,53 +97,12 @@ export default function SellerProfile({
 							<IconUserCircle size={40} />
 						</Link>
 					)}
-					{isTrue ? (
-						<button onClick={() => setIsCartOpen(!isCartOpen)}>
-							{pendingOrders.length > 0 && (
-								<span
-									style={{
-										position: "absolute",
-										top: "5px",
-										right: "35px",
-										backgroundColor: "#0E9F6E",
-										color: "white",
-										borderRadius: "50%",
-										width: "20px",
-										height: "20px",
-										display: "flex",
-										alignItems: "center",
-										justifyContent: "center",
-										zIndex: 1,
-									}}>
-									{pendingOrders.length}
-								</span>
-							)}
-							<IconBell size={35} />
-						</button>
-					) : (
-						<button onClick={() => setIsCartOpen(!isCartOpen)}>
-							{cart.length > 0 && (
-								<span
-									style={{
-										position: "absolute",
-										top: "5px",
-										right: "35px",
-										backgroundColor: "##0E9F6E",
-										color: "white",
-										borderRadius: "50%",
-										width: "20px",
-										height: "20px",
-										display: "flex",
-										alignItems: "center",
-										justifyContent: "center",
-										zIndex: 1,
-									}}>
-									{cart.length}
-								</span>
-							)}
-							<IconShoppingCart size={35} />
-						</button>
-					)}
+					<NotificationButton 
+						isTrue={isTrue} 
+						setIsCartOpen={setIsCartOpen} 
+						pendingOrdersLength={pendingOrders.length} 
+						cartLength={cart.length} 
+					/>
 				</div>
 			</div>
 
