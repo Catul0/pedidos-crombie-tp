@@ -6,8 +6,6 @@ import SellersProducts from "./SellersProducts";
 import CreateProduct from "../product/CreateProduct";
 import EditSeller from "./EditSeller";
 import Cart from "../cart/Cart";
-import BackButton from "../BackButton";
-import { IconShoppingCart, IconBell, IconUserCircle } from "@tabler/icons-react";
 import { useCart } from "@/context/CartContext";
 import Orders from "../orders/Order";
 import { useOrderContext } from "@/context/OrderContext";
@@ -15,9 +13,8 @@ import { useScores } from "@/context/ScoreContext";
 import PuntajeConEstrellas from "../Stars";
 import { decode } from "jsonwebtoken";
 import Cookies from "js-cookie";
-import Link from "next/link";
 import Popup from "../PopUp";
-import NotificationButton from "../CartButton";
+import NavbarSeller from "./NavbarSeller";
 
 export default function SellerProfile({
 	params,
@@ -84,28 +81,14 @@ export default function SellerProfile({
 	const [showPopup, setShowPopup] = useState(false);
 	return (
 		<>
-			<div className="bg-white h-16 flex items-center justify-between px-10 border-b border-gray-300">
-				<BackButton />
-				<p className="hidden md:flex text-black px-4 py-2 font-semibold">
-					Pedidos Crombie - {seller.name}
-				</p>
-				<div className="flex flex-row gap-7 items-center">
-					{isTrue ? (
-						<p></p>
-					) : (
-						<Link href={"/users/" + iduser}>
-							<IconUserCircle size={40} />
-						</Link>
-					)}
-					<NotificationButton 
-						isTrue={isTrue} 
-						setIsCartOpen={setIsCartOpen} 
-						pendingOrdersLength={pendingOrders.length} 
-						cartLength={cart.length} 
-					/>
-				</div>
-			</div>
-
+			<NavbarSeller
+				isTrue={isTrue}
+				setIsCartOpen={setIsCartOpen}
+				pendingOrdersLength={pendingOrders.length}
+				cartLength={cart.length}
+				sellername={seller.name}
+				iduser={iduser}
+			/>
 			<div className="flex flex-col md:flex-row bg-[#F7F8F9] m-5 h-auto py-10 justify-center">
 				{showPopup && <Popup message={`Producto añadido al carrito`} />}
 				<div className="w-full md:w-1/4 bg-[#F7F8F9]">
