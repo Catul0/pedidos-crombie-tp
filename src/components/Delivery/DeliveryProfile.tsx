@@ -12,29 +12,32 @@ import { useLocalProfiles } from "@/context/LocalProfileContext";
 import Maps from "../Maps";
 import { useScores } from "@/context/ScoreContext";
 import PuntajeConEstrellas from "../Stars";
-import BackButton from "../BackButton";
-import { IconUserCircle } from "@tabler/icons-react";
+import NavbarDelivery from "./NavbarDelivery";
 
 export default function DeliveryProfile({ params }: { params: { id: string } }) {
+	const { loadLocalProfile, localProfiles } = useLocalProfiles();
+	const { deliveryProfile, loadDeliveryProfile } = useDeliverys();
+	const { loadSellerVehicles, sellerCar } = useVehicles();
+	const [cargarAuto, setCargarAuto] = useState(false);
+	const [showMessage, setShowMessage] = useState(false);
+	const { loadUsers, users } = useUsers();
+	const id = Number(params.id);
+	const delivery: any = deliveryProfile;
+	const car: any = sellerCar;
+	const { userOrders, handleDeliveryTakingOrder, handleDeliveredOrder } = useOrderContext();
 	function getAddresses(order: any) {
 		let userAddress = "";
 		let sellerAddress = "";
-
 		const user = users.find((user) => user.id === order.userId);
-
 		if (user) {
 			userAddress = user.address;
 		}
-
 		const seller = localProfiles.find((seller) => seller.id === order.sellerId);
-
 		if (seller) {
 			sellerAddress = seller.address;
 		}
-
 		return { userAddress, sellerAddress };
 	}
-	const { userOrders, handleDeliveryTakingOrder, handleDeliveredOrder } = useOrderContext();
 	const userOrdersFiltered = userOrders.filter(
 		(order: any) =>
 			order.deliveryId === null && order.status != "RECHAZADO" && order.status != "PENDIENTE"
@@ -45,18 +48,6 @@ export default function DeliveryProfile({ params }: { params: { id: string } }) 
 			order.status != "RECIBIDO" &&
 			order.status != "FINALIZADO"
 	);
-
-	const { loadLocalProfile, localProfiles } = useLocalProfiles();
-	const { deliveryProfile, loadDeliveryProfile } = useDeliverys();
-	const { loadSellerVehicles, sellerCar } = useVehicles();
-	const [cargarAuto, setCargarAuto] = useState(false);
-	const [showMessage, setShowMessage] = useState(false);
-	const { loadUsers, users } = useUsers();
-	const id = Number(params.id);
-	const delivery: any = deliveryProfile;
-
-	const car: any = sellerCar;
-
 	useEffect(() => {
 		// Verificar si el contenido de car es "vehicle not found" y mostrar el mensaje
 		if (car && car.message === "Vehicle not found") {
@@ -96,21 +87,7 @@ export default function DeliveryProfile({ params }: { params: { id: string } }) 
 	const [isInfoOpen, setIsInfoOpen] = useState(false);
 	return (
 		<>
-			<div className="bg-white h-16 flex items-center justify-between px-10 border-b shadow-lg">
-				<BackButton />
-				<div className="flex items-center space-x-4">
-					<div className="flex items-center">
-						<div className="flex items-center gap-5">
-							<IconUserCircle
-								width={50}
-								height={50}
-								className="cursor-pointer"
-								onClick={() => setIsInfoOpen(!isInfoOpen)}
-							/>
-						</div>
-					</div>
-				</div>
-			</div>
+			<NavbarDelivery setIsInfoOpen={setIsInfoOpen} isInfoOpen={isInfoOpen} />
 			<div className="flex justify-center items-center gap-8 p-8 flex-col">
 				{isInfoOpen && (
 					<div className="bg-white rounded-lg shadow-lg p-6">
