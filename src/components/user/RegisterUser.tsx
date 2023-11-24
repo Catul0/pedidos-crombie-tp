@@ -6,6 +6,7 @@ import { decode } from "jsonwebtoken";
 import { useRouter } from "next/navigation";
 import { HStack, Input } from "@chakra-ui/react";
 import { useJsApiLoader, Autocomplete } from "@react-google-maps/api";
+import { cities } from "@/app/data/cities";
 import * as yup from "yup";
 require("dotenv").config();
 
@@ -39,7 +40,6 @@ function RegisterUser() {
 		.matches(/[A-Z]/, "La contraseña debe contener al menos una letra mayúscula")
 		.matches(/\d/, "La contraseña debe contener al menos un número")
 		.required("La contraseña es requerida");
-	const cities = ["CABA","Córdoba","Rosario","Mendoza","San Miguel de Tucumán","La Plata","Mar del Plata","Salta","Santa Fe","San Juan",];
 	return (
 		<div className="flex flex-col md:flex-row justify-center items-center w-full h-full bg-cover bg-white">
 			<div

@@ -14,10 +14,14 @@ type Order = {
 type OrderContextType = {
 	userOrders: Order[];
 	localOrders: Order[];
+	deliveryOrder: Order[];
 	oneUserOrders: Order[];
+	ordersInWait: Order[];
 	isLoading: boolean;
 	loadOrders: (id: number) => Promise<void>;
+	loadOrdersInWait: () => Promise<void>;
 	loadOrdersUser: (id: number) => Promise<void>;
+	loadOrderDelivery: (id: number) => Promise<void>;
 	handleAcceptOrder: (orderId: number, products: string, sellerId: number, userId: number) => void;
 	handleRejectOrder: (orderId: number, products: string, sellerId: number, userId: number) => void;
 	handlePrepareOrder: (orderId: number, products: string, sellerId: number, userId: number) => void;
@@ -59,7 +63,8 @@ export function OrderProvider({ children }: OrderProviderProps) {
 	const [localOrders, setLocalOrders] = useState<Order[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [timer, setTimer] = useState(0);
-
+	const [ordersInWait, setOrdersInWait] = useState<Order[]>([]);
+	const [deliveryOrder, setDeliveryOrder] = useState<Order[]>([]);
 	//aca se esta haciendo un fetch a order cada 10 segundos asi el local puede ver las ordenes nuevas que le lleguen en tiempo real
 	useEffect(() => {
 		fetch("/api/order")
@@ -73,10 +78,10 @@ export function OrderProvider({ children }: OrderProviderProps) {
 			});
 		setTimeout(() => {
 			setTimer(timer + 1);
-		}, 10000);
+		}, 5000);
 	}, [timer]);
 
-	//esto carga todas las ordenes
+	//esto carga todas las ordenes de un local
 	async function loadOrders(id: number) {
 		try {
 			const res = await fetch("/api/ordersLocal/" + id);
@@ -86,6 +91,28 @@ export function OrderProvider({ children }: OrderProviderProps) {
 			console.log(error);
 		}
 		setTimeout(() => loadOrders(id), 5000);
+	}
+	// esto carga las ordenes disponibles para que el delivery las tome
+	async function loadOrdersInWait() {
+		try {
+			const res = await fetch("/api/ordersInWait/");
+			const data = await res.json();
+			setOrdersInWait(data);
+		} catch (error) {
+			console.log(error);
+		}
+		setTimeout(() => loadOrdersInWait(), 5000);
+	}
+	// esto carga la orden del delivery por el id del delivery
+	async function loadOrderDelivery(id: number) {
+		try {
+			const res = await fetch("/api/orderDelivery/" + id);
+			const data = await res.json();
+			setDeliveryOrder(data);
+		} catch (error) {
+			console.log(error);
+		}
+		setTimeout(() => loadOrderDelivery(id), 5000);
 	}
 	//esto carga las ordenes de un usuario
 	async function loadOrdersUser(id: number) {
@@ -127,7 +154,6 @@ export function OrderProvider({ children }: OrderProviderProps) {
 				console.error("Error al rechazar el pedido:", error);
 			});
 	};
-
 	const handleRejectOrder = (
 		orderId: number,
 		products: string,
@@ -305,13 +331,17 @@ export function OrderProvider({ children }: OrderProviderProps) {
 	return (
 		<OrderContext.Provider
 			value={{
+				deliveryOrder,
+				loadOrderDelivery,
 				loadOrdersUser,
+				ordersInWait,
 				oneUserOrders,
 				loadOrders,
 				localOrders,
 				handleScored,
 				handleDeliveredOrder,
 				userOrders,
+				loadOrdersInWait,
 				isLoading,
 				handleAcceptOrder,
 				handleRejectOrder,

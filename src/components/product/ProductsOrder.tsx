@@ -33,9 +33,7 @@ const ProductsOrder = ({
 	});
 	return (
 		<div>
-			<p
-				className="cursor-pointer hover:underline mb-3 mt-3"
-				onClick={() => setShowProducts(!showProducts)}>
+			<p className="cursor-pointer hover:underline mb-3 mt-3" onClick={() => setShowProducts(!showProducts)}>
 				{productosOrden.length} producto/s
 			</p>
 			{showProducts &&

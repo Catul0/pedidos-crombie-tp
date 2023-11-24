@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { HStack, Input } from "@chakra-ui/react";
 import { useJsApiLoader, Autocomplete } from "@react-google-maps/api";
 import * as yup from "yup";
+import { cities } from "@/app/data/cities";
 require("dotenv").config();
 
 function RegisterSeller() {
@@ -50,9 +51,7 @@ function RegisterSeller() {
 				password,
 			});
 			const token: any = Cookies.get("token");
-			setTimeout(() => {
-				if (token) router.push(`/sellers/${(decode(token) as { id: string })?.id}`);
-			}, 3000);
+			if (token) router.push(`/sellers/${(decode(token) as { id: string })?.id}`);
 		} else {
 			setAlert(false);
 		}
@@ -64,7 +63,7 @@ function RegisterSeller() {
 		.matches(/[A-Z]/, "La contraseña debe contener al menos una letra mayúscula")
 		.matches(/\d/, "La contraseña debe contener al menos un número")
 		.required("La contraseña es requerida");
-	const cities = ["CABA","Córdoba","Rosario","Mendoza","San Miguel de Tucumán","La Plata","Mar del Plata","Salta","Santa Fe","San Juan",];
+
 	return (
 		<div
 			className="flex absolute md:flex-row top-16 justify-center items-center w-full h-full bg-cover bg-center"
